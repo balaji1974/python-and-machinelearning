@@ -339,6 +339,213 @@ Use == for comparison and = for assignment.
 
 ### Conditions
 ```xml
+IF STATEMENT
+------------
+An if statement is used to check a condition. If the condition is True, the indented block of code following the if statement is executed.
+
+
+i = 5
+if i>3:
+    print(f"{i} is greater than 3")
+# Output: 5 is greater than 3
+
+
+Logical operator 
+----------------
+
+and, or, not & xor 
+
+The and operator returns True only when both operands are True.
+# 1. Logical and Operator
+ 
+print(True and False)        # output: False
+print(True and True)         # output: True
+print(True and False)        # output: False
+print(False and True)        # output: False
+print(False and False)       # output: False
+
+
+The or operator returns True if at least one of the operands is True.
+# 2. Logical or Operator
+ 
+print(True or False)         # output: True
+print(False or True)         # output: True
+print(True or True)          # output: True
+print(False or False)        # output: False
+
+The not operator returns the negation of the bool value.
+# 3. Logical not or (!) Operator
+ 
+print(not True)              # output: False
+print(not(True))             # output: False
+print(not False)             # output: True
+print(not(False))            # output: True
+
+The ^ operator, also known as the exclusive or (xor) operator, returns True when the operands have different boolean values.
+# 4. Logical ^ (XOR) Operator
+ 
+print(True ^ True)           # output: False
+print(True ^ False)          # output: True
+print(False ^ True)          # output: True
+print(False ^ False)         # output: False
+
+
+
+Python provides various operators to compare values and perform logical operations. 
+You can compare values using the equal to (==), not equal to (!=), less than (<), greater than (>), less than or equal to (<=), or greater than or equal to (>=) operators.
+
+
+Any non-zero value in Python will return true 
+print(bool(6))  # True
+print(bool(-6))  # True
+print(bool(0))  # False
+
+
+
+The if statement checks a specific condition. If the condition is true, it executes the code block underneath it.
+The else statement provides an alternative code block that will execute if the if statement's condition is not met (i.e., if it's false).
+elif stands for "else if". This statement allows us to check multiple conditions. If the if condition is false, the program checks the elif condition. 
+If the elif condition is true, it executes the code block underneath it.
+
+
+```
+
+### While Loop
+```xml
+While loop is a powerful control structure that allows repetitive execution of a block of code while a specified condition is true. 
+It's essential to manage the loop variables properly to avoid infinite loops and other logical errors.
+
+
+
+The break statement is used to exit a loop when a specific condition is met. Here's a simple example to illustrate how it works:
+The continue statement is used to skip the current iteration of a loop and proceed to the next iteration. Here's how you can use it:
+
+Using while loops:
+Continues until a specified condition is met.
+Condition evaluated before each iteration.
+
+Using for loops:
+Iterates over a known and finite sequence.
+
+Using break statement:
+Exits the loop based on a certain condition.
+
+Using continue statement:
+Skips the current iteration based on a certain condition.
+
+Common Pitfalls:
+Ensure that the condition in the loop eventually evaluates to False to avoid infinite loops.
+Be cautious with indentation, as it determines the scope of the loop.
+
+```
+
+### Strings
+```xml
+Strings in Python are represented with str type. 
+You can use either single quotes or double quotes to define a string.
+There is no distinct data type for single characters. Both strings and single characters are represented by the str class.
+
+
+print("Hello World")  # Output: Hello World
+print('Hello World')  # Output: Hello World
+
+
+The type() method allows you to find the type of a variable.
+message = "Hello World"
+print(type(message))  # Output: <class 'str'>
+
+
+The str class provides various methods to manipulate and inquire about strings.
+Converting to uppercase and lowercase
+message = "hello"
+print(message.upper())  # Output: HELLO
+print(message.lower())  # Output: hello
+print("hello".capitalize())  # Output: Hello
+print('hello'.capitalize())  # Output: Hello
+
+
+Checking lower case, title case, and upper case
+print('hello'.islower())  # Output: True
+print('Hello'.islower())  # Output: False
+print('Hello'.istitle())  # Output: True
+print('hello'.istitle())  # Output: False
+print('hello'.isupper())  # Output: False
+print('Hello'.isupper())  # Output: False
+print('HELLO'.isupper())  # Output: True
+
+
+
+
+Checking if a string is a numeric value
+print('123'.isdigit())  # Output: True
+print('A23'.isdigit())  # Output: False
+print('2 3'.isdigit())  # Output: False
+print('23'.isdigit())   # Output: True
+
+
+
+
+Checking if a string only contains alphabets or alphabets and numerals
+print('23'.isalpha())   # Output: False
+print('2A'.isalpha())   # Output: False
+print('ABC'.isalpha())  # Output: True
+print('ABC123'.isalnum())  # Output: True
+print('ABC 123'.isalnum())  # Output: False
+
+
+Checking if a string ends or starts with a specific substring
+print('Hello World'.endswith('World'))   # Output: True
+print('Hello World'.endswith('ld'))      # Output: True
+print('Hello World'.endswith('old'))     # Output: False
+print('Hello World'.endswith('Wo'))      # Output: False
+print('Hello World'.startswith('Wo'))    # Output: False
+print('Hello World'.startswith('He'))    # Output: True
+print('Hello World'.startswith('Hell0')) # Output: False
+print('Hello World'.startswith('Hello')) # Output: True
+
+
+
+
+Finding a substring within a string
+print('Hello World'.find('Hello'))   # Output: 0
+print('Hello World'.find('ello'))    # Output: 1
+print('Hello World'.find('Ello'))    # Output: -1
+print('Hello World'.find('bello'))   # Output: -1
+print('Hello World'.find('Ello'))    # Output: -1
+
+
+
+You can use the in keyword to check whether a character or sequence of characters exists within a specific set.
+print('Hello' in 'Hello World')   # Output: True
+print('ello' in 'Hello World')    # Output: True
+print('Ello' in 'Hello World')   # Output: False
+print('bello' in 'Hello World')    # Output: False
+
+
+The String Module in Python: It provides a collection of utilities that can be used for common string operations. To use this module, you'll need to import it first.
+import string
+ 
+print(string.ascii_letters)        
+# Output: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+
+You can compare two strings to check if they are the same using the equality (==) operator.
+str1 = "test"
+str2 = "test1"
+print(str1)  # Output: test
+print(str2)  # Output: test1
+print(str1 == str2)  # Output: False
+
+When comparing strings, ensure that both the strings are of the same case and contain the same characters in the same order, as the comparison is case-sensitive and character-sensitive.
+Beyond equality, other comparison operators like != for inequality, < for less than, and > for greater than, are compared lexicographically.
+Tip: Remember that strings are compared character by character, based on the ASCII value of the characters, in lexicographical comparison.
+
+print(len('Balaji')) # prints the string length 
+print(reversed('Balaji')) # reverses the words
+
+x=text.split() # splits the string into words
+
+print(sorted('Balaji')) #sorts the word - ascii sort, better to apply upper or lower before sorting
 
 
 ```
