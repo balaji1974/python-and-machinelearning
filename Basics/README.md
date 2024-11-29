@@ -698,6 +698,112 @@ Ease of Maintenance: In the future, if you want to include more complex validati
 Abstraction: Consumers of your class don’t need to know the internal details; they just need to call the appropriate methods. This encapsulates (hides) the internal state management logic from the outside world.
 
 
+Everything is an Object in Python
+Even basic data types like integers, booleans, strings, and floats as objects. 
+In Python, functions are also treated as objects. This allows you to assign functions to variables and pass them around, giving you a lot of flexibility.
+# Functions as objects
+print(do_something)  # Output: <function do_something at some_memory_address>
+ 
+# Assigning functions to variables
+test = do_something
+test()  # Output: something
+
+
+```
+
+### List Data Structure in Python 
+```xml
+In Python, you can use the list data structure to simplify the storage and calculation. Here's how you can create a list to store the marks:
+
+marks = [23, 56, 67]
+print(sum(marks))  # Outputs: 146 - sum of the list elements
+print(max(marks))  # Outputs: 67 - max of all the elements in the list
+print(min(marks))  # Outputs: 23 - min of all the elements in the list
+print(len(marks))  # Outputs: 3 - size of the list 
+
+
+Adding Elements :
+marks.append(76)
+print(marks)  # Outputs: [23, 56, 67, 76]
+
+Inserting in a specific position of the list: 
+marks.insert(2, 60)
+print(marks)  # Outputs: [23, 56, 60, 67, 76]
+
+Remove a value from the  list:
+marks.remove(60)
+print(marks)  # Outputs: [23, 56, 67, 76]
+
+
+Searching and Checking Existence :
+print(55 in marks)  # Outputs: False
+print(56 in marks)  # Outputs: True
+print(marks.index(67))  # Outputs: 2
+print(marks)  # Outputs: [23, 56, 67, 76]
+
+
+Note: If you try to find the index of a value that does not exist in the list, you will get an error:
+print(marks.index(69)) # this will throw an error
+
+
+Iterating Through a List :
+for mark in marks:
+    print(mark)
+# Outputs:
+# 23
+# 56
+# 67
+# 76
+
+Delete an element from the list: 
+del(mark [3])
+print(mark)
+
+Add multiple values to an already existing list
+marks.extend([3,7,8])
+print(marks)
+
+Another way to extend
+marks += [11,12]
+print(marks)
+
+
+Append to an existing list
+marks.append(99)
+print(marks)
+
+
+Python lists can store multiple data types within the same list, such as integers, strings, and even other lists!
+Python lists are dynamic, meaning they can grow and shrink in size as needed, unlike arrays in some other languages.
+Python supports negative indexing for its sequences. The index of -1 represents the last item in the list, -2 represents the second to last item, and so on.
+
+# Sort and reverse
+numbers = [4, 2, 9, 1]
+numbers.sort() # sort 
+print(numbers) 
+numbers.reverse() # reverse 
+print(numbers) 
+
+The reverse() method directly modifies the original list. Conversely, reversed() yields an iterator that facilitates looping through elements in reverse, but it doesn't alter the list.
+sort() modifies the original list. On the other hand, sorted() returns a sorted version, preserving the original list unchanged.
+You can conveniently use both sorted() and reversed() directly within loops for iterating over elements in a specific sequence.
+By passing the key argument to sorted(), you can set custom sorting logic. The direction of sorting is determined by the reverse argument.
+
+```
+
+### 2D List Data Structure in Python 
+```xml
+A 2D list is a list of list 
+Eg.
+numbers=[[4, 2, 9, 1],[4, 2, 9, 1],[4, 2, 9, 1]]
+
+
+```
+
+### List of strings
+```xml
+
+
 
 ```
 
