@@ -547,6 +547,157 @@ x=text.split() # splits the string into words
 
 print(sorted('Balaji')) #sorts the word - ascii sort, better to apply upper or lower before sorting
 
+String samples
+--------------
+data = "Hello World"
+print(type(data))
+ 
+char = 'A'
+count = 0
+for c in "ABRACADABRA":
+    if c == char:
+        count += 1
+print(count)
+ 
+str1 = "apple"
+str2 = "banana"
+print(str1 < str2)
+ 
+text = "Python "
+repeated_text = text * 3
+print(repeated_text)
+ 
+str1 = "Hello"
+str2 = " World"
+result = str1 + str2
+print(result)
+ 
+str1 = "Python"
+str2 = "Java"
+print(len(str1) == len(str2))
+
+Multiplying a number by another number will return the product of those numbers.
+print(1 * 20)                 # output: 20
+
+
+You can repeat a string by multiplying it with a number. The string will be concatenated the number of times you multiply it.
+print('1' * 20)              # output: '11111111111111111111'
+
+
+You can use this method with any string or character to repeat it.
+print('A' * 10)              # output: 'AAAAAAAAAA'
+
+```
+
+### Object Oriented Programming
+```xml
+***** 
+Important Note: 
+Python supports Procedural (functions), Object Oriented (Objects) and Functional Programming (programs are constructed by applying and composing functions)
+*****
+
+Classes, methods & attributes
+In Object Oriented Programming, code is organized around classes and objects.
+Example: 
+Customer Class:
+Attributes: name, address
+Methods: login, logout
+
+class Customer:
+ 
+    Initialize name, address
+    Method to login: Display "{name} logged in"
+    Method to logout: Display "{name} logged out"
+
+Instance of the class is called object 
+
+Class: A blueprint for creating objects.
+Object: An instance of a class.
+Method: A function defined within a class.
+Attribute: Variables belonging to an object.
+
+
+class Planet:
+    pass
+
+--> Python does not use the new keyword like Java for creating new instances.
+eg. earth = Planet()
+
+--> Attempting to access an attribute that has not been defined will result in an AttributeError.
+eg. print(earth.name)  # This will result in an AttributeError
+
+--> Python allows you to dynamically add attributes to instances.
+earth.name = 'The Earth'
+print(earth.name)  # Output: 'The Earth'
+
+-->Each object has its own set of attributes
+venus = Planet()
+print(venus.name)  # This will result in an AttributeError
+ 
+# You need to explicitly set the name for Venus
+venus.name = 'Venus'
+print(venus.name)  # Output: 'Venus'
+
+--> Both data and methods are considered as attributes. Trying to call a method that doesn’t exist will result in an AttributeError
+venus.do_something()  # This will result in an AttributeError
+
+
+Constructor
+-----------
+When you create instances of a class, sometimes you want to set an initial state for those instances. This is where constructors come into play.
+A constructor is defined using the __init__ method. 
+The self parameter is a reference to the instance of the class and is used to access variables that belong to the class.
+Eg. 
+class MotorBike:
+    def __init__(self):
+        print("MotorBike instance created")
+ 
+honda = MotorBike()  # Output: "MotorBike instance created"
+ducati = MotorBike()  # Output: "MotorBike instance created"
+
+To set the initial attributes for objects, we can add parameters to the constructor.
+Eg.
+class MotorBike:
+    def __init__(self, speed):
+        print(speed)
+ 
+honda = MotorBike(50)  # Output: 50
+ducati = MotorBike(250)  # Output: 250
+
+To initilize attributes in a constructor we can do the following: 
+class MotorBike:
+    def __init__(self, speed):
+        self.speed = speed
+ 
+honda = MotorBike(50)
+ducati = MotorBike(250)
+ 
+print(honda.speed)  # Output: 50
+print(ducati.speed)  # Output: 250
+
+
+If you try to define multiple constructors, Python will only keep the last one.
+
+Naming convention: 
+------------------
+Variables and methods: Use lowercase and underscores to separate words (e.g., distance_from_sun, get_name).
+Classes: Use CamelCase (e.g., MotorBike, Book).
+
+Encapsulation refers to the bundling of data (attributes) and the methods (functions) that operate on the data into a single unit or class.
+
+
+The 'self' parameter is crucial for instance methods. It allows the method to access the instance on which it was called.
+Omitting self can lead to errors, especially when calling the method on an instance.
+You can chain method calls on the same instance using self to call other methods within the same class.
+
+Encapsulation
+-------------
+WHY ENCAPSULATION IS GOOD?
+Validation: As demonstrated, encapsulation allows us to include validation logic within our methods, making our objects more robust.
+Ease of Maintenance: In the future, if you want to include more complex validations or logic, you only have to change it in one place — inside the method itself.
+Abstraction: Consumers of your class don’t need to know the internal details; they just need to call the appropriate methods. This encapsulates (hides) the internal state management logic from the outside world.
+
+
 
 ```
 
