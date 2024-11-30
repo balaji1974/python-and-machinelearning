@@ -797,17 +797,123 @@ A 2D list is a list of list
 Eg.
 numbers=[[4, 2, 9, 1],[4, 2, 9, 1],[4, 2, 9, 1]]
 
-
 ```
 
 ### List of strings
 ```xml
+Ascii value
+char='C'
+ord(char) -> This will return the ascii value of  'C'
+chr(ord(char)+1) -> This will return 'D' -> converts the ascii back to character 
 
-
+You can define functions with a variable number of arguments. 
+These are known as variable arguments, and they allow you to pass a varying number of values to a function.
+The *args syntax allows you to pass a variable number of positional arguments to a function. 
 
 ```
 
+### Advance OOPS concepts 
+```xml
+# Method to 'represent' the object as a string - Equivalent to toString method in Java
+def __repr__(self):
+	return repr((self.member_var1, self.member_var2, self.member_var3, self.member_var4)) # note double brackets 
 
+-> Object composition is the process of adding one object within another object 
+
+-> Inheritance is an OOP feature that allows one class to inherit properties and behaviors (methods) from another class. 
+The class that is inherited from is known as the “superclass” or “parent class,” and the class that inherits is called the “subclass” or “child class.”
+
+Eg.
+class Pet(Animal): -> Here Pet class inherits the properties of Animal class 
+    def groom(self):
+        print("groom")
+
+
+-> Starting Python 3, every class implicitly inherits from the built-in object class unless explicitly specified otherwise. 
+The object class provides default implementations for a number of methods, including __repr__, which is used for the string representation of an instance.
+
+-> Unlike Java, python supports multiple inheritance 
+Multiple inheritance allows a single class to inherit from more than one class.
+
+-> The below code calls the super class constructor in Python
+super().__init__()
+
+
+-> An abstract class serves as a blueprint for other classes. 
+It allows you to define methods that must be created within any child classes built from the abstract class. 
+In other words, an abstract class can contain methods that have no implementation in the base class itself.
+
+Eg. abstract class
+
+from abc import ABC, abstractmethod 
+class AbstractAnimal(ABC):
+    @abstractmethod
+    def bark(self): pass
+
+
+-> Template Method Pattern: Introduced a design pattern that uses abstract classes to define an algorithm structure, leaving the implementation of individual steps to subclasses.
+Eg. 
+class AbstractRecipe(ABC):
+ 
+    def execute(self): # this is the template method ensuring right order of calling abstract methods
+        self.prepare()
+        self.recipe()
+        self.cleanup()
+ 
+    @abstractmethod
+    def prepare(self): pass
+ 
+    @abstractmethod
+    def recipe(self): pass
+ 
+    @abstractmethod
+    def cleanup(self): pass
+
+-> Python supports polymorphism, means "many forms."
+
+```
+
+### List Data Structure - Advance Concepts
+```xml
+
+List Slicing
+------------
+
+You can extract elements from a list using slicing by specifying the start and end indexes.
+numbers = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+print(len(numbers))  # Output: 10
+print(numbers[2])    # Output: 'Two'
+print(numbers[2:6])  # Output: ['Two', 'Three', 'Four', 'Five']
+
+By leaving out the start or end index, you can capture all elements from the start or right up to the list's end.
+print(numbers[:6])  # Output: ['Zero', 'One', 'Two', 'Three', 'Four', 'Five']
+print(numbers[3:])  # Output: ['Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+
+Introduce a step to fetch every nth element.
+print(numbers[1:8:2])  # Output: ['One', 'Three', 'Five', 'Seven']
+print(numbers[1:8:3])  # Output: ['One', 'Four', 'Seven']
+print(numbers[::3])    # Output: ['Zero', 'Three', 'Six', 'Nine']
+
+You can reverse a list by employing a step of -1.
+print(numbers[::-1])   # Output: ['Nine', 'Eight', 'Seven', 'Six', 'Five', 'Four', 'Three', 'Two', 'One', 'Zero']
+print(numbers[::-3])   # Output: ['Nine', 'Six', 'Three', 'Zero']
+
+Leverage slicing to eliminate list elements.
+del numbers[3:]
+print(numbers)         # Output: ['Zero', 'One', 'Two']
+ 
+Utilize slicing to modify values in a list.
+numbers = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+numbers[3:7] = [3, 4, 5, 6]
+print(numbers)        # Output: ['Zero', 'One', 'Two', 3, 4, 5, 6, 'Seven', 'Eight', 'Nine']
+
+```
+
+### Stack & Queue Data Structure 
+```xml
+
+
+```
 
 ### Reference
 ```xml
