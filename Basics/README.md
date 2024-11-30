@@ -911,9 +911,53 @@ print(numbers)        # Output: ['Zero', 'One', 'Two', 3, 4, 5, 6, 'Seven', 'Eig
 
 ### Stack & Queue Data Structure 
 ```xml
+Stack:
+A stack is a LIFO (Last In, First Out) data structure. This means the last element you insert is the first one you take out.
 
+Operations in Stack 
+Push: To add an element to the top of the stack.
+Pop: To remove the top element from the stack.
+Top: To look at the top element without removing it.
+IsEmpty: To check if the stack is empty.
+
+
+Queue: 
+A queue follows a FIFO (First In, First Out) principle.
+
+Operations in Queue 
+Enqueue: To add an element to the rear of the queue.
+Dequeue: To remove the front element from the queue.
+Front: To look at the front element without removing it.
+IsEmpty: To check if the queue is empty.
 
 ```
+
+### List Comprehension
+```xml
+List comprehension is a concise way to create lists in Python.
+List comprehension offers a powerful, readable, and concise way to create lists by applying expressions and conditionals to elements in existing lists. 
+By using list comprehension, you can reduce the amount of code needed and increase the readability of your code, especially when filtering or transforming elements.
+
+Eg. 
+numbers = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+numbers_length_four = []
+numbers_length_four = [number for number in numbers if len(number) == 4]
+print(numbers_length_four)  # ['Zero', 'Four', 'Five', 'Nine']
+
+
+List comprehensions offer a concise way to create lists by applying expressions and conditionals to elements in existing lists.
+They can be used to filter elements based on specific criteria, resulting in more efficient and readable code.
+They can be applied to various types of data, including strings, numbers, and even complex data structures.
+Using list comprehensions can lead to code that is easier to understand and maintain, especially when dealing with complex filtering or transformation operations.
+
+```
+
+
+### Time Complexity & Recursion
+```xml
+
+```
+
 
 ### Reference
 ```xml
