@@ -955,6 +955,44 @@ Using list comprehensions can lead to code that is easier to understand and main
 
 ### Time Complexity & Recursion
 ```xml
+Time complexity measures how the runtime of an algorithm grows as the size of the input grows.
+O(1) means the time to complete is constant and does not depend on the input size.
+O(n) means the time to complete grows linearly as the input size grows.
+O(n^2) means the time to complete grows quadratically as the input size grows.
+
+
+Recursion is a technique where a function calls itself within its definition.
+It simplifies complex problems by breaking them down into smaller sub-problems.
+It provides a clean, elegant approach to solving problems.
+Always include a base case to terminate recursion.
+Recursive methods can consume more memory due to the call stack.
+
+
+```
+
+### Search Algorithm
+```xml
+Linear Search Algorithm
+-----------------------
+Time complexity: O(n)
+No data sorting required.
+It works with unsorted data.
+It is easy to implement.
+
+
+Binary Search Algorithm
+-----------------------
+Fast search algorithm for sorted data.
+Time complexity: O(log n)
+It works with sorted data. 
+
+
+```
+
+### Exception Handling
+```xml
+
+
 
 ```
 
