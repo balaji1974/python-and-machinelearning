@@ -992,7 +992,81 @@ It works with sorted data.
 ### Exception Handling
 ```xml
 
+A built-in means an object directly accessible to Python code without an import statement
+import builtins
+help(builtins.ZeroDivisionError) # Shows object hirarchy of the exceptions, e.g., ZeroDivisionError
 
+
+Key Elements of exception handling: 
+All exceptions in Python inherit the BaseException class 
+
+User-Friendly Messages: Always communicate effectively with the end-user by showing meaningful error messages.
+Debugging Information: When an exception occurs due to a programmatic error, don’t just suppress it. Log sufficient information to aid debugging efforts.
+
+
+Python exception handling:
+try:
+	<block of statements>
+except: 
+	<block of statements>
+else: 
+	<block of statements>
+finally:
+	<block of statements>
+
+-> except is executed when an exception occurs and the exception type matches.
+-> else is executed only when no exception occurs.
+-> finally is always executed, regardless of whether an exception occurs or not.
+Rules: 
+With a try, you can have multiple except blocks to handle different types of exceptions.
+You cannot have an else block without preceding except blocks. An else always follows one or multiple except blocks.
+You can have a try with just a finally block. Even if an exception occurs, the code inside the finally block will be executed.
+
+
+Catching specific exceptions:
+try:
+	<block of statements>
+except TypeError:  # catching TypeError
+	<block of statements>
+except ZeroDivisionError: # catching Zero Division Error
+	<block of statements>
+
+
+Catching multiple exceptions:
+try:
+	<block of statements>
+except (ZeroDivisionError, TypeError):  # catching Zero Division Error & TypeError
+	<block of statements>
+
+
+All Exceptions in Python follow exception Hirearchy: 
+Eg. 
+BaseException
+    Exception
+        ArithmeticError
+            FloatingPointError
+            OverflowError
+            ZeroDivisionError
+
+
+Accessing exception details with the exception block: 
+try:
+    sum([1, '1'])
+except TypeError as error: # error has the details of the exception 
+    print(error)
+
+
+Exception best practises:
+Never Hide Exceptions: Always log information. This aids in debugging and provides valuable context to whoever needs to solve the problem.
+Think About the User: If an exception occurs, consider what the user should see and what actions they can take.
+Support the Support Team: Provide all the necessary information in the logs or alerts so that your support team (or you) can diagnose and fix issues efficiently.
+Consider the Calling Method: If you’re designing an API, think about what the caller can actually do with the exception information. Make your exceptions as informative as possible.
+Global Exception Handling: Implement a top-level exception handler to catch any unhandled exceptions. Ensure the user sees a friendly, actionable message.
+
+```
+
+### Data Structure - Set
+```xml
 
 ```
 
