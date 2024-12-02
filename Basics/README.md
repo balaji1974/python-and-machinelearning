@@ -1067,6 +1067,39 @@ Global Exception Handling: Implement a top-level exception handler to catch any 
 
 ### Data Structure - Set
 ```xml
+A set in Python does not contain duplicates.
+Set is represented by {} 
+
+List vs Set 
+-----------
+Duplication of Elements:
+List: Allows duplicate elements.
+Set: Does not allow duplicate elements. If you try to add a duplicate element, it won't be added.
+
+Order of Elements:
+List: Maintains the order of elements as they were added.
+Set: Does not maintain any specific order of elements.
+
+Accessing Elements:
+List: Accessed by index, which is a positional value.
+Set: Cannot be accessed by index, as it is an unordered collection.
+
+Declaration:
+List: Uses Square Brackets.  [1,2,3,4,5]
+Set: Uses Curly Braces. {1,2,3,4,5}
+
+Packing elements into lists and sets provides a flexible way to pass multiple arguments to functions and manage collections of data effectively.
+You can use the * operator to unpack elements from a list and pass them as arguments to a function.
+
+Union = | -> Combines elements of both set by exculding duplicate elements 
+Intersection = & -> Returns the elements common to both sets 
+Difference = - -> Removes the duplicate of first and second sets and returns the remaining elements in the first set 
+
+```
+
+### Data Structure - Dictionary
+```xml
+
 
 ```
 
