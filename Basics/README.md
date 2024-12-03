@@ -1099,6 +1099,35 @@ Difference = - -> Removes the duplicate of first and second sets and returns the
 
 ### Data Structure - Dictionary
 ```xml
+A dictionary in Python is a collection of key-value pairs.
+It provides methods to access, modify, iterate through, and delete keys and values. 
+It offers flexibility and efficiency in managing collections of data where the index can be anything, not just a number.
+
+Eg. 
+occurances = dict(a=5, b=6, c=8)
+print(occurances)  # {'a': 5, 'b': 6, 'c': 8}
+print(type(occurances))  # <class 'dict'>
+
+See example code for usage 
+
+```
+
+### Data Structure - Tuples
+```xml
+A tuple is an immutable sequence of values.
+Tuples can be used to return multiple values from a function.
+You can destructure a tuple to assign its values to separate variables.
+Tuples support standard sequence operations like len and indexing.
+
+
+A tuple is immutable, meaning that once defined, its content cannot be altered.
+Being immutable, tuples can be more memory-efficient and faster in certain situations.
+Tuples are often used to represent a single set of related attributes or a record. For example, a tuple might represent details about a person, such as name, age, and country.
+Eg. 
+person = ('Alice', 30, 'USA')
+print(person)  # Outputs: ('Alice', 30, 'USA')
+
+
 
 
 ```
