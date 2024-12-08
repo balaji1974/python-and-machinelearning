@@ -177,7 +177,8 @@ For the insurance claim example, one column may be the text a customer has sent 
 another may be the image they’ve sent in along with the text and a final a column being the outcome of the claim. 
 This table gets updated with new claims or altered results of old claims daily.
 
-Two tables of structured data, one has patient records and whether or not they have heart disease, the other car insurance
+Two tables of structured data, one has patient records and whether or not they have heart disease, 
+the other car insurance
 Two examples of structured data with different kinds of data within it. 
 Table 1.0 has numerical and categorical data. Table 2.0 has unstructured data with images and 
 natural language text but is presented in a structured manner.
@@ -197,7 +198,8 @@ But you’ll still want to find patterns.
 Meaning, grouping together similar samples and finding samples which are outliers.
 
 For transfer learning, your problem stays a supervised learning problem, 
-except you’re leveraging the patterns machine learning algorithms have learned from other data sources separate from your own.
+except you’re leveraging the patterns machine learning algorithms have learned 
+from other data sources separate from your own.
 
 Remember, if you’re using a customers data to improve your business or to offer them a better service, 
 it’s important to let them know. This is why you see “this site uses cookies” popups everywhere. 
