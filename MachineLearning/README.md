@@ -42,7 +42,7 @@ Data Modelling is an iterative process comprising of following steps:
 
 ```
 
-###  Problem definition -> What problem are we trying to solve? 
+###  1. Problem definition -> What problem are we trying to solve? 
 ```xml
 The four major types of machine learning are supervised learning, unsupervised learning, transfer learning and reinforcement learning. 
 
