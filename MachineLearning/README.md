@@ -150,34 +150,58 @@ more than one sentence is too much. Add complexity when required.
 ### 2. Data -> What data do we have? 
 ```xml
 The data you have or need to collect will depend on the problem you want to solve.
-If you already have data, it’s likely it will be in one of two forms. Structured or unstructured. Within each of these, you have static or streaming data.
+If you already have data, it’s likely it will be in one of two forms. Structured or unstructured. 
+Within each of these, you have static or streaming data.
 
-Structured data -> Think a table of rows and columns, an Excel spreadsheet of customer transactions, a database of patient records. 
-Columns can be numerical, such as average heart rate, categorical, such as sex, or ordinal, such as chest pain intensity.
-Unstructured data -> Anything not immediately able to be put into row and column format, images, audio files, natural language text.
-Static data -> Existing historical data which is unlikely to change. Your companies customer purchase history is a good example.
-Streaming data -> Data which is constantly updated, older records may be changed, newer records are constantly being added.
+Structured data -> Think a table of rows and columns, 
+an Excel spreadsheet of customer transactions, a database of patient records. 
+Columns can be numerical, such as average heart rate, categorical, 
+such as sex, or ordinal, such as chest pain intensity.
+
+Unstructured data -> Anything not immediately able to be put into row and column format, 
+images, audio files, natural language text.
+
+Static data -> Existing historical data which is unlikely to change. 
+Your companies customer purchase history is a good example.
+
+Streaming data -> Data which is constantly updated, older records may be changed, 
+newer records are constantly being added.
 There are overlaps.
 
-Your static structured table of information may have columns which contain natural language text and photos and be updated constantly.
-For predicting heart disease, one column may be sex, another average heart rate, another average blood pressure, another chest pain intensity.
+Your static structured table of information may have columns which contain 
+natural language text and photos and be updated constantly.
+For predicting heart disease, one column may be sex, another average heart rate, 
+another average blood pressure, another chest pain intensity.
 
-For the insurance claim example, one column may be the text a customer has sent in for the claim, another may be the image they’ve sent in along with the text and a final a column being the outcome of the claim. This table gets updated with new claims or altered results of old claims daily.
+For the insurance claim example, one column may be the text a customer has sent in for the claim, 
+another may be the image they’ve sent in along with the text and a final a column being the outcome of the claim. 
+This table gets updated with new claims or altered results of old claims daily.
 
 Two tables of structured data, one has patient records and whether or not they have heart disease, the other car insurance
-Two examples of structured data with different kinds of data within it. Table 1.0 has numerical and categorical data. Table 2.0 has unstructured data with images and natural language text but is presented in a structured manner.
+Two examples of structured data with different kinds of data within it. 
+Table 1.0 has numerical and categorical data. Table 2.0 has unstructured data with images and 
+natural language text but is presented in a structured manner.
 The principle remains. You want to use the data you have to gains insights or predict something.
 
-For supervised learning, this involves using the feature variable(s) to predict the target variable(s). A feature variable for predicting heart disease could be sex with the target variable being whether or not the patient has heart disease.
+For supervised learning, this involves using the feature variable(s) to predict the target variable(s). 
+A feature variable for predicting heart disease could be sex with the target variable 
+being whether or not the patient has heart disease.
 
 a table of heart disease data broken into 3 main sections, ID column, feature columns and target columns
-A table broken into ID column (yellow, not used for building machine learning model), feature variables (orange) and target variables (green). A machine learning model finds the patterns in the feature variables and predicts the target variables.
+A table broken into ID column (yellow, not used for building machine learning model), 
+feature variables (orange) and target variables (green). 
+A machine learning model finds the patterns in the feature variables and predicts the target variables.
 
-For unsupervised learning, you won’t have labels. But you’ll still want to find patterns. Meaning, grouping together similar samples and finding samples which are outliers.
+For unsupervised learning, you won’t have labels. 
+But you’ll still want to find patterns. 
+Meaning, grouping together similar samples and finding samples which are outliers.
 
-For transfer learning, your problem stays a supervised learning problem, except you’re leveraging the patterns machine learning algorithms have learned from other data sources separate from your own.
+For transfer learning, your problem stays a supervised learning problem, 
+except you’re leveraging the patterns machine learning algorithms have learned from other data sources separate from your own.
 
-Remember, if you’re using a customers data to improve your business or to offer them a better service, it’s important to let them know. This is why you see “this site uses cookies” popups everywhere. The website uses how you browse the site, likely along with some kind of machine learning to improve their offering.
+Remember, if you’re using a customers data to improve your business or to offer them a better service, 
+it’s important to let them know. This is why you see “this site uses cookies” popups everywhere. 
+The website uses how you browse the site, likely along with some kind of machine learning to improve their offering.
 
 ```
 
