@@ -44,50 +44,79 @@ Data Modelling is an iterative process comprising of following steps:
 
 ###  1. Problem definition -> What problem are we trying to solve? 
 ```xml
-The four major types of machine learning are supervised learning, unsupervised learning, transfer learning and reinforcement learning. 
+The four major types of machine learning are supervised learning, unsupervised learning, transfer learning 
+and reinforcement learning. 
 
 Supervised learning
 -------------------
-Supervised learning, is called supervised because you have data and labels. A machine learning algorithm tries to learn what patterns in the data lead to the labels. The supervised part happens during training. If the algorithm guesses a wrong label, it tries to correct itself.
+Supervised learning, is called supervised because you have data and labels. 
+A machine learning algorithm tries to learn what patterns in the data lead to the labels. 
+The supervised part happens during training. 
+If the algorithm guesses a wrong label, it tries to correct itself.
 
-For example, if you were trying to predict heart disease in a new patient. You may have the anonymised medical records of 100 patients as the data and whether or not they had heart disease as the label.
-A machine learning algorithm could look at the medical records (inputs) and whether or not a patient had heart disease (outputs) and then figure out what patterns in the medical records lead to heart disease.
+For example, if you were trying to predict heart disease in a new patient. 
+You may have the anonymised medical records of 100 patients as the data and whether or not they had heart disease as the label.
+A machine learning algorithm could look at the medical records (inputs) and whether or not a patient had heart disease (outputs) 
+and then figure out what patterns in the medical records lead to heart disease.
 
-Once you’ve got a trained algorithm, you could pass through the medical records (input) of a new patient through it and get a prediction of whether or not they have heart disease (output). It’s important to remember this prediction isn’t certain. It comes back as a probability.
+Once you’ve got a trained algorithm, you could pass through the medical records (input) of a new patient through it 
+and get a prediction of whether or not they have heart disease (output). 
+It’s important to remember this prediction isn’t certain. It comes back as a probability.
 
-The algorithm says, “based on what I’ve seen before, it looks like this new patients medical records are 70% aligned to those who have heart disease.”
+The algorithm says, 
+“based on what I’ve seen before, it looks like this new patients medical records are 70% aligned to those who have heart disease.”
 
 
 Unsupervised learning
 ---------------------
-Unsupervised learning is when you have data but no labels. The data could be the purchase history of your online video game store customers. Using this data, you may want to group similar customers together so you can offer them specialised deals. You could use a machine learning algorithm to group your customers by purchase history.
+Unsupervised learning is when you have data but no labels. 
+The data could be the purchase history of your online video game store customers. 
+Using this data, you may want to group similar customers together so you can offer them specialised deals. 
+You could use a machine learning algorithm to group your customers by purchase history.
 
-After inspecting the groups, you provide the labels. There may be a group interested in computer games, another group who prefer console games and another which only buy discounted older games. This is called clustering.
+After inspecting the groups, you provide the labels. 
+There may be a group interested in computer games, another group who prefer console games and another which only buy discounted older games. 
+This is called clustering.
 
-What’s important to remember here is the algorithm did not provide these labels. It found the patterns between similar customers and using your domain knowledge, you provided the labels.
+What’s important to remember here is the algorithm did not provide these labels. 
+It found the patterns between similar customers and using your domain knowledge, you provided the labels.
 
 
 Transfer learning
 -----------------
 Transfer learning is when you take the information an existing machine learning model has learned and adjust it to your own problem.
 
-Training a machine learning model from scratch can be expensive and time-consuming. The good news is, you don’t always have to. When machine learning algorithms find patterns in one kind of data, these patterns can be used in another type of data.
+Training a machine learning model from scratch can be expensive and time-consuming. 
+The good news is, you don’t always have to. When machine learning algorithms find patterns in one kind of data, 
+these patterns can be used in another type of data.
 
-Let’s say you’re a car insurance company and wanted to build a text classification model to classify whether or not someone submitting an insurance claim for a car accident is at fault (caused the accident) or not at fault (didn’t cause the accident).
+Let’s say you’re a car insurance company and wanted to build a text classification model to classify whether or not 
+someone submitting an insurance claim for a car accident is at fault (caused the accident) or not at fault (didn’t cause the accident).
 
-You could start with an existing text model, one which has read all of Wikipedia and has remembered all the patterns between different words, such as, which word is more likely to come next after another. Then using your car insurance claims (data) along with their outcomes (labels), you could tweak the existing text model to your own problem.
+You could start with an existing text model, one which has read all of Wikipedia and has remembered all the patterns between different words, 
+such as, which word is more likely to come next after another. 
+Then using your car insurance claims (data) along with their outcomes (labels), you could tweak the existing text model to your own problem.
 
 If machine learning can be used in your business, it’s likely it’ll fall under one of these three types of learning.
 
 But let’s break them down further into classification, regression and recommendation.
 
-Classification -> Do you want to predict whether something is one thing or another? Such as whether a customer will churn or not churn? Or whether a patient has heart disease or not? Note, there can be more than two things. Two classes is called binary classification, more than two classes is called multi-class classification. Multi-label is when an item can belong to more than one class.
-Regression -> Do you want to predict a specific number of something? Such as how much a house will sell for? Or how many customers will visit your site next month?
-Recommendation -> Do you want to recommend something to someone? Such as products to buy based on their previous purchases? Or articles to read based on their reading history?
+Classification -> Do you want to predict whether something is one thing or another? 
+Such as whether a customer will churn or not churn? Or whether a patient has heart disease or not? 
+Note, there can be more than two things. Two classes is called binary classification, more than two classes is called multi-class classification. 
+Multi-label is when an item can belong to more than one class.
+
+Regression -> Do you want to predict a specific number of something? 
+Such as how much a house will sell for? Or how many customers will visit your site next month?
+
+Recommendation -> Do you want to recommend something to someone? 
+Such as products to buy based on their previous purchases? Or articles to read based on their reading history?
 Now you know these things, your next step is to define your business problem in machine learning terms.
 
-Let’s use the car insurance example from before. You receive thousands of claims per day which your staff read and decide whether or not the person sending in the claim is at fault or not.
-But now the number of claims are starting to come in faster than your staff can handle them. You’ve got thousands of examples of past claims which are labelled at fault or not at fault.
+Let’s use the car insurance example from before. 
+You receive thousands of claims per day which your staff read and decide whether or not the person sending in the claim is at fault or not.
+But now the number of claims are starting to come in faster than your staff can handle them. 
+You’ve got thousands of examples of past claims which are labelled at fault or not at fault.
 
 Can machine learning help?
 You already know the answer. But let’s see. Does this problem fit into any of the three above? Classification, regression or recommendation?
@@ -96,7 +125,8 @@ We’re a car insurance company who want to classify incoming car insurance clai
 See the keyword? Classify.
 It turns out, this could potentially be a machine learning classification problem. I say potentially because there’s a chance it might not work.
 
-When it comes to defining your business problem as a machine learning problem, start simple, more than one sentence is too much. Add complexity when required.
+When it comes to defining your business problem as a machine learning problem, start simple, 
+more than one sentence is too much. Add complexity when required.
 
 
 ```
