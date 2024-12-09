@@ -266,12 +266,14 @@ When your model is built, use it to predict recommendations for the hidden data 
 Let’s say you’re trying to recommend customers products on your online store. 
 You have historical purchase data from 2010–2019. 
 You could build a model on the 2010–2018 data and then use it to predict 2019 purchases. 
-Then it becomes a classification problem because you’re trying to classify whether or not someone is likely to buy an item.
+Then it becomes a classification problem because you’re trying to classify whether or 
+not someone is likely to buy an item.
 
 However, traditional classification metrics aren’t the best for recommendation problems. 
 Precision and recall have no concept of ordering.
 
-If your machine learning model returned back a list of 10 recommendations to be displayed to a customer on your website, 
+If your machine learning model returned back a list of 10 recommendations 
+to be displayed to a customer on your website, 
 you’d want the best ones to be displayed first right?
 
 Precision @ k (precision up to k) -> 
@@ -280,7 +282,8 @@ For example, precision at 5, means we only care about the top 5 recommendations.
 You may have 10,000 products. But you can’t recommend them all to your customers.
 
 To begin with, you may not have an exact figure for each of these. 
-But knowing what metrics you should be paying attention to gives you an idea of how to evaluate your machine learning project.
+But knowing what metrics you should be paying attention to gives you an idea of how to evaluate your 
+machine learning project.
 
 ```
 
@@ -295,7 +298,8 @@ The three main types of features are categorical, continuous (or numerical) and 
 Categorical features -> One or the other(s). For example, in our heart disease problem, 
 the sex of the patient. Or for an online store, whether or not someone has made a purchase or not.
 
-Continuous (or numerical) features -> A numerical value such as average heart rate or the number of times logged in.
+Continuous (or numerical) features -> A numerical value such as average heart rate 
+or the number of times logged in.
 
 Derived features -> Features you create from the data. Often referred to as feature engineering. 
 Feature engineering is how a subject matter expert takes their knowledge and encodes it into the data. 
@@ -314,9 +318,11 @@ Work with subject matter experts -> What do you already know about the problem,
 how can that influence what features you use? 
 Let your machine learning engineers and data scientists know this.
 
-Are they worth it? -> If only 10% of your samples have a feature, is it worth incorporating it in a model? 
+Are they worth it? -> If only 10% of your samples have a feature, 
+is it worth incorporating it in a model? 
 Have a preference for features with the most coverage. The ones where lots of samples have data for.
-Perfect equals broken -> If your model is achieving perfect performance, you’ve likely got feature leakage somewhere. 
+Perfect equals broken -> If your model is achieving perfect performance, 
+you’ve likely got feature leakage somewhere. 
 Which means the data your model has trained on is being used to test it. No model is perfect.
 
 You can use features to create a simple baseline metric. 
@@ -333,15 +339,18 @@ But it’s what you’re going to use to see whether machine learning can improv
 
 ### 5. Modelling -> What kind of model should we use?
 ```xml
-Once you’ve defined your problem, prepared your data, evaluation criteria and features it’s time to model.
+Once you’ve defined your problem, prepared your data, evaluation criteria and 
+features it’s time to model.
 
-Modelling breaks into three parts, choosing a model, improving a model, comparing it with others.
+Modelling breaks into three parts, choosing a model, improving a model, 
+comparing it with others.
 
 Choosing a model
-When choosing a model, you’ll want to take into consideration, interpretability and ease to debug, 
-amount of data, training and prediction limitations.
+When choosing a model, you’ll want to take into consideration, 
+interpretability and ease to debug, amount of data, training and prediction limitations.
 
-Interpretability and ease to debug -> Why did a model make a decision it made? How can the errors be fixed?
+Interpretability and ease to debug -> Why did a model make a decision it made? 
+How can the errors be fixed?
 
 Amount of data -> How much data do you have? Will this change?
 
@@ -354,49 +363,66 @@ for a 2% boost in your evaluation metric, it might not be the best choice.
 Linear models such as logistic regression are usually easier to interpret, 
 are very fast for training and predict faster than deeper models such as neural networks.
 
-But it’s likely your data is from the real world. Data from the real world isn’t always linear.
+But it’s likely your data is from the real world. 
+Data from the real world isn’t always linear.
 
 What then?
 
-Ensembles of decision trees and gradient boosted algorithms (fancy words, definitions not important for now) 
-usually work best on structured data, like Excel tables and dataframes. Look into random forests, XGBoost and CatBoost.
+Ensembles of decision trees and gradient boosted algorithms (fancy words, 
+definitions not important for now) 
+usually work best on structured data, like Excel tables and dataframes. 
+Look into random forests, XGBoost and CatBoost.
 
 Deep models such as neural networks generally work best on unstructured data like images, 
-audio files and natural language text. However, the trade-off is they usually take longer to train, 
-are harder to debug and prediction time takes longer. But this doesn’t mean you shouldn’t use them.
+audio files and natural language text. However, 
+the trade-off is they usually take longer to train, 
+are harder to debug and prediction time takes longer. 
+But this doesn’t mean you shouldn’t use them.
 
 Transfer learning is an approach which takes advantage of deep models and linear models. 
-It involves taking a pre-trained deep model and using the patterns it has learned as the inputs to your linear model. 
+It involves taking a pre-trained deep model and using the patterns 
+it has learned as the inputs to your linear model. 
 This saves dramatically on training time and allows you to experiment faster.
 
 Where do I find pre-trained models?
 
-Pre-trained models are available on PyTorch hub, TensorFlow hub, model zoo and within the fast.ai framework. 
+Pre-trained models are available on PyTorch hub, TensorFlow hub, model zoo 
+and within the fast.ai framework. 
 This is a good place to look first for building any kind of proof of concept.
 
 What about the other kinds of models?
 
-For building a proof of concept, it’s unlikely you’ll have to ever build your own machine learning model. 
+For building a proof of concept, it’s unlikely you’ll have to 
+ever build your own machine learning model. 
 People have already written code for these.
 
-What you’ll be focused on is preparing your inputs and outputs in a way they can be used with an existing model. 
-This means having your data and labels strictly defined and understanding what problem you’re trying to solve.
+What you’ll be focused on is preparing your inputs and outputs in a way 
+they can be used with an existing model. 
+This means having your data and labels strictly defined and understanding 
+what problem you’re trying to solve.
 
-A diagram showing inputs and outputs to a machine learning algorithm with emphasis on inputs and outputs being the focus
-To begin with, your main job will be making sure your inputs (data) lines up with how an existing 
-machine learning algorithm expects them. Your next goal will be making sure the outputs are aligned with your problem 
+A diagram showing inputs and outputs to a machine learning algorithm with emphasis on 
+inputs and outputs being the focus
+To begin with, your main job will be making sure your inputs (data) 
+lines up with how an existing 
+machine learning algorithm expects them. Your next goal will be making sure the 
+outputs are aligned with your problem 
 definition and if they meet your evaluation metric.
 
 Tuning and improving a model
-A model's first results isn’t its last. Like tuning a car, machine learning models can be tuned to improve performance.
+A model's first results isn’t its last. Like tuning a car, machine learning models 
+can be tuned to improve performance.
 
 Tuning a model involves changing hyperparameters such as learning rate or optimizer. 
-Or model-specific architecture factors such as number of trees for random forests and number of and type of layers for neural networks.
+Or model-specific architecture factors such as number of trees for random forests 
+and number of and type of layers for neural networks.
 
-These used to be something a practitioner would have to tune by hand but are increasingly becoming automated. 
+These used to be something a practitioner would have to tune by hand but 
+are increasingly becoming automated. 
 And should be wherever possible.
 
-Using a pre-trained model through transfer learning often has the added benefit of all of these steps been done.
+Using a pre-trained model through transfer learning often has the added benefit of all 
+of these steps been done.
 
 The priority for tuning and improving models should be reproducibility and efficiency. 
 Someone should be able to reproduce the steps you’ve taken to improve performance. 
@@ -414,10 +440,12 @@ Where model 1 and 2 can vary but not data X or data Y.
 
 ### 6. Experiments -> What have we tried? What else can we try? 
 ```xml
-This step involves all the other steps. Because machine learning is a highly iterative process, 
+This step involves all the other steps. Because machine learning is a 
+highly iterative process, 
 you’ll want to make sure your experiments are actionable.
 
-Your biggest goal should be minimising the time between offline experiments and online experiments.
+Your biggest goal should be minimising the time between offline experiments 
+and online experiments.
 
 Offline experiments are steps you take when your project isn’t customer-facing yet. 
 Online experiments happen when your machine learning model is in production.
@@ -425,21 +453,28 @@ Online experiments happen when your machine learning model is in production.
 All experiments should be conducted on different portions of your data.
 
 Training data set -> Use this set for model training, 70–80% of your data is the standard.
-Validation/development data set -> Use this set for model tuning, 10–15% of your data is the standard.
-Test data set -> Use this set for model testing and comparison, 10–15% of your data is the standard.
+Validation/development data set -> Use this set for model tuning, 
+10–15% of your data is the standard.
+
+Test data set -> Use this set for model testing and comparison, 
+10–15% of your data is the standard.
 These amounts can fluctuate slightly, depending on your problem and the data you have.
 
-Poor performance on training data means the model hasn’t learned properly. Try a different model, 
+Poor performance on training data means the model hasn’t learned properly. 
+Try a different model, 
 improve the existing one, collect more data, collect better data.
 
 Poor performance on test data means your model doesn’t generalise well. 
 Your model may be overfitting the training data. Use a simpler model or collect more data.
 
-Poor performance once deployed (in the real world) means there’s a difference in what you trained and tested your model on and 
-what is actually happening. Revisit step 1 & 2. Ensure your data matches up with the problem you’re trying to solve.
+Poor performance once deployed (in the real world) means there’s a difference in 
+what you trained and tested your model on and 
+what is actually happening. Revisit step 1 & 2. 
+Ensure your data matches up with the problem you’re trying to solve.
 
-When you implement a large experimental change, document what and why. Remember, like model tuning, someone, 
-including your future self, should be able to reproduce what you’ve done.
+When you implement a large experimental change, document what and why. Remember, 
+like model tuning, someone, including your future self, 
+should be able to reproduce what you’ve done.
 
 This means saving updated models and updated datasets regularly.
 
