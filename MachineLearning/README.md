@@ -67,7 +67,7 @@ It’s important to remember this prediction isn’t certain.
 It comes back as a probability.
 
 The algorithm says, 
-“based on what I’ve seen before, it looks like this new patients medical records 
+“Based on what I’ve seen before, it looks like this new patients medical records 
 are 70% aligned to those who have heart disease.”
 
 
@@ -188,7 +188,7 @@ For supervised learning, this involves using the feature variable(s) to predict 
 A feature variable for predicting heart disease could be sex with the target variable 
 being whether or not the patient has heart disease.
 
-a table of heart disease data broken into 3 main sections, ID column, feature columns and target columns
+A table of heart disease data broken into 3 main sections, ID column, feature columns and target columns
 A table broken into ID column (yellow, not used for building machine learning model), 
 feature variables (orange) and target variables (green). 
 A machine learning model finds the patterns in the feature variables and predicts the target variables.
@@ -210,36 +210,77 @@ The website uses how you browse the site, likely along with some kind of machine
 
 ### 3. Evaluation-> What defines success? 
 ```xml
-There are different evaluation metrics for classification, regression and recommendation problems. Which one you choose will depend on your goal.
+There are different evaluation metrics for classification, regression and recommendation problems. 
+Which one you choose will depend on your goal.
 
-For this project to be successful, the model needs to be over 95% accurate at whether someone is at fault or not at fault.
-A 95% accurate model may sound pretty good for predicting who’s at fault in an insurance claim. But for predicting heart disease, you’ll likely want better results.
+For this project to be successful, the model needs to be over 95% accurate at whether someone is at fault 
+or not at fault.
+A 95% accurate model may sound pretty good for predicting who’s at fault in an insurance claim. 
+But for predicting heart disease, you’ll likely want better results.
 
 Other things you should take into consideration for classification problems.
 
-False negatives -> Model predicts negative, actually positive. In some cases, like email spam prediction, false negatives aren’t too much to worry about. But if a self-driving cars computer vision system predicts no pedestrian when there was one, this is not good.
-False positives -> Model predicts positive, actually negative. Predicting someone has heart disease when they don’t, might seem okay. Better to be safe right? Not if it negatively affects the person’s lifestyle or sets them on a treatment plan they don’t need.
+False negatives -> Model predicts negative, actually positive. 
+In some cases, like email spam prediction, false negatives aren’t too much to worry about. 
+But if a self-driving cars computer vision system predicts no pedestrian when there was one, 
+this is not good.
+
+False positives -> Model predicts positive, actually negative. 
+Predicting someone has heart disease when they don’t, might seem okay. 
+Better to be safe right? Not if it negatively affects the person’s lifestyle or 
+sets them on a treatment plan they don’t need.
+
 True negatives -> Model predicts negative, actually negative. This is good.
+
 True positives -> Model predicts positive, actually positive. This is good.
-Precision -> What proportion of positive predictions were actually correct? A model that produces no false positives has a precision of 1.0.
-Recall -> What proportion of actual positives were predicted correctly? A model that produces no false negatives has a recall of 1.0.
+
+Precision -> What proportion of positive predictions were actually correct? 
+A model that produces no false positives has a precision of 1.0.
+
+Recall -> What proportion of actual positives were predicted correctly? 
+A model that produces no false negatives has a recall of 1.0.
+
 F1 score -> A combination of precision and recall. The closer to 1.0, the better.
-Receiver operating characteristic (ROC) curve & Area under the curve (AUC) -> The ROC curve is a plot comparing true positive and false positive rate. The AUC metric is the area under the ROC curve. A model whose predictions are 100% wrong has an AUC of 0.0, one whose predictions are 100% right has an AUC of 1.0.
-For regression problems (where you want to predict a number), you’ll want to minimise the difference between what your model predicts and what the actual value is. If you’re trying to predict the price a house will sell for, you’ll want your model to get as close as possible to the actual price. To do this, use MAE or RMSE.
+Receiver operating characteristic (ROC) curve & Area under the curve (AUC) -> 
+The ROC curve is a plot comparing true positive and false positive rate. 
+The AUC metric is the area under the ROC curve. 
+A model whose predictions are 100% wrong has an AUC of 0.0, 
+one whose predictions are 100% right has an AUC of 1.0.
+For regression problems (where you want to predict a number), 
+you’ll want to minimise the difference between what your model predicts and what the actual value is. 
+If you’re trying to predict the price a house will sell for, 
+you’ll want your model to get as close as possible to the actual price. To do this, use MAE or RMSE.
+
 Mean absolute error (MAE) -> The average difference between your model's predictions and the actual numbers.
-Root mean square error (RMSE) -> The square root of the average of squared differences between your model's predictions and the actual numbers.
-Use RMSE if you want large errors to be more significant. Such as, predicting a house to be sold at $300,000 instead of $200,000 and being off by $100,000 is more than twice as bad as being off by $50,000. Or MAE if being off by $100,000 is twice as bad as being off by $50,000.
 
-Recommendation problems are harder to test in experimentation. One way to do so is to take a portion of your data and hide it away. When your model is built, use it to predict recommendations for the hidden data and see how it lines up.
+Root mean square error (RMSE) -> The square root of the average of squared differences between your model's 
+predictions and the actual numbers.
+Use RMSE if you want large errors to be more significant. 
+Such as, predicting a house to be sold at $300,000 instead of $200,000 and being off by $100,000 is more than 
+twice as bad as being off by $50,000. Or MAE if being off by $100,000 is twice as bad as being off by $50,000.
 
-Let’s say you’re trying to recommend customers products on your online store. You have historical purchase data from 2010–2019. You could build a model on the 2010–2018 data and then use it to predict 2019 purchases. Then it becomes a classification problem because you’re trying to classify whether or not someone is likely to buy an item.
+Recommendation problems are harder to test in experimentation. 
+One way to do so is to take a portion of your data and hide it away. 
+When your model is built, use it to predict recommendations for the hidden data and see how it lines up.
 
-However, traditional classification metrics aren’t the best for recommendation problems. Precision and recall have no concept of ordering.
+Let’s say you’re trying to recommend customers products on your online store. 
+You have historical purchase data from 2010–2019. 
+You could build a model on the 2010–2018 data and then use it to predict 2019 purchases. 
+Then it becomes a classification problem because you’re trying to classify whether or not someone is likely to buy an item.
 
-If your machine learning model returned back a list of 10 recommendations to be displayed to a customer on your website, you’d want the best ones to be displayed first right?
+However, traditional classification metrics aren’t the best for recommendation problems. 
+Precision and recall have no concept of ordering.
 
-Precision @ k (precision up to k) -> Same as regular precision, however, you choose the cutoff, k. For example, precision at 5, means we only care about the top 5 recommendations. You may have 10,000 products. But you can’t recommend them all to your customers.
-To begin with, you may not have an exact figure for each of these. But knowing what metrics you should be paying attention to gives you an idea of how to evaluate your machine learning project.
+If your machine learning model returned back a list of 10 recommendations to be displayed to a customer on your website, 
+you’d want the best ones to be displayed first right?
+
+Precision @ k (precision up to k) -> 
+Same as regular precision, however, you choose the cutoff, k. 
+For example, precision at 5, means we only care about the top 5 recommendations. 
+You may have 10,000 products. But you can’t recommend them all to your customers.
+
+To begin with, you may not have an exact figure for each of these. 
+But knowing what metrics you should be paying attention to gives you an idea of how to evaluate your machine learning project.
 
 ```
 
