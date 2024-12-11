@@ -203,7 +203,8 @@ from other data sources separate from your own.
 
 Remember, if you’re using a customers data to improve your business or to offer them a better service, 
 it’s important to let them know. This is why you see “this site uses cookies” popups everywhere. 
-The website uses how you browse the site, likely along with some kind of machine learning to improve their offering.
+The website uses how you browse the site, likely along with some kind of machine learning 
+to improve their offering.
 
 ```
 
@@ -241,27 +242,37 @@ Recall -> What proportion of actual positives were predicted correctly?
 A model that produces no false negatives has a recall of 1.0.
 
 F1 score -> A combination of precision and recall. The closer to 1.0, the better.
-Receiver operating characteristic (ROC) curve & Area under the curve (AUC) -> 
+
+Receiver operating characteristic (ROC) curve and Area under the curve (AUC) -> 
 The ROC curve is a plot comparing true positive and false positive rate. 
 The AUC metric is the area under the ROC curve. 
 A model whose predictions are 100% wrong has an AUC of 0.0, 
 one whose predictions are 100% right has an AUC of 1.0.
+
 For regression problems (where you want to predict a number), 
-you’ll want to minimise the difference between what your model predicts and what the actual value is. 
+you’ll want to minimise the difference between what your model predicts 
+and what the actual value is. 
+
 If you’re trying to predict the price a house will sell for, 
-you’ll want your model to get as close as possible to the actual price. To do this, use MAE or RMSE.
+you’ll want your model to get as close as possible to the actual price. 
+To do this, use MAE or RMSE.
 
-Mean absolute error (MAE) -> The average difference between your model's predictions and the actual numbers.
+Mean absolute error (MAE) -> The average difference between your model's predictions 
+and the actual numbers.
 
-Root mean square error (RMSE) -> The square root of the average of squared differences between your model's 
-predictions and the actual numbers.
+Root mean square error (RMSE) -> The square root of the average of squared differences 
+between your model's predictions and the actual numbers.
+
 Use RMSE if you want large errors to be more significant. 
-Such as, predicting a house to be sold at $300,000 instead of $200,000 and being off by $100,000 is more than 
-twice as bad as being off by $50,000. Or MAE if being off by $100,000 is twice as bad as being off by $50,000.
+Such as, predicting a house to be sold at $300,000 instead of $200,000 
+and being off by $100,000 is more than 
+twice as bad as being off by $50,000. Or MAE if being off by $100,000 
+is twice as bad as being off by $50,000.
 
 Recommendation problems are harder to test in experimentation. 
 One way to do so is to take a portion of your data and hide it away. 
-When your model is built, use it to predict recommendations for the hidden data and see how it lines up.
+When your model is built, use it to predict recommendations for the hidden data 
+and see how it lines up.
 
 Let’s say you’re trying to recommend customers products on your online store. 
 You have historical purchase data from 2010–2019. 
@@ -282,8 +293,8 @@ For example, precision at 5, means we only care about the top 5 recommendations.
 You may have 10,000 products. But you can’t recommend them all to your customers.
 
 To begin with, you may not have an exact figure for each of these. 
-But knowing what metrics you should be paying attention to gives you an idea of how to evaluate your 
-machine learning project.
+But knowing what metrics you should be paying attention to gives you an idea of 
+how to evaluate your machine learning project.
 
 ```
 
@@ -296,19 +307,24 @@ they’re referring to different kinds of data within data.
 The three main types of features are categorical, continuous (or numerical) and derived.
 
 Categorical features -> One or the other(s). For example, in our heart disease problem, 
-the sex of the patient. Or for an online store, whether or not someone has made a purchase or not.
+the sex of the patient. 
+Or for an online store, whether or not someone has made a purchase or not.
 
 Continuous (or numerical) features -> A numerical value such as average heart rate 
 or the number of times logged in.
 
-Derived features -> Features you create from the data. Often referred to as feature engineering. 
-Feature engineering is how a subject matter expert takes their knowledge and encodes it into the data. 
-You might combine the number of times logged in with timestamps to make a feature called time since last login. 
+Derived features -> Features you create from the data. 
+Often referred to as feature engineering. 
+Feature engineering is how a subject matter expert takes their knowledge 
+and encodes it into the data. 
+You might combine the number of times logged in with timestamps 
+to make a feature called time since last login. 
 Or turn dates from numbers into “is a weekday (yes)” and “is a weekday (no)”.
 Text, images and almost anything you can imagine can also be a feature. 
-Regardless, they all get turned into numbers before a machine learning algorithm can model them.
+Regardless, they all get turned into numbers before a machine learning 
+algorithm can model them.
 
-Some important things to remember when it comes to features.
+Some important things to remember when it comes to features:
 
 Keep them the same during experimentation (training) and production (testing) -> 
 A machine learning model should be trained on features which represent 
@@ -320,20 +336,24 @@ Let your machine learning engineers and data scientists know this.
 
 Are they worth it? -> If only 10% of your samples have a feature, 
 is it worth incorporating it in a model? 
-Have a preference for features with the most coverage. The ones where lots of samples have data for.
+Have a preference for features with the most coverage. 
+The ones where lots of samples have data for.
+
 Perfect equals broken -> If your model is achieving perfect performance, 
 you’ve likely got feature leakage somewhere. 
-Which means the data your model has trained on is being used to test it. No model is perfect.
+Which means the data your model has trained on is being used to test it. 
+No model is perfect.
 
 You can use features to create a simple baseline metric. 
 A subject matter expert on customer churn may know someone is 80% likely 
 to cancel their membership after 3 weeks of not logging in.
 
-Or a real estate agent who knows the sale prices of houses might know houses with 
-over 5 bedrooms and 4 bathrooms sell for over $500,000.
+Or a real estate agent who knows the sale prices of houses might know 
+houses with over 5 bedrooms and 4 bathrooms sell for over $500,000.
 
 These are simplified and don’t have to be exact. 
-But it’s what you’re going to use to see whether machine learning can improve upon or not.
+But it’s what you’re going to use to see whether 
+machine learning can improve upon or not.
 
 ```
 
@@ -469,7 +489,7 @@ Your model may be overfitting the training data. Use a simpler model or collect 
 
 Poor performance once deployed (in the real world) means there’s a difference in 
 what you trained and tested your model on and 
-what is actually happening. Revisit step 1 & 2. 
+what is actually happening. Revisit step 1 and 2. 
 Ensure your data matches up with the problem you’re trying to solve.
 
 When you implement a large experimental change, document what and why. Remember, 
