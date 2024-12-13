@@ -362,10 +362,11 @@ machine learning can improve upon or not.
 Once you’ve defined your problem, prepared your data, evaluation criteria and 
 features it’s time to model.
 
-Modelling breaks into three parts, choosing a model, improving a model, 
+Modelling breaks into three parts, choosing a model, improving a model or model tuning, 
 comparing it with others.
 
 Choosing a model
+----------------
 When choosing a model, you’ll want to take into consideration, 
 interpretability and ease to debug, amount of data, training and prediction limitations.
 
@@ -389,15 +390,14 @@ Data from the real world isn’t always linear.
 What then?
 
 Ensembles of decision trees and gradient boosted algorithms (fancy words, 
-definitions not important for now) 
-usually work best on structured data, like Excel tables and dataframes. 
+definitions not important for now) usually work best on structured data, 
+like Excel tables and dataframes. 
 Look into random forests, XGBoost and CatBoost.
 
-Deep models such as neural networks generally work best on unstructured data like images, 
-audio files and natural language text. However, 
-the trade-off is they usually take longer to train, 
-are harder to debug and prediction time takes longer. 
-But this doesn’t mean you shouldn’t use them.
+Deep models such as neural networks generally work best on unstructured data like 
+images, audio files and natural language text. 
+However, the trade-off is they usually take longer to train, are harder to debug and 
+prediction time takes longer. But this doesn’t mean you shouldn’t use them.
 
 Transfer learning is an approach which takes advantage of deep models and linear models. 
 It involves taking a pre-trained deep model and using the patterns 
@@ -424,12 +424,15 @@ what problem you’re trying to solve.
 A diagram showing inputs and outputs to a machine learning algorithm with emphasis on 
 inputs and outputs being the focus
 To begin with, your main job will be making sure your inputs (data) 
-lines up with how an existing 
-machine learning algorithm expects them. Your next goal will be making sure the 
-outputs are aligned with your problem 
-definition and if they meet your evaluation metric.
+lines up with how an existing machine learning algorithm expects them. 
+Your next goal will be making sure the outputs are aligned with your problem definition 
+and if they meet your evaluation metric.
+
+The 3 set approach to data: Split data into 3 sets -> 
+Training Set (70% to 80% data) -> Validation Set (10% to 15% data) -> Testing Set (10% to 15% data)
 
 Tuning and improving a model
+----------------------------
 A model's first results isn’t its last. Like tuning a car, machine learning models 
 can be tuned to improve performance.
 
@@ -438,8 +441,7 @@ Or model-specific architecture factors such as number of trees for random forest
 and number of and type of layers for neural networks.
 
 These used to be something a practitioner would have to tune by hand but 
-are increasingly becoming automated. 
-And should be wherever possible.
+are increasingly becoming automated. And should be wherever possible.
 
 Using a pre-trained model through transfer learning often has the added benefit of all 
 of these steps been done.
@@ -450,11 +452,14 @@ And because your main bottleneck will be model training time, not new ideas to i
 your efforts should be dedicated towards efficiency.
 
 Comparing models
+----------------
 Compare apples to apples.
 
 Model 1, trained on data X, evaluated on data Y.
 Model 2, trained on data X, evaluated on data Y.
 Where model 1 and 2 can vary but not data X or data Y.
+
+
 
 ```
 
