@@ -5,6 +5,9 @@
 
 ## Pandas - Intro
 ```xml
+
+Pandas is a data analysis library built on top of Python 
+
 Pandas documentation
 --------------------
 https://pandas.pydata.org/pandas-docs/stable/
@@ -15,7 +18,8 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html#min
 
 
 Why Pandas? 
-Pandas allows us to analyze big data and make conclusions based on statistical theories. 
+Pandas allows us to analyze big data and 
+make conclusions based on statistical theories. 
 Pandas can clean messy data sets, and make them readable and relevant. 
 Relevant data is very important in data science
 
@@ -49,7 +53,8 @@ car_sales.to_csv("exported_car_sales.csv", index=False) ->
 with false, excel's row index will not be imported as a column 
 
 Import dataframe directly from URL: 
-heart_disease = pd.read_csv("https://raw.githubusercontent.com/mrdbourke/zero-to-mastery-ml/master/data/heart-disease.csv")
+heart_disease = 
+  pd.read_csv("https://raw.githubusercontent.com/mrdbourke/zero-to-mastery-ml/master/data/heart-disease.csv")
 
 
 ```
@@ -126,7 +131,11 @@ car_sales[car_sales["Make"]=="Toyota"]
 car_sales[car_sales["Odometer (KM)"]>100000]
 
 # Multiple conditions in a dataframe 
-car_sales[(car_sales["Make"]=="Toyota") & (car_sales["Odometer (KM)"]>100000)]
+car_sales[
+  (car_sales["Make"]=="Toyota") 
+    & 
+  (car_sales["Odometer (KM)"]>100000)
+]
 
 # Cross tab between 2 different columns 
 pd.crosstab(car_sales['Make'], car_sales['Doors'])
@@ -141,9 +150,11 @@ car_sales["Odometer (KM)"].plot()
 car_sales["Odometer (KM)"].hist()
 
 # Change Price column to integers
-car_sales["Price"] = car_sales["Price"].str.replace('[\\$\\,\\.]', '', regex=True).astype(int)
+car_sales["Price"] = 
+  car_sales["Price"].str.replace('[\\$\\,\\.]', '', regex=True).astype(int)
 
-# Divide by 100 as decimal was removed in previous step and round result by 2 decimials
+# Divide by 100 as decimal was removed in previous step 
+# and round result by 2 decimials
 car_sales["Price"] = car_sales["Price"].div(100).round(2)
 
 
@@ -161,11 +172,52 @@ car_sales["Make"].str.lower()
 car_sales_missing=pd.read_csv("car-sales-missing-data.csv")
 
 # Fill the missing values in Odometer with mean of available values
-car_sales_missing["Odometer"]=car_sales_missing["Odometer"].fillna(car_sales_missing["Odometer"].mean())
+car_sales_missing["Odometer"]=
+  car_sales_missing["Odometer"].fillna(car_sales_missing["Odometer"].mean())
 
 # Drop all the rows with NA values
 car_sales_missing_droped=car_sales_missing.dropna()
 
+
+# Create a new column
+seats_column=pd.Series([5,5,5,5,5])
+car_sales["Seats"]=seats_column
+car_sales
+car_sales["Seats"]=car_sales["Seats"].fillna(5) -> This will fix the 'na' values 
+car_sales
+
+
+# Create column from list 
+fuel_economy=[5.9, 6.2,3.6, 2.1,9.7, 8.2, 3.7, 5.4, 6.7, 9.3]
+car_sales["Fuel Per 100Km"]=fuel_economy
+car_sales
+
+
+# Column computation 
+car_sales["Total fuel used"]=
+  car_sales["Odometer (KM)"]/100 * car_sales["Fuel Per 100Km"]
+
+# Create column from a single value
+car_sales["No of Wheels"]=4
+car_sales["Pass Through Safety"]= True
+
+
+# Remove or drop a column
+car_sales=car_sales.drop("Pass Through Safety", axis=1)
+
+
+# Randamonize the data order by taking a % of data
+car_sales.sample(frac=0.5) -> here we have taken 50% data as sample
+car_sales.sample(frac=1) -> will shuffle 100% of the data
+
+# Reset back the randomized column index data
+car_sales_shuffled.reset_index(drop=True, inplace=True)
+
+# Apply Labda functions to change column values 
+# This creates a new column called Odometer (Miles) 
+# and converts kilometer into miles
+car_sales_shuffled["Odometer (Miles)"]=car_sales_shuffled["Odometer (KM)"]
+  .apply(lambda x : x/1.4)
 
 
 
