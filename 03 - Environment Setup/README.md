@@ -233,6 +233,42 @@ conda deactivate -> to come out of the project
 
 ```
 
+### Anaconda
+```xml
+Go to the Anaconda download page and download:
+https://www.anaconda.com/download/
+
+Download and install anaconda from the package manager
+
+Next install the conda navigator with the following command
+from the command line: 
+conda install anaconda-navigator
+
+Next run the following command from command line:
+anaconda-navigator
+
+Go to environments link from the left 
+Create a new enviroment:
+from the Anaconda-navigator -> click "+ button" at the bottom of the 
+navigator
+
+For the top filter -> select not installed packages and 
+select the following 3 packages (use search for easy package selection):
+pandas
+bottleneck
+numexpr
+click the apply button -> This will install the 3 packages selected
+
+
+Now from the Home menu, click and install the Jupiter Lab and 
+if already installed, then launch it. 
+
+
+```
+
+
+
+
 ### Reference
 ```xml
 https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery/
@@ -243,5 +279,7 @@ https://docs.anaconda.com/miniconda/
 https://jupyter-notebook.readthedocs.io/en/stable/
 https://www.dataquest.io/blog/jupyter-notebook-tutorial/
 
+https://www.udemy.com/course/data-analysis-with-pandas
+https://jupyter.org/
 
 ```

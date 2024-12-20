@@ -79,6 +79,15 @@ array of integer between 1 to 8 filling an array of shape 3,5
 np.random.random() -> 
 Return random floats in the half-open interval [0.0, 1.0]
 
+np.random.random((5,2)) -> This will return a random 
+array of shape (5,2) with values between 0 to 1 in float
+
+random_array3=np.random.rand(5,2) -> This does the same 
+thing as above
+
+Note: When Numpy sets random numbers they are 
+Psudo random numbers 
+
 
 
 ```

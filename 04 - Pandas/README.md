@@ -7,6 +7,10 @@
 ```xml
 
 Pandas is a data analysis library built on top of Python 
+It is short form for "Panel Data Structure" meaning 
+"data sets with observations over time"
+
+It is also termed as “Excel for Python”
 
 Pandas documentation
 --------------------
@@ -22,6 +26,11 @@ Pandas allows us to analyze big data and
 make conclusions based on statistical theories. 
 Pandas can clean messy data sets, and make them readable and relevant. 
 Relevant data is very important in data science
+
+Pandas are Data analysis library built on top of the 
+Python programming language
+It is a robust toolkit for analyzing, filtering, manipulating, 
+aggregating, merging, pivoting, and cleaning data
 
 ```
 
@@ -232,5 +241,8 @@ https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-
 https://pandas.pydata.org/pandas-docs/stable/
 https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html
 https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html
+
+https://www.udemy.com/course/data-analysis-with-pandas
+
 
 ```
