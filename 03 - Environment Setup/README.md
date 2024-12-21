@@ -182,7 +182,7 @@ check out the Conda documentation on creating an environment from a .yml file.
 
 ```
 
-## Jupter notebook 
+## Jupyter notebook 
 ```xml
 Documentation 
 https://jupyter-notebook.readthedocs.io/en/stable/
@@ -249,7 +249,7 @@ anaconda-navigator
 
 Go to environments link from the left 
 Create a new enviroment:
-from the Anaconda-navigator -> click "+ button" at the bottom of the 
+from the anaconda-navigator -> click "+ button" at the bottom of the 
 navigator
 
 For the top filter -> select not installed packages and 
@@ -263,10 +263,15 @@ click the apply button -> This will install the 3 packages selected
 Now from the Home menu, click and install the Jupiter Lab and 
 if already installed, then launch it. 
 
-
 ```
 
+## Importing Libraries into Jupyter notebook 
+```xml
+import pandas as pd 
 
+
+
+```
 
 
 ### Reference
