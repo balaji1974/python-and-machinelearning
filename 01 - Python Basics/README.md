@@ -34,6 +34,8 @@ Eg.
 integer - Eg. 1, 9, -5, 1056
 float - Eg. 3.5, 4.0, -9.2 
 string - Eg. "Balaji", 'Balaji'
+boolean - Eg. True or False
+none - Eg. None
 
 type(value) -> This will return the data type of the value for eg. type(5) will return integer - <class 'int'>
 
@@ -162,7 +164,6 @@ Remember Operations can also be performed between int and float. The result of a
 Use == for comparison and = for assignment.
 
 ```
-
 
 
 ### Basic Math Operations
