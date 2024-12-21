@@ -12,9 +12,23 @@ https://www.python.org/downloads/
 After installation open the command like and check the installation with the following command:
 python3 --version
 
+Another way to install python is part of Anaconda/MiniConda installation, 
+which will be covered in the next section and python can be run here using
+Jupyter notebook
+
 ```
 
 ## Basics
+
+### Comments in Python 
+```xml
+'#' will be used for comment in python
+Eg. 
+# Name: Balaji 
+# Description: Module to calculate average of employee salaries
+
+
+```
 
 ### Basic Math Operations
 ```xml
@@ -34,9 +48,6 @@ print(10%2) -> This is for reminder
 print(10+5*2) -> Complex activities, but presedence is for multiplcation 
 Operation precedence can be found in the link below:
 https://www.programiz.com/python-programming/precedence-associativity
-
-
-# will be used for comment in python
 
 ```
  

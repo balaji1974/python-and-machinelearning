@@ -267,6 +267,7 @@ if already installed, then launch it.
 
 ## Importing Libraries into Jupyter notebook 
 ```xml
+Importing pandas into Jupyter notebook
 import pandas as pd 
 
 
