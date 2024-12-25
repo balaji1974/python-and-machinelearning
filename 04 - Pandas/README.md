@@ -508,7 +508,7 @@ super_high_calorie=400 in coffee.values
 
 ```
 
-## Series - Extract value by index
+## Series - Extract value by index location
 ```xml
 # import csv file 
 pokemon = pd.read_csv("pokemon.csv", usecols=["Name"]).squeeze("columns")
@@ -540,7 +540,7 @@ pokemon.iloc[-8:]
 
 ```
 
-## Series - Extract value by value
+## Series - Extract value by index label
 ```xml
 # import csv file 
 pokemon = pd.read_csv("pokemon.csv", index_col="Name").squeeze("columns")
