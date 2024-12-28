@@ -34,7 +34,8 @@ aggregating, merging, pivoting, and cleaning data
 
 ```
 
-## Series - Creation and Assignment
+# Pandas - Series 
+## Creation and Assignment
 ```xml
 
 Series are one Dimensional or a single column of data 
@@ -97,7 +98,7 @@ series_dict=pd.Series(recipe)
 
 ```
 
-## Series - Methods
+## Methods
 ```xml
 # Create a series and assign float values
 prices = pd.Series([2.99, 4.45, 1.36])
@@ -1320,9 +1321,11 @@ nba.dtypes
 # Pass in the specified type as either a string or the core Python data type.
 # Pandas cannot convert NaN values to numeric types, 
 # so we need to eliminate/replace them before we perform the conversion.
+# There are multiple ways to convert and is listed below: (copy and not permenant change)
 nba["Salary"].astype("int")
 nba["Salary"].astype(int)
 
+# To make the change permenant 
 nba["Salary"] = nba["Salary"].astype(int)
 nba["Weight"] = nba["Weight"].astype(int)
 
@@ -1367,6 +1370,7 @@ import pymysql
 # Run the following code:
 import pandas as pd
 from sqlalchemy import create_engine
+# Connection String -> mysql+pymysql://<user_id>:<passwd>@<host_name/ip>/<db_name>
 connect_string = 'mysql+pymysql://myworld:myworld123@localhost/myworld'
 sql_engine = create_engine(connect_string)
 query = "select * from student"
