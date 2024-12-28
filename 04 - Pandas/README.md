@@ -608,9 +608,6 @@ pokemon.get("Digimon", "Nonexistent")
 pokemon.get("Moltres", "Nonexistent")
 pokemon.get(["Moltres", "Digimon"], "One of the values in the list was not found")
 
-
-
-
 ```
 
 ## Series - Overwrite a Series Value
@@ -832,6 +829,87 @@ pokemon.map(attack_powers)
 
 ```
 
+## Dataframes - Introduction
+```xml
+# A DataFrame is a 2-dimensional table consisting of rows and columns.
+
+# import from csv file
+# Pandas uses a `NaN` designation for cells that have a missing value. 
+# It is short for "not a number". Most operations on `NaN` values will produce `NaN` values.
+# Like with a Series, Pandas assigns an index position/label to each DataFrame row.
+nba = pd.read_csv("nba.csv")
+nba
+
+# Create a sample series 
+s = pd.Series([1, 2, 3, 4, 5])
+s
+
+# Methods and Attributes between Series and DataFrames
+# The DataFrame and Series have common and exclusive methods/attributes.
+nba.head()
+nba.head(n=5)
+nba.head(8)
+
+nba.tail()
+nba.tail(n=7)
+nba.tail(1)
+
+# Returns the index range  
+s.index
+nba.index
+
+# Returns the values 
+s.values
+nba.values
+
+# Returns the dimensions 
+s.shape
+nba.shape
+
+# Returns the data types 
+s.dtypes
+nba.dtypes
+
+# The `hasnans` attribute exists only in a Series. 
+# It returns true if Series has any missing values
+s.hasnans
+# nba.hasnans # this attribute does not exist in Dataframe
+
+# The `columns` attribute exists only in a DataFrame.
+# It returns the column names for the DataFrame
+nba.columns
+# s.columns # This attribute does not exist in Series
+
+# Some methods/attributes will return different types of data.
+s.axes # This returns the range index 
+nba.axes # This returns the range index and column index of the Dataframe
+
+# The `info` method returns a summary of the pandas object.
+s.info()
+nba.info()
+
+# Differences between Shared Methods
+# import from csv 
+revenue = pd.read_csv("revenue.csv", index_col="Date")
+revenue
+
+# Create a sample series 
+s = pd.Series([1, 2, 3])
+s.sum(axis="index") # The `sum` method adds a Series's values.
+
+
+# On a DataFrame, the `sum` method defaults to adding the values 
+# by traversing the index (row values). 
+revenue.sum()
+
+# The `axis` parameter customizes the direction that we add across. 
+revenue.sum(axis="index") # will add the column totals 
+
+# Pass `"columns"` or `1` to add "across" the columns.
+revenue.sum(axis="columns") # will give row totals
+revenue.sum(axis="columns").sum() # will total rows totals 
+
+```
 
 ## Dataframes - Creation
 ```xml
@@ -850,10 +928,9 @@ Import dataframe directly from URL:
 heart_disease = 
   pd.read_csv("https://raw.githubusercontent.com/mrdbourke/zero-to-mastery-ml/master/data/heart-disease.csv")
 
-
 ```
 
-## Descibe Data
+## Dataframes - Descibe Data
 ```xml
 
 # Tab to find all options available on data
@@ -891,7 +968,7 @@ len(car_sales)
 
 ```
 
-## View and select data 
+## Dataframes - View and select data 
 ```xml
 # Returns the top 5 rows of the dataset, this is the default option
 car_sales.head() 
@@ -954,8 +1031,220 @@ car_sales["Price"] = car_sales["Price"].div(100).round(2)
 
 ```
 
+## Dataframes - Select One Column from a DataFrame
+```xml
+# import from csv
+nba = pd.read_csv("nba.csv")
+nba.head()
 
-## Manipulating Data
+# We can use attribute syntax (`df.column_name`) to select a column from a DataFrame. 
+nba.Team
+nba.Salary
+nba.Name
+# nba.name # Column name is case sensitive
+
+# Pandas extracts a column from a DataFrame as a Series.
+type(nba.Name)
+
+# The syntax will not work if the column name has spaces.
+# We can also use square bracket syntax (`df["column name"]`) which will work for any column name.
+nba["Team"]
+nba["Salary"]
+
+# The Series is a view, so changes to the Series will affect the DataFrame.
+# Pandas will display a warning if you mutate the Series. Use the `copy` method to create a duplicate.
+names = nba["Name"].copy()
+names
+
+names.iloc[0] = "Whatever"
+
+names.head()
+
+nba.head()
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+import pandas as pd 
+
+# This challenge includes a cruise_ships.csv with 4 columns: 
+# Name, Operator, Year, and Tonnage
+# Import the cruise_ships.csv DataFrame and assign it to
+# a cruise_ships variable
+cruise_ships=pd.read_csv("cruise_ships.csv")
+
+# Extract the "Operator" column from the DataFrame
+# and assign it to an "operators" variable.
+operators=cruise_ships["Operator"]
+
+# Extract the "Tonnage" column from the DataFrame
+# and assign it to an "tonnages" variable.
+tonnages=cruise_ships["Tonnage"]
+
+# Extract the "Name" column from the DataFrame
+# and assign it to an "cruise_names" variable.
+cruise_names=cruise_ships["Name"]
+
+```
+
+## Dataframes - Select Multiple Columns
+```xml
+
+# import from csv
+nba = pd.read_csv("nba.csv")
+nba.head()
+
+# Use square brackets with a list of names to extract multiple DataFrame columns.
+nba[["Name", "Team"]]
+nba[["Team", "Name"]]
+nba[["Salary", "Team", "Name"]]
+
+# Pandas stores the result in a new DataFrame (a copy).
+columns_to_select = ["Salary", "Team", "Name"]
+nba[columns_to_select]
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+import pandas as pd 
+
+
+# This challenge includes a "chicken_restaurants.csv" dataset with 6 columns:
+# Name, Original Location, Year, Headquarters, Locations, Areas Served
+# Import the CSV into a DataFrame and assign it to a "chicken" variable.
+chicken=pd.read_csv("chicken_restaurants.csv")
+
+# Extract the "Year" and "Locations" columns (in that order) into
+# their own DataFrame. Assign the DataFrame to a "years_and_locations" variable.
+years_and_locations=chicken[["Year","Locations"]]
+
+# Extract the "Locations", "Name", and "Headquarters" columns (in that order)
+# into their own DataFrame. Assign the DataFrame to a 
+# "interesting_facts" variable.
+interesting_facts=chicken[["Locations","Name","Headquarters"]]
+
+```
+
+## Dataframes - Add New Column to DataFrame
+```xml
+
+# import from csv
+nba = pd.read_csv("nba.csv")
+nba.head()
+
+# Use square bracket extraction syntax with an equal sign 
+# to add a new Series to a DataFrame.
+nba["Sport"] = "Basketball"
+
+
+# The insert method allows us to insert an element at a specific column index.
+# nba.insert(loc=3, column="Sport", value="Basketball") # Another way 
+nba["Salary"] * 2
+nba["Salary"].mul(2)
+
+nba["Salary Doubled"] = nba["Salary"].mul(2)
+
+# On the right-hand side, we can reference an existing DataFrame column and 
+# perform a broadcasting operation on it to create the new Series.
+nba["Salary"] - 5000000
+nba["Salary"].sub(5000000)
+
+nba["New Salary"] = nba["Salary"].sub(5000000)
+
+```
+
+## Dataframes - A Review of the value_counts Method
+```xml
+# import from csv
+nba = pd.read_csv("nba.csv")
+nba.head()
+
+# The value_counts method counts the number of times that 
+# each unique value occurs in a Series.
+nba["Team"].value_counts()
+
+nba["Position"].value_counts()
+nba["Position"].value_counts(normalize=True) # This results in relative percentage 
+nba["Position"].value_counts(normalize=True) * 100 
+
+nba["Salary"].value_counts()
+
+```
+
+## Dataframes - Drop Rows with Missing Values
+```xml
+# import csv
+nba = pd.read_csv("nba.csv")
+nba
+
+# Pandas uses a NaN designation for cells that have a missing value.
+# The dropna method deletes rows with missing values. 
+# Its default behavior is to remove a row if it has any missing values.
+nba.dropna()
+nba.dropna(how="any") # same as above - default parameter 
+
+# Pass the how parameter an argument of "all" to delete rows 
+# where all the values are NaN.
+nba.dropna(how="all")
+
+# The subset parameters customizes/limits the columns that 
+# pandas will use to drop rows with missing values.
+nba.dropna(subset=["College"])
+nba.dropna(subset=["College", "Salary"]) 
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+import pandas as pd
+# The data.csv file contains a dataset of random numbers.
+# The dataset has 4 columns: A, B, C, and D.
+# Import pandas and use it to parse the CSV.
+# Assign the imported DataFrame to a variable called 'data'.
+data=pd.read_csv("data.csv")
+
+# Filter the dataset to remove rows where ALL the
+# values are missing. Assign the resulting DataFrame
+# to a "no_empty_rows" variable.
+no_empty_rows=data.dropna(how="all")
+
+# Filter the dataset to remove rows that have a missing value
+# in either the "B" or "D" columns.
+# Assign the resulting DataFrame to a "result" variable.
+result=data.dropna(subset=["B", "D"])
+
+```
+
+## Dataframes - Fill in Missing Values with the fillna Method
+```xml
+# import csv
+nba = pd.read_csv("nba.csv").dropna(how="all")
+nba
+
+# The fillna method replaces missing NaN values with its argument.
+# The fillna method is available on both DataFrames and Series.
+nba.fillna(0)
+nba["Salary"] = nba["Salary"].fillna(0)
+nba
+
+# An extracted Series is a view on the original DataFrame, 
+# but the fillna method returns a copy.
+nba["College"] = nba["College"].fillna(value="Unknown")
+nba
+
+```
+
+## Dataframes - Manipulating Data
 ```xml
 
 # Printing the values of a string in lower case 
@@ -1012,6 +1301,32 @@ car_sales_shuffled.reset_index(drop=True, inplace=True)
 # and converts kilometer into miles
 car_sales_shuffled["Odometer (Miles)"]=car_sales_shuffled["Odometer (KM)"]
   .apply(lambda x : x/1.4)
+
+
+```
+
+## Pandas - The astype Method
+```xml
+# read csv and fill NA 
+nba = pd.read_csv("nba.csv").dropna(how="all")
+nba["Salary"] = nba["Salary"].fillna(0)
+nba["Weight"] = nba["Weight"].fillna(0)
+nba
+
+# The dtypes attribute returns a Series with the DataFrame's columns and their types.
+nba.dtypes
+
+# The astype method converts a Series's values to a specified type.
+# Pass in the specified type as either a string or the core Python data type.
+# Pandas cannot convert NaN values to numeric types, 
+# so we need to eliminate/replace them before we perform the conversion.
+nba["Salary"].astype("int")
+nba["Salary"].astype(int)
+
+nba["Salary"] = nba["Salary"].astype(int)
+nba["Weight"] = nba["Weight"].astype(int)
+
+nba
 
 
 ```
