@@ -35,7 +35,7 @@ aggregating, merging, pivoting, and cleaning data
 ```
 
 # Pandas - Series 
-## Creation and Assignment
+## Series - Creation and Assignment
 ```xml
 
 Series are one Dimensional or a single column of data 
@@ -98,7 +98,7 @@ series_dict=pd.Series(recipe)
 
 ```
 
-## Methods
+## Series - Methods
 ```xml
 # Create a series and assign float values
 prices = pd.Series([2.99, 4.45, 1.36])
@@ -830,6 +830,8 @@ pokemon.map(attack_powers)
 
 ```
 
+# Pandas - Dataframes
+
 ## Dataframes - Introduction
 ```xml
 # A DataFrame is a 2-dimensional table consisting of rows and columns.
@@ -1328,9 +1330,609 @@ nba["Salary"].astype(int)
 # To make the change permenant 
 nba["Salary"] = nba["Salary"].astype(int)
 nba["Weight"] = nba["Weight"].astype(int)
-
 nba
 
+# read csv
+nba = pd.read_csv("nba.csv").dropna(how ="all")
+nba.tail()
+
+# The nunique method will return a Series with the number of unique values in each column.
+nba["Team"].nunique()
+nba.nunique()
+nba.info() # Check and note the memory consumption 
+
+# The category type is ideal for columns with a limited number of unique values.
+# With categories, pandas does not create a separate value in memory for each "cell". 
+# Rather, the cells point to a single copy for each unique value.
+# The total memory of the dataframe reduces by converting certain columns to category 
+nba["Position"] = nba["Position"].astype("category")
+nba["Team"] = nba["Team"].astype("category")
+nba.info() # Check that the size has been reduced by converting to category 
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Import the pandas library and assign it an alias of 'pd'.
+import pandas as pd
+
+# Import the health.csv file and assign it to a 'health' variable.
+# The resulting DataFrame will have 3 columns: Weight, Height, and Blood Type
+health = pd.read_csv("health.csv")
+# Convert the values in the Weight Series to strings and overwrite the original column
+health["Weight"]=health["Weight"].astype(str)
+# Convert the values in the Height Series to integers and overwrite the original column
+health["Height"]=health["Height"].astype(int)
+# Convert the values in the Blood Type Series to categories and overwrite the original column
+health["Blood Type"]=health["Blood Type"].astype("category")
+
+
+```
+
+## Pandas - Sort a DataFrame with the sort_values method
+```xml
+# read csv
+nba = pd.read_csv("nba.csv")
+nba.tail()
+
+# The sort_values method sorts a DataFrame by the values in one or more columns. 
+# The default sort is an ascending one (alphabetical for strings).
+# The first parameter (by) expects the column(s) to sort by.
+# If sorting by a single column, pass a string with its name.
+nba.sort_values("Name")
+nba.sort_values(by="Name")
+
+# The ascending parameter customizes the sort order.
+nba.sort_values(by="Name", ascending=True)
+nba.sort_values(by="Name", ascending=False)
+nba.sort_values("Salary")
+nba.sort_values("Salary", ascending=False)
+
+# The na_position parameter customizes where pandas places NaN values.
+nba.sort_values("Salary", na_position="last")
+nba.sort_values("Salary", na_position="first")
+nba.sort_values("Salary", na_position="first", ascending=False)
+
+# To sort by multiple columns, pass the by parameter a list of column names. 
+# Pandas will sort in the specified column order (first to last).
+nba.sort_values(by=["Team", "Name"])
+
+# Pass the ascending parameter a Boolean to sort all columns in a consistent order 
+# (all ascending or all descending).
+nba.sort_values(by=["Team", "Name"], ascending=True)
+nba.sort_values(by=["Team", "Name"], ascending=False)
+
+# Pass ascending a list to customize the sort order per column. 
+# The ascending list length must match the by list.
+nba.sort_values(by=["Team", "Name"], ascending=[True, False])
+
+# Another set of examples
+nba.sort_values(["Position", "Salary"])
+nba.sort_values(["Position", "Salary"], ascending=True)
+nba.sort_values(["Position", "Salary"], ascending=False)
+nba.sort_values(["Position", "Salary"], ascending=[True, False])
+nba.sort_values(["Position", "Salary"], ascending=[False, True])
+
+# Assign the sorted values to the dataframe back
+nba = nba.sort_values(["Position", "Salary"], ascending=[False, True])
+nba
+
+
+# read data once again from csv
+nba = pd.read_csv("nba.csv")
+nba = nba.sort_values(["Team", "Name"])
+nba
+
+# Sort a DataFrame by its Index
+# The sort_index method sorts the DataFrame by its index positions/labels.
+nba.sort_index()
+nba.sort_index(ascending=True)
+nba.sort_index(ascending=False)
+nba = nba.sort_index(ascending=False)
+nba
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+import pandas as pd 
+
+# This challenge includes a s&p500.csv with 6 columns: 
+# Symbol, Security, Sector, Industry, HQ, Founded
+# Import the s&p500.csv DataFrame and assign it to
+# a companies variable.
+companies=pd.read_csv("s&p500.csv")
+
+# Sort the DataFrame by the values in the "Industry" column in ascending order
+# Assign the new DataFrame to a "by_industry" variable.
+by_industry=companies.sort_values(by="Industry")
+
+# Sort the DataFrame by the values in the "HQ" column in descending order
+# Assign the new DataFrame to a "by_headquarters_descending" variable.
+by_headquarters_descending=companies.sort_values(by="HQ", ascending=False)
+
+# Sort the DataFrame by two conditions:
+#  - by the values in the "Sector" column in descending order
+#  - THEN by the values in the "Security" column in ascending order
+# Assign the new DataFrame to a 'by_sector_and_security' variable
+by_sector_and_security=companies.sort_values(by=["Sector","Security"],ascending=[False,True])
+
+```
+
+## Dataframe - Rank Values with the rank Method
+```xml
+# read csv
+nba = pd.read_csv("nba.csv").dropna(how="all")
+nba["Salary"] = nba["Salary"].fillna(0).astype(int)
+nba
+
+# The rank method assigns a numeric ranking to each Series value.
+# Pandas will assign the same rank to equal values and 
+# create a "gap" in the dataset for the ranks.
+nba["Salary"].rank()
+nba["Salary"].rank(ascending=True)
+nba["Salary"].rank(ascending=False).astype(int)
+
+nba["Salary Rank"] = nba["Salary"].rank(ascending=False).astype(int)
+nba
+
+nba.sort_values("Salary", ascending=False).head(10)
+
+```
+
+## Dataframe - Date/Time and type conversions (Memory Optimization)
+```xml
+# import data 
+employees = pd.read_csv("employees.csv")
+employees.info()
+employees.head()
+
+# The pd.to_datetime method converts a Series to hold datetime values.
+# The format parameter informs pandas of the format that the times are stored in.
+# We pass symbols designating the segments of the string. 
+# For example, %m means "month" and %d means day.
+employees["Start Date"] = pd.to_datetime(employees["Start Date"], format="%m/%d/%Y")
+
+# The dt attribute reveals an object with many datetime-related attributes and methods.
+# The dt.time attribute extracts only the time from each value in a datetime Series.
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+
+# Use the astype method to convert the values in a Series to another type.
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.info()
+
+# The parse_dates parameter of read_csv is an alternate way to parse strings as datetimes.
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+```
+
+## Dataframe - Filter A DataFrame Based On A Condition 
+```xml
+
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+import datetime as dt
+employees[employees["Gender"] == "Male"]
+employees[employees["Team"] == "Finance"]
+
+on_finance_team = employees["Team"] == "Finance"
+employees[on_finance_team]
+
+employees[employees["Senior Management"]].head()
+employees[employees["Salary"] > 110000]
+employees[employees["Bonus %"] < 1.5]
+employees[employees["Start Date"] < "1985-01-01"]
+employees[employees["Last Login Time"] < dt.time(12, 0, 0)
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+
+# This challenge includes a the_office.csv dataset.
+# It is a listing of all episodes in the popular American sitcom The Office.
+# The dataset has 7 columns:
+# Season, Episode, Name, Director, Writer, Airdate, Viewership
+# Import the the_office.csv fille into a DataFrame. 
+# Tell pandas to parse the values in the Airdate column as datetime values.
+# Finally, assign the imported DataFrame to an 'office' variable.
+office = pd.read_csv("the_office.csv", parse_dates=["Airdate"])
+
+# CHALLENGE 1:
+# Find all episodes with a Writer of "Greg Daniels"
+# Assign the resulting DataFrame to a 'written_by_greg' variable.
+written_by_greg=office[office["Writer"]=="Greg Daniels"]
+
+# CHALLENGE 2:
+# Find all episodes BEFORE season 8 (not including season 8)
+# Assign the resulting DataFrame to a 'good_episodes' variable
+good_episodes=office[office["Season"]<8]
+
+# CHALLENGE 3:
+# Find all episodes that aired before 1/1/2008.
+# Assign the resulting DataFrame to an 'early_episodes' variable.
+early_episodes=office[office["Airdate"]<"1/1/2008"]
+
+
+```
+## Dataframe - Filter with More than One Condition using (AND) and (OR)
+```xml
+
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+# AND Logic
+# True, True -> True
+# True, False -> False
+# False, True -> False
+# False, False -> False
+
+# Use the & operator in between two Boolean Series to filter by both conditions.
+
+# female employees who work in Marketing who earn over $100k a year
+is_female = employees["Gender"] == "Female"
+is_in_marketing = employees["Team"] == "Marketing"
+salary_over_100k = employees["Salary"] > 100000
+
+# Pandas needs a Series of Booleans to perform a filter.
+# Pass the Boolean Series inside square brackets after the DataFrame.
+# We can generate a Boolean Series using a wide variety of operations 
+# (equality, inequality, less than, greater than, inclusion, etc)
+is_female & is_in_marketing & salary_over_100k
+employees[is_female & is_in_marketing & salary_over_100k]
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+
+# This challenge includes a the_office.csv dataset.
+# It is a listing of all episodes in the popular American sitcom The Office.
+# The dataset has 7 columns:
+# Season, Episode, Name, Director, Writer, Airdate, Viewership
+# Import the the_office.csv file into a DataFrame. 
+# Tell pandas to parse the values in the Airdate column as datetime values.
+# Finally, assign the imported DataFrame to an 'office' variable.
+office=pd.read_csv("the_office.csv", parse_dates=["Airdate"])
+
+# CHALLENGE 1:
+# Find all episodes with a Viewership greater than 10
+# who are also directed by Jeffrey Blitz
+# Assign the resulting DataFrame to a 'jeffs_episodes' variable.
+v1=office["Viewership"]>10
+v2=office["Director"]=="Jeffrey Blitz"
+jeffs_episodes=office[v1 & v2]
+
+# CHALLENGE 2:
+# Find all episodes in season 5 that have an episode number
+# greater than or equal to 13.
+# Assign the resulting DataFrame to a "second_half_of_season_5" variable.
+v3=office["Season"]==5
+v4=office["Episode"]>=13
+second_half_of_season_5=office[v3 & v4]
+
+# CHALLENGE 3:
+# Find all episodes that were the 6th episode of their season
+# and also aired before 01/01/2010.
+# Assign the resulting DataFrame to a "sixth_episodes_of_early_seasons" variable.
+v5=office["Episode"]==6
+v6=office["Airdate"]<"1/1/2010"
+sixth_episodes_of_early_seasons=office[v5 & v6]
+-----------------------
+
+
+# OR logic 
+# True, True -> True
+# True, False -> True
+# False, True -> True
+# False, False -> False
+
+# Use the | operator in between two Boolean Series to filter by either condition.
+
+# Employees who are either senior management OR started before January 1st, 1990
+is_senior_management = employees["Senior Management"]
+started_in_80s = employees["Start Date"] < "1990-01-01"
+employees[is_senior_management | started_in_80s]
+
+# First Name is Robert who work in Client Services OR Start Date after 2016-06-01
+is_robert = employees["First Name"] == "Robert"
+is_in_client_services = employees["Team"] == "Client Services"
+start_date_after_june_2016 = employees["Start Date"] > "2016-06-01"
+employees[(is_robert & is_in_client_services) | start_date_after_june_2016]
+# or 
+employees[((employees["First Name"] == "Robert") & (employees["Team"] == "Client Services")) 
+  | (employees["Start Date"] > "2016-06-01")]
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+
+# This challenge includes a the_office.csv dataset.
+# It is a listing of all episodes in the popular American sitcom The Office.
+# The dataset has 7 columns:
+# Season, Episode, Name, Director, Writer, Airdate, Viewership
+# Import the the_office.csv file into a DataFrame. 
+# Tell pandas to parse the values in the Airdate column as datetime values.
+# Finally, assign the imported DataFrame to an 'office' variable.
+office=pd.read_csv("the_office.csv", parse_dates=["Airdate"])
+
+# CHALLENGE 1:
+# Find all episodes that were EITHER in Season 4
+# OR directed by Harold Ramis
+# Assign the resulting DataFrame to a 'season_4_or_harold' variable.
+v1=office["Season"]==4 
+v2=office["Director"]=="Harold Ramis"
+season_4_or_harold=office[v1 | v2]
+
+# CHALLENGE 2:
+# Find all episodes that EITHER had a Viewership less than 4
+# OR aired on/after January 1st, 2013.
+# Assign the resulting DataFrame to a 'low_viewership_or_later_airdate' variable.
+v3=office["Viewership"]<4 
+v4=office["Airdate"]>='1/1/2013'
+low_viewership_or_later_airdate=office[v3 | v4]
+
+# CHALLENGE 3:
+# Find all episodes that EITHER the 9th episode of their season
+# OR had an episode Name of "Niagara"
+# Assign the resulting DataFrame to a 'ninth_or_niagara' variable.
+v5=office["Episode"]==9
+v6=office["Name"]=="Niagara"
+ninth_or_niagara=office[v5 | v6]
+
+
+```
+
+## Dataframe - The isin Method
+```xml
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+# Legal Team or Sales Team or Product Team
+legal_team = employees["Team"] == "Legal"
+sales_team = employees["Team"] == "Sales"
+product_team = employees["Team"] == "Product"
+employees[legal_team | sales_team | product_team]
+
+# The isin Series method accepts a collection object like a list, tuple, or Series.
+# The method returns True for a row if its value is found in the collection.
+target_teams = employees["Team"].isin(["Legal", "Sales", "Product"])
+employees[target_teams]
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd 
+
+# This challenge includes a billboard.csv dataset.
+# It is a list of the top-selling albums of all time according to Billboard
+# The dataset has 5 columns:
+# Artist,Album,Released,Genre,Sales
+# Import the billboard.csv file into a DataFrame. 
+# Assign the imported DataFrame to an 'billboard' variable.
+billboard=pd.read_csv("billboard.csv")
+
+# CHALLENGE 1
+# Find all records with an Artist of either Michael Jackson,
+# Whitney Houston, or Celine Dion. Assign the resulting 
+# DataFrame to a "trios" DataFrame.
+trios=billboard[billboard["Artist"].isin(["Michael Jackson", "Whitney Houston", "Celine Dion"])]
+
+# CHALLENGE 2
+# Find all records with Sales of either 25, 35, or 45
+# million copies. Note that the 'Sales' column's integers
+# reflect album sales in millions. Assign the resulting DataFrame
+# to a 'fives' DataFrame
+fives=billboard[billboard["Sales"].isin([25,35,45])]
+
+# CHALLENGE 3
+# Find all records released in either 1979, 1989, or 1999.
+# Assign the resulting DataFrame to a 'end_of_decade' DataFrame.
+end_of_decade=billboard[billboard["Released"].isin([1979,1989,1999])]
+
+```
+
+## Dataframe - The isnull, notnull, between Methods
+```xml
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+# The isnull method returns True for NaN values in a Series.
+employees[employees["Team"].isnull()]
+
+# The notnull method returns True for present values in a Series.
+employees[employees["Team"].notnull()]
+
+employees[employees["First Name"].isnull() & employees["Team"].notnull()]
+
+# The between method returns True if a Series value is found within its range.
+import datetime as dt
+employees[employees["Salary"].between(60000, 70000)]
+employees[employees["Bonus %"].between(2.0, 5.0)]
+employees[employees["Start Date"].between("1991-01-01", "1992-01-01")]
+employees[employees["Last Login Time"].between(dt.time(8, 30), dt.time(12, 0))]
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+
+# This challenge includes a weather.csv dataset. It includes
+# temperature measurements (high and low) for the month of April.
+# The dataset has 3 columns:
+# Day, Low Temp, High Temp
+# Import the weather.csv file into a DataFrame. 
+# Tell pandas to parse the values in the Day column as datetime values.
+# Finally, assign the imported DataFrame to a 'weather' variable.
+weather=pd.read_csv("weather.csv", parse_dates=["Day"])
+
+# CHALLENGE 1
+# I want to see the temperature for the days between April 15, 2022 and April 22, 2022.
+# Extract those rows to a new DataFrame and assign it to a 'week_of_weather' variable
+week_of_weather=weather[weather["Day"].between("2022-04-15","2022-04-22")]
+
+# CHALLENGE 2
+# Extract the rows where the value in the Low Temp column is between 30 and 50.
+# Assign the new DataFrame to a "cold_days" variable.
+cold_days=weather[weather["Low Temp"].between(30,50)]
+
+# CHALLENGE 3
+# Extract the rows where the value in the High Temp column is between 50 and 75.
+# Assign the new DataFrame to a "warm_days" variable.
+warm_days=weather[weather["High Temp"].between(50,75)]
+
+```
+
+## Dataframe - The duplicated Method
+```xml
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+# The duplicated method returns True if a Series value is a duplicate.
+# Pandas will mark one occurrence of a repeated value as a non-duplicate.
+employees[employees["First Name"].duplicated()]
+
+# Use the keep parameter to designate whether the first or last occurrence 
+# of a repeated value should be considered the "non-duplicate".
+employees[employees["First Name"].duplicated(keep="first")]
+employees[employees["First Name"].duplicated(keep="last")]
+
+# Pass False to the keep parameter to mark all occurrences of repeated values as duplicates.
+employees[employees["First Name"].duplicated(keep=False)]
+
+# Use the tilde symbol (~) to invert a Series's values. 
+# Trues will become Falses, and Falses will become trues.
+employees[~employees["First Name"].duplicated(keep=False)]
+
+```
+
+## Dataframe - The drop_duplicates Method
+```xml
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+# The drop_duplicates method deletes rows with duplicate values.
+# By default, it will remove a row if all of its values are shared with another row.
+employees.drop_duplicates()
+
+# Remove a row if a column values is shared with same column value in another row.
+# By default the first occurance is marked as non duplicate and kept
+employees.drop_duplicates("Team")
+employees.drop_duplicates("Team", keep="first")
+
+# Keep last will mark the last occurance as non duplicate and will be kept
+employees.drop_duplicates("Team", keep="last")
+
+# Keep false will remove all occurance of the duplicates 
+employees.drop_duplicates("Team", keep=False)
+employees.drop_duplicates("First Name", keep=False)
+
+# The subset parameter configures the columns to look for duplicate values within.
+# Pass a list to subset parameter to look for duplicates across multiple columns.
+employees.drop_duplicates(["Senior Management", "Team"]).sort_values("Team")
+employees.drop_duplicates(["Senior Management", "Team"], keep="last").sort_values("Team")
+
+```
+
+## Dataframe - The unique and nunique Methods
+```xml
+# import data and convert dates/time, boolean and category 
+employees = pd.read_csv("employees.csv", parse_dates=["Start Date"], date_format="%m/%d/%Y")
+employees["Last Login Time"] = pd.to_datetime(employees["Last Login Time"], format="%H:%M %p").dt.time
+employees["Senior Management"] = employees["Senior Management"].astype(bool)
+employees["Gender"] = employees["Gender"].astype("category")
+employees.head()
+
+# The unique method on a Series returns a collection of its unique values. 
+# The method does not exist on a DataFrame.
+# The return object may vary between Catagory or DArray 
+employees["Gender"].unique()
+type(employees["Gender"].unique())
+employees["Team"].unique()
+type(employees["Team"].unique())
+
+# The nunique method returns a count of the number of unique values in the Series/DataFrame.
+employees["Team"].nunique()
+
+# The dropna parameter configures whether to include or exclude missing (NaN) values in the count.
+employees["Team"].nunique(dropna=True)
+employees["Team"].nunique(dropna=False)
+
+# There is no unique method on the dataframe level 
+# employees.unique() # This will return error 
+# But nunique return the count of unique records in each column 
+employees.nunique()
+```
+
+
+
+# Pandas - Data Import
+## Pandas - Import from csv
+```xml
+# read csv and fill NA 
+nba = pd.read_csv("nba.csv").dropna(how="all")
 
 ```
 
