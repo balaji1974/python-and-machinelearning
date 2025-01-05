@@ -1926,6 +1926,26 @@ employees["Team"].nunique(dropna=False)
 employees.nunique()
 ```
 
+## Dataframe - The set_index and reset_index Methods
+```xml
+# import panda
+import pandas as pd
+
+# import data
+bond = pd.read_csv("jamesbond.csv")
+bond.head()
+
+# The index serves as the collection of primary identifiers/labels/entrypoints for the rows.
+# The fastest way to extract a row is from a sorted index by position/label.
+# Pandas uses index labels/values when merging different objects together.
+# The set_index method sets an existing column as the index of the DataFrame.
+bond = bond.set_index("Film")
+bond.head()
+
+# The reset_index method sets the standard ascending numeric index as the index of the DataFrame.
+bond = bond.reset_index().set_index("Year")
+bond.head()
+```
 
 
 # Pandas - Data Import
