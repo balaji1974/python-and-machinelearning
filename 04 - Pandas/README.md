@@ -1940,12 +1940,68 @@ bond.head()
 # Pandas uses index labels/values when merging different objects together.
 # The set_index method sets an existing column as the index of the DataFrame.
 bond = bond.set_index("Film")
+# bond = pd.read_csv("jamesbond.csv", index_col="Film") # same as above 
 bond.head()
 
-# The reset_index method sets the standard ascending numeric index as the index of the DataFrame.
+# The reset_index method will remove the index that was set before
+# and reset it to the standand ascending column index (default by panda)
+# combining it with set index will set a new index by dropping the old index 
 bond = bond.reset_index().set_index("Year")
 bond.head()
+
 ```
+
+## Dataframe - Retrieve Rows by Index Position with iloc Accessor
+```xml
+# import data
+bond = pd.read_csv("jamesbond.csv")
+bond.head()
+
+# The iloc accessor retrieves one or more rows by index position.
+# Provide a pair of square brackets after the accessor.
+# iloc accepts single values, lists, and slices.
+
+bond.iloc[5]
+bond.iloc[[15, 20]]
+bond.iloc[4:8]
+bond.iloc[0:6]
+bond.iloc[:6]
+
+bond.iloc[20:]
+
+```
+
+## Dataframe - Retrieve Rows by Index Label with loc Accessor
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film")
+bond.head()
+
+# The loc accessor retrieves one or more rows by index label.
+# Provide a pair of square brackets after the accessor.
+
+bond.loc["Goldfinger"]
+bond.loc["GoldenEye"]
+bond.loc["Casino Royale"]
+# bond.loc["Sacred Bond"]
+
+bond.loc[["Octopussy", "Moonraker"]]
+bond.loc[["Moonraker", "Octopussy"]]
+bond.loc[["Moonraker", "Octopussy", "Casino Royale"]]
+# bond.loc[["Moonraker", "Octopussy", "Casino Royale", "Gold Bond"]]
+
+bond.loc["Diamonds Are Forever":"Moonraker"]
+bond.loc["Moonraker":"Diamonds Are Forever"]
+
+bond.loc["GoldenEye":]
+bond.loc[:"On Her Majesty's Secret Service"]
+
+# bond.loc[:"Casino Royale"] # Since it has 2 records this cannot be done
+# bond.loc["Casino Royale":] # Since it has 2 records this cannot be done
+
+```
+
+
 
 
 # Pandas - Data Import
