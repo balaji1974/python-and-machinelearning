@@ -2001,8 +2001,216 @@ bond.loc[:"On Her Majesty's Secret Service"]
 
 ```
 
+## Dataframe - Second Arguments to loc and iloc Accessors
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
 
+# The second value inside the square brackets targets the columns.
+# The loc requires labels for rows and columns.
+bond.loc["Diamonds Are Forever", "Director"]
+bond.loc[["Octopussy", "GoldenEye"], "Director"]
+bond.loc[["Octopussy", "GoldenEye"], "Director":"Budget"]
+bond.loc["GoldenEye":"Octopussy", "Director":"Budget"]
+bond.loc["GoldenEye":"Octopussy", ["Actor", "Bond Actor Salary", "Year"]]
 
+# The iloc requires numeric positions for rows and columns.
+bond.iloc[0, 2]
+
+bond.iloc[3, 5]
+
+bond.iloc[[0, 2], 3]
+bond.iloc[[0, 2], [3, 5]]
+
+bond.iloc[:7, :3]
+
+```
+
+## Dataframe - Overwrite Value in a DataFrame
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# Use the iloc or loc accessor on the DataFrame to target a value, 
+# then provide the equal sign and a new value.
+bond.loc["Diamonds Are Forever", "Actor"] = "Sir Sean Connery"
+bond
+
+```
+
+## Dataframe - Overwrite Multiple Values in a DataFrame
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# The replace method replaces all occurrences of a Series value 
+# with another value (think of it like "Find and Replace").
+bond["Actor"] = bond["Actor"].replace("Sean Connery", "Sir Sean Connery")
+
+# To overwrite multiple values in a DataFrame, 
+# remember to use an accessor on the DataFrame itself.
+# This must not be used as we will be working on a copy
+# bond[bond["Actor"] == "Sean Connery"].loc[:, "Actor"] = "Sir Sean Connery"
+
+# Accessors like loc and iloc can accept Boolean Series. 
+# Use them to target the values to overwrite.
+is_sean_connery = bond["Actor"] == "Sean Connery"
+bond.loc[is_sean_connery, "Actor"] = "Sir Sean Connery"
+
+```
+
+## Dataframe - Rename Index Labels or Columns in a DataFrame
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# The rename method accepts a dictionary for either its columns or index parameters.
+# The dictionary keys represent the existing names and the values represent the new names.
+bond = bond.rename(columns={ "Year": "Year of Release", "Box Office": "Revenue" })
+bond.head()
+# or
+swaps = {
+    "Dr. No": "Dr No",
+    "GoldenEye": "Golden Eye",
+    "The World Is Not Enough": "Best Bond Movie Ever"
+}
+bond = bond.rename(index=swaps)
+bond.head()
+
+# We can replace all columns by overwriting the DataFrame's columns attribute.
+bond.columns = ["Year", "Bond Guy", "Camera Dude", "Revenues", "Cost", "Salary"]
+bond.head()
+
+# This will not work 
+# bond.columns[3] = "The Money"
+
+```
+
+## Dataframe - Delete Rows or Columns from a DataFrame
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# The drop method deletes one or more rows/columns from a DataFrame.
+bond.drop(columns=["Box Office", "Budget"])
+
+# Pass the index or columns parameters a list of the column names to remove.
+bond.drop(index=["No Time to Die", "Casino Royale"])
+bond.drop(index=["No Time to Die", "Casino Royale"], columns=["Box Office", "Budget"])
+
+The pop method removes and returns a single Series (it mutates the DataFrame in the process).
+actor = bond.pop("Actor")
+actor.head()
+
+# Python's del keyword also removes a single Series.
+del bond["Year"]
+del bond["Director"]
+bond.head()
+
+```
+
+## Dataframe - Create Random Sample with the sample Method
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# The sample method returns a specified one or more random rows from the DataFrame.
+bond.sample()
+bond.sample(n=5)
+bond.sample(n=3, axis="rows")
+
+# Customize the axis parameter to extract random columns.
+bond.sample(n=2, axis="columns")
+bond.sample(n=2, axis="columns").head()
+
+```
+
+## Dataframe - The nsmallest and nlargest Methods
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# Retrieve the 4 films with the highest/largest Box Office gross
+bond.sort_values("Box Office", ascending=False).head(4)
+
+# The nlargest and nsmallest methods are more efficient than sorting the entire DataFrame.
+# The nlargest method returns a specified number of rows with the largest values from a given column.
+bond.nlargest(n=4, columns="Box Office")
+bond["Box Office"].nlargest(4)
+
+# The nsmallest method returns rows with the smallest values from a given column.
+bond.nsmallest(3, columns="Bond Actor Salary")
+bond["Bond Actor Salary"].nsmallest(3)
+
+```
+
+## Dataframe - Filtering with the where Method
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# Filter
+actor_is_sean_connery = bond["Actor"] == "Sean Connery"
+bond[actor_is_sean_connery]
+bond.loc[actor_is_sean_connery]
+
+# Similar to square brackets or loc, 
+# the where method filters the original DataFrame with a Boolean Series.
+# Pandas will populate rows that do not match the criteria with NaN values.
+# Leaving in the NaN values can be advantageous for certain merge and visualization operations.
+bond.where(actor_is_sean_connery)
+
+```
+
+## Dataframe - The apply Method with DataFrames
+```xml
+# import data and index with Film column
+bond = pd.read_csv("jamesbond.csv", index_col="Film").sort_index()
+bond.head()
+
+# The apply method invokes a function on every column or every row in the DataFrame.
+bond["Actor"].apply(len)
+bond.head()
+
+# Pass the uninvoked function as the first argument to the apply method.
+# Pass the axis parameter an argument of "columns" to invoke the function on every row.
+# Pandas will pass in the row's values as a Series object. 
+# We can use accessors like loc and iloc to extract the column's values for that row.
+# MOVIE RANKING SYSTEM
+#
+# CONDITION      -> DESIGNATION
+# 80s movie      -> "Great 80's flick"
+# Pierce Brosnan -> "The best Bond ever"
+# Budget > 100   -> "Expensive movie, fun"
+# Others         -> "No comment"
+
+def rank_movie(row):
+    year = row.loc["Year"]
+    actor = row.loc["Actor"]
+    budget = row.loc["Budget"]
+
+    if year >= 1980 and year < 1990:
+        return "Great 80's flick!"
+
+    if actor == "Pierce Brosnan":
+        return "The best Bond ever!"
+
+    if budget > 100:
+        return "Expensive movie, fun"
+
+    return "No comment"
+
+bond.apply(rank_movie, axis="columns")
+
+```
 
 # Pandas - Data Import
 ## Pandas - Import from csv
