@@ -2830,14 +2830,168 @@ sectors.apply(top_two_companies_by_employee_count)
 
 ```
 
+## Merging DataFrames - The pd.concat Function
+```xml
+# import 4 different data sets
+# Our datasets are spread across multiple files in this section. 
+# Each file has a restaurant_ prefix.
+# The foods.csv file stores our restaurant's menu items.
+foods = pd.read_csv("restaurant_foods.csv")
+# The customers.csv file stores our restaurant's customers.
+customers = pd.read_csv("restaurant_customers.csv")
+# The week_1_sales and week_2_sales files store our orders.
+week1 = pd.read_csv("restaurant_week_1_sales.csv")
+week2 = pd.read_csv("restaurant_week_2_sales.csv")
+
+week1.head()
+week2.head()
+len(week1)
+len(week2)
+
+# The concat function concatenates one DataFrame to the end of another.
+# The original index labels will be kept by default. 
+pd.concat([week1, week2])
+
+# Set ignore_index to True to generate a new index.
+pd.concat([week1, week2], ignore_index=False)
+pd.concat([week1, week2], ignore_index=True)
+
+# The keys parameter create a MultiIndex using the specified keys/labels.
+pd.concat([week1, week2], keys=["Week 1", "Week 2"]).sort_index()
+
+df1 = pd.DataFrame([1, 2, 3], columns=["A"])
+df1
+
+df2 = pd.DataFrame([4, 5, 6], columns=["B"])
+df2
+
+# Pandas will concatenate the DataFrames along the row/index axis.
+# Pandas will include all columns that exist in either DataFrame. 
+# If there are no matching values, pandas will use NaN values.
+pd.concat([df1, df2])
+pd.concat([df1, df2], axis="index")
+
+# We can pass the axis parameter an argument of "columns" to concatenate on the column axis.
+pd.concat([df1, df2], axis="columns")
+
+```
+
+## Merging DataFrames - Joins 
+```xml
+# import 4 different data sets
+foods = pd.read_csv("restaurant_foods.csv")
+customers = pd.read_csv("restaurant_customers.csv")
+week1 = pd.read_csv("restaurant_week_1_sales.csv")
+week2 = pd.read_csv("restaurant_week_2_sales.csv")
+times = pd.read_csv("restaurant_week_1_times.csv")
+
+Left Join
+---------
+
+week1.head()
+foods.head(5)
+
+# The merge method joins two DataFrames together based on shared values in a column or an index.
+# A left join merges one DataFrame into another based on values in the first one.
+# The "left" DataFrame is the one we invoke the merge method on.
+# If the left DataFrame's value is not found in the right DataFrame, the row will hold NaN values
+week1.merge(foods, how="left", on="Food ID")
+
+The left_on and right_on Parameters
+-----------------------------------
+
+week2.head()
+customers.head()
+
+# The left_on and right_on parameters designate the column names 
+# from each DataFrame to use in the merge.
+week2.merge(customers, how="left", left_on="Customer ID", right_on="ID")
+week2.merge(customers, how="left", left_on="Customer ID", right_on="ID").drop("ID", axis="columns")
+
+Inner Joins
+-----------
+
+week1[week1["Customer ID"] == 155]
+week2[week2["Customer ID"] == 155]
+
+# Inner joins merge two tables based on shared/common values in columns.
+# If only one DataFrame has a value, 
+# pandas will exclude it from the final results set.
+# If the same ID occurs multiple times, 
+# pandas will store each possible combination of the values.
+# The design of the join ensures that the results will be the same no matter 
+# what DataFrame the merge method is invoked upon.
+
+week1.merge(week2, how="inner", on="Customer ID", suffixes=[" - Week 1", " - Week 2"])
+
+
+week1.head()
+week2.head()
+
+# We can pass multiple arguments to the on parameter of the merge method. 
+# Pandas will require matches in both columns across the DataFrames.
+week1.merge(week2, how="inner", on=["Customer ID", "Food ID"])
+
+# To verify above join 
+condition_one = week1["Customer ID"] == 578
+condition_two = week1["Food ID"] == 5
+week1[condition_one & condition_two]
+condition_one = week2["Customer ID"] == 578
+condition_two = week2["Food ID"] == 5
+week2[condition_one & condition_two]
+
+Full/Outer Join
+---------------
+
+week1.head()
+week2.head()
+
+# A full/outer joins values that are found in either DataFrame or both DataFrames.
+# Pandas does not mind if a value exists in one DataFrame but not the other.
+# If a value does not exist in one DataFrame, it will have a NaN.
+week1.merge(week2, how="outer", on="Customer ID", suffixes=[" - Week 1", " - Week 2"])
+week1.merge(week2, how="outer", on="Customer ID", suffixes=[" - Week 1", " - Week 2"], indicator=True)
+
+merged = week1.merge(week2, how="outer", on="Customer ID", suffixes=[" - Week 1", " - Week 2"], indicator=True)
+merged["_merge"].value_counts()
+
+merged[merged["_merge"].isin(["left_only", "right_only"])]
+
+Merging by Indexes with the left_index and right_index Parameters
+-----------------------------------------------------------------
+
+week1.head()
+customers.head()
+foods.head()
+
+# Use the on parameter if the column(s) to be matched on 
+# have the same names in both DataFrames.
+# Use the left_on and right_on parameters if the column(s) to be matched on 
+# have different names in the two DataFrames.
+# Use the left_index or right_index parameters (set to True) to if the values 
+# to be matched on are found in the index of a DataFrame.
+week1.merge(
+    customers, how="left", left_on="Customer ID", right_index=True
+).merge(foods, how="left", left_on="Food ID", right_index=True)
+
+
+The join Method
+---------------
+
+week1.head()
+times.head()
+week1.merge(times, how="left", left_index=True, right_index=True)
+
+# The join method is a shortcut for concatenating two DataFrames when merging by index labels.
+week1.join(times)
+
+```
 
 # Pandas - Data Import
 ## Pandas - Import from csv
 ```xml
 # read csv and fill NA 
 nba = pd.read_csv("nba.csv").dropna(how="all")
-
-```
 
 ```
 
