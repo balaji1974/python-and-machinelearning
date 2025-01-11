@@ -2721,6 +2721,116 @@ foods.pivot_table(values="Spend", index="Item", columns=["Gender", "City"], aggf
 
 ```
 
+## The GroupBy Object - The groupby Method
+```xml
+# import data
+fortune = pd.read_csv("fortune1000.csv", index_col="Rank")
+fortune.head()
+
+Grouping is a way to organize/categorize/group the data based on a column's values.
+The groupby method returns a DataFrameGroupBy object. 
+It resembles a group/collection of DataFrames in a dictionary-like structure.
+The DataFrameGroupBy object can perform aggregate operations on each group within it.
+sectors = fortune.groupby("Sector")
+sectors
+
+len(sectors)
+sectors.size()
+sectors.first()
+sectors.last()
+
+```
+
+## The GroupBy Object - Retrieve a Group with the get_group Method
+```xml
+# import data
+fortune = pd.read_csv("fortune1000.csv", index_col="Rank")
+sectors = fortune.groupby("Sector")
+fortune.head(5)
+
+# The get_group method on the DataFrameGroupBy object retrieves 
+# a nested DataFrame belonging to a specific group/category.
+sectors.get_group("Energy")
+sectors.get_group("Technology")
+
+```
+
+## The GroupBy Object - Methods on the GroupBy Object
+```xml
+# import data
+fortune = pd.read_csv("fortune1000.csv", index_col="Rank")
+sectors = fortune.groupby("Sector")
+fortune.head(5)
+
+# Use square brackets on the DataFrameGroupBy object to "extract" a column from the original DataFrame.
+# The resulting SeriesGroupBy object will have aggregation methods available on it.
+sectors["Revenue"].sum()
+sectors["Employees"].sum()
+sectors["Profits"].max()
+sectors["Profits"].min()
+
+sectors["Employees"].mean()
+sectors["Employees"].min()
+
+# Pandas will perform the calculation on every group within the collection.
+# For example, the sum method will sum together the Revenues for every row by group/category.
+sectors[["Revenue", "Profits"]].sum()
+sectors[["Revenue", "Profits"]].mean()
+
+```
+
+## The GroupBy Object - Grouping by Multiple Columns
+```xml
+# import data
+fortune = pd.read_csv("fortune1000.csv", index_col="Rank")
+sectors = fortune.groupby(["Sector", "Industry"])
+fortune.head(5)
+
+
+# Pass a list of columns to the groupby method to group by pairings of values across columns.
+# Target a column to retrieve the SeriesGroupBy object, then perform an aggregation with a method.
+# Pandas will return a MultiIndex Series where the levels will be the original groups.
+sectors.size()
+sectors["Revenue"].sum()
+sectors["Employees"].mean().head(20)
+
+```
+
+## The GroupBy Object - The agg Method
+```xml
+# import data
+fortune = pd.read_csv("fortune1000.csv", index_col="Rank")
+sectors = fortune.groupby("Sector")
+fortune.head(5)
+
+# The agg method applies different aggregation methods on different columns.
+# Invoke the agg method directly on the DataFrameGroupBy object.
+# Pass the method a dictionary where the keys are the columns and 
+# the values are the aggregation operations.
+sectors.agg({ "Revenue":"sum", "Profits":"max", "Employees":"mean" })
+
+```
+
+## The GroupBy Object - Iterating through Groups
+```xml
+# import data
+fortune = pd.read_csv("fortune1000.csv", index_col="Rank")
+sectors = fortune.groupby("Sector")
+fortune.head(5)
+
+# The DataFrameGroupBy object supports the apply method (just like a Series and a DataFrame do).
+# The apply method invokes a function on every nested DataFrame in the DataFrameGroupBy object.
+# It captures the return values of the functions and collects them in a new DataFrame (the return value).
+# Find the two companies in each sector with the most employees
+
+def top_two_companies_by_employee_count(sector):
+    return sector.nlargest(2, "Employees")
+
+sectors.apply(top_two_companies_by_employee_count)
+
+```
+
+
 # Pandas - Data Import
 ## Pandas - Import from csv
 ```xml
