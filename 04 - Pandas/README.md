@@ -2212,11 +2212,522 @@ bond.apply(rank_movie, axis="columns")
 
 ```
 
+## Working with Text Data - Common String Methods
+```xml
+
+# This Module's Dataset
+# This module's dataset (chicago.csv) is a collection of public sector employees in the city of Chicago.
+# Each row inclues the employee's name, position, department, and salary.
+chicago = pd.read_csv("chicago.csv").dropna(how="all") # remove rows with all missing value 
+chicago.head() # display first 5 rows
+chicago.info() # display information about the dataset 
+chicago.nunique() # no. of unique values in each column 
+chicago["Department"] = chicago["Department"].astype("category") # make department as category column 
+
+# Apply all together
+chicago = pd.read_csv("chicago.csv").dropna(how="all")
+chicago["Department"] = chicago["Department"].astype("category")
+chicago.head()
+
+# A Series has a special str attribute that exposes an object with string methods.
+# Access the str attribute, then invoke the string method on the nested object.
+# Most method names will match their Python method equivalents (upper, lower, title, etc).
+chicago["Position Title"].str.lower() # lower case
+chicago["Position Title"].str.upper() # upper case
+chicago["Position Title"].str.title() # capatilize every word
+chicago["Position Title"].str.len() # length 
+chicago["Position Title"].str.title().str.len() # chain multiple str methods
+chicago["Position Title"].str.strip() # remove white spaces on left and right of the string
+chicago["Position Title"].str.lstrip() # remove white spaces on left of the string
+chicago["Position Title"].str.rstrip() # remove white spaces on right of the string
+
+chicago["Department"].str.replace("MGMNT", "MANAGEMENT").str.title() # replace matching string and chain with title method
+
+Excerise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+
+# This challenge includes a data.csv dataset.
+# The dataset has 3 columns: Name, Title, Cryptocurrency
+# Import the dataset and assign the DataFrame to a "data" variable.
+data = pd.read_csv("data.csv")
+
+
+# Unfortunately, some of the text data has been incorrectly exported.
+
+# The strings in the Name column are all lowercased.
+# Capitalize the names properly (so the first letter of the person's first and last names are uppercase)
+# Then, overwrite the Name column with the new Series.
+data["Name"]=data["Name"].str.title()
+
+# Lowercase the strings in the Title column.
+# Then, overwrite the Title column with the new Series.
+data["Title"]=data["Title"].str.lower()
+
+# Uppercase the strings in the Cryptocurrency column.
+# Then, overwrite the Cryptocurrency column with the new Series.
+data["Cryptocurrency"]=data["Cryptocurrency"].str.upper()
+
+```
+
+## Working with Text Data - Filtering with String Methods
+```xml
+# import data and drop 'na' and change 'Department' column as category
+chicago = pd.read_csv("chicago.csv").dropna(how="all")
+chicago["Department"] = chicago["Department"].astype("category")
+chicago.head()
+
+# The str.contains method checks whether a substring exists anywhere in the string.
+water_workers = chicago["Position Title"].str.lower().str.contains("water")
+chicago[water_workers]
+
+# The str.startswith method checks whether a substring exists at the start of the string.
+starts_with_civil = chicago["Position Title"].str.lower().str.startswith("civil")
+chicago.loc[starts_with_civil]
+
+# The str.endswith method checks whether a substring exists at the end of the string.
+ends_with_iv = chicago["Position Title"].str.lower().str.endswith("iv")
+chicago[ends_with_iv]
+
+```
+
+## Working with Text Data - String Methods on Index and Columns
+```xml
+# import data and drop 'na', change 'Department' column as category and add 'Name' as index column
+chicago = pd.read_csv("chicago.csv", index_col="Name").dropna(how="all").sort_index()
+chicago["Department"] = chicago["Department"].astype("category")
+chicago.head()
+
+# Use the index and columns attributes to access the DataFrame index/column labels.
+# These objects support string methods via their own str attribute.
+chicago.index = chicago.index.str.strip().str.title()
+chicago.columns = chicago.columns.str.upper()
+chicago.head()
+
+```
+
+## Working with Text Data - The split Method
+```xml
+# import data and drop 'na' and change 'Department' column as category
+chicago = pd.read_csv("chicago.csv").dropna(how="all")
+chicago["Department"] = chicago["Department"].astype("category")
+chicago.head()
+
+# The str.split method splits a string by the occurrence of a delimiter. 
+# Pandas returns a Series of lists.
+# The most common first word in our job positions/titles
+# Use the str.get method to access a nested list element by its index position.
+chicago["Position Title"].str.split(" ").str.get(0).value_counts()
+
+# More Practice with Splits
+# Finding the most common first name among the employees
+chicago["Name"].str.title().str.split(", ").str.get(1).str.strip().str.split(" ").str.get(0).value_counts()
+
+# The expand parameter returns a DataFrame instead of a Series of lists.
+chicago[["Last Name", "First Name"]] = chicago["Name"].str.split(",", expand=True)
+chicago.head()
+
+# The n parameter limits the number of splits.
+chicago[["Primary Title", "Secondary Title"]] = chicago["Position Title"].str.split(" ", expand=True, n=1)
+chicago.head()
+```
+
+## Multi-Index - Create a MultiIndex
+```xml
+# import data and parse date
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d")
+bigmac.head()
+bigmac.dtypes
+bigmac.info()
+
+# A MultiIndex is an index
+# with multiple levels or layers.
+# import data and parse date, index columns and sort index 
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d", index_col=["Date", "Country"]).sort_index()
+bigmac.head()
+
+# Pass the set_index method a list of colum names to create a multi-index DataFrame.
+# The order of the list's values will determine the order of the levels.
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d")
+bigmac.set_index(keys=["Date", "Country"])
+bigmac.set_index(keys=["Country", "Date"]).sort_index()
+bigmac.nunique()
+
+bigmac = bigmac.set_index(keys=["Date", "Country"])
+bigmac.head()
+
+# Alternatively, we can pass the read_csv function's index_col parameter a list of columns.
+bigmac.index.names
+bigmac.index[0]
+# type(bigmac.index[0])
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+# This challenge includes a subway_locations.csv dataset.
+# It is a listing of all US locations of the Subway fast food restaurant chain.
+# The dataset has 4 columns:
+# city,state,latitude,longitude
+# Import the subway_locations.csv file into a DataFrame. 
+# Assign the imported DataFrame to a 'subway' variable.
+
+subway=pd.read_csv("subway_locations.csv")
+# CHALLENGE 1:
+# Create a MultiIndex with the levels coming from the 'state' and 'city' columns (in that order)
+# Assign the resulting DataFrame to a 'multi_df' variable.
+# Do not mutate the original DataFrame.
+multi_df=subway.set_index(keys=["state", "city"])
+
+# CHALLENGE 2:
+# Using your MultiIndex DataFrame, sort the index by both levels' values
+# Assign the resulting DataFrame to a 'sorted_multi_df' variable.
+# Do not mutate any previous DataFrames.
+sorted_multi_df=multi_df.sort_index()
+
+```
+
+## Multi-Index - Extract Index Level Values
+```xml
+# import data, parse date and index columns and sort index 
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d", index_col=["Date", "Country"]).sort_index()
+bigmac.head()
+
+# The get_level_values method extracts an Index with the values from one level in the MultiIndex.
+# Invoke the get_level_values on the MultiIndex, not the DataFrame itself.
+# The method expects either the level's index position or its name.
+bigmac.index.get_level_values("Date")
+bigmac.index.get_level_values(0)
+bigmac.index.get_level_values("Country")
+bigmac.index.get_level_values(1)
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+
+# This challenge includes a subway_locations.csv dataset.
+# It is a listing of all US locations of the Subway fast food restaurant chain.
+# The dataset has 4 columns:
+# city,state,latitude,longitude
+
+# CHALLENGE 1:
+# Import the subway_locations.csv file into a DataFrame. 
+# Create a MultiIndex with the levels coming from the 'state' and 'city' columns (in that order)
+# Sort the index (all columns must be sorted) and assign the resulting DataFrame to a 'subway' variable.
+subway=pd.read_csv("subway_locations.csv", index_col=["state","city"]).sort_index()
+
+# CHALLENGE 2:
+# Using your DataFrame, access the Index holding the values from 
+# the 'city' level. Assign the Index to a `city_index` variable.
+city_index=subway.index.get_level_values("city")
+
+# CHALLENGE 3:
+# Using your DataFrame, access the Index holding the values from 
+# the 'state' level. Assign the Index to a `state_index` variable.
+state_index=subway.index.get_level_values("state")
+
+```
+
+## Multi-Index - Rename Index Levels
+```xml
+# import data, parse date and index columns and sort index 
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d", index_col=["Date", "Country"]).sort_index()
+bigmac.head()
+
+# Invoke the set_names method on the MultiIndex to change one or more level names.
+# Use the names and level parameter to target a nested index at a given level.
+bigmac.index.set_names(names="Time", level=0)
+bigmac.index.set_names(names="Country", level=1)
+bigmac.index.set_names(names=["Time", "Location"])
+
+# Alternatively, pass names a list of strings to overwrite all level names.
+# The set_names method returns a copy, so replace the original index to alter the DataFrame.
+bigmac.index = bigmac.index.set_names(names=["Time", "Location"])
+
+bigmac.head()
+
+```
+## Multi-Index - The sort_index Method on a MultiIndex DataFrame
+```xml
+# import data, parse date and index columns  
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d", index_col=["Date", "Country"])
+bigmac.head()
+
+# Using the sort_index method, we can target all levels or specific levels of the MultiIndex.
+# To apply a different sort order to different levels, pass a list of Booleans.
+bigmac.sort_index()
+bigmac.sort_index(ascending=True)
+bigmac.sort_index(ascending=False)
+
+bigmac.sort_index(ascending=[True, False])
+bigmac.sort_index(ascending=[False, True])
+
+```
+
+## Multi-Index - Extract Rows from a MultiIndex DataFrame
+```xml
+# import data, parse date and index columns  
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d", index_col=["Date", "Country"]).sort_index()
+bigmac.head()
+
+# A tuple is an immutable list. It cannot be modified after creation.
+# Create a tuple with a comma between elements. 
+# The community convention is to wrap the elements in parentheses.
+1,
+1, 2
+(1, 2)
+type((1, 2)) # this is tuple
+
+# type([1, 2]) # this is list
+
+# The iloc and loc accessors are available to extract rows by index position or label.
+bigmac.iloc[2]
+
+# For the loc accessor, pass a tuple to hold the labels from the index levels.
+bigmac.loc["2000-04-01"]
+
+bigmac.loc["2000-04-01", "Canada"]
+bigmac.loc["2000-04-01", "Price in US Dollars"]
+
+bigmac.loc[("2000-04-01", "Canada")]
+
+start = ("2000-04-01", "Hungary")
+end = ("2000-04-01", "Poland")
+bigmac.loc[start:end]
+
+bigmac.loc[("2019-07-09", "Hungary"):]
+
+bigmac.loc[("2012-01-01", "Brazil"): ("2013-07-01", "Turkey")]
+
+bigmac.loc[("2012-01-01", "Brazil"): ("2013-07-01", "Turkey"), "Price in US Dollars"]
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+import pandas as pd
+
+# This challenge includes a subway_locations.csv dataset.
+# It is a listing of all US locations of the Subway fast food restaurant chain.
+# The dataset has 4 columns:
+# city,state,latitude,longitude
+
+# CHALLENGE 1:
+# Import the subway_locations.csv file into a DataFrame. 
+# Use the 'index_col' parameter to attach a MultiIndex with levels
+# coming from the 'state' and 'city' columns (in that order)
+# Sort the DataFrame by both index levels (in regular ascending order)
+# Assign the resulting DataFrame to a 'subway' variable.
+subway=pd.read_csv("subway_locations.csv", index_col=["state","city"]).sort_index()
+
+# CHALLENGE 2:
+# Extract the row(s) with a 'state' level value of 'OK' and a
+# 'city' level value of 'Broken Arrow'. Assign the result to a
+# 'broken_arrow' variable.
+broken_arrow=subway.loc[("OK","Broken Arrow")]
+
+# CHALLENGE 3:
+# Extract the row(s) with a 'state' level value of 'FL' and a
+# 'city' level value of 'Winter Park'. Assign the result to a
+# 'winter_park' variable.
+winter_park=subway.loc[("FL","Winter Park")]
+
+```
+
+## Multi-Index - The transpose Method
+```xml
+# import data, parse date, index columns and sort index
+bigmac = pd.read_csv("bigmac.csv", parse_dates=["Date"], date_format="%Y-%m-%d", index_col=["Date", "Country"]).sort_index()
+bigmac.head()
+
+
+The transpose method inverts/flips the horizontal and vertical axes of the DataFrame.
+start = ("2018-01-01", "China")
+end = ("2018-01-01", "Denmark")
+
+bigmac.loc[start:end].transpose()
+
+```
+
+## Multi-Index - The stack Method
+```xml
+# import data, index columns and sort index
+world = pd.read_csv("worldstats.csv", index_col=["year", "country"]).sort_index()
+world.head()
+
+# The stack method moves the column index to the row index.
+# Pandas will return a MultiIndex Series.
+# Think of it like "stacking" index levels for a MultiIndex.
+world.stack()
+
+type(world.stack()) # This will be a series
+
+world.stack().to_frame() # will convert series to dataframe
+
+```
+
+## Multi-Index - The unstack Method
+```xml
+# import data, index columns, sort index and stack
+world = pd.read_csv("worldstats.csv", index_col=["year", "country"]).sort_index().stack()
+world.head()
+
+
+# The unstack method moves a row index to the column index (the inverse of the stack method).
+# By default, the unstack method will move the innermost index.
+world.unstack()
+world.unstack().unstack().columns
+
+# We can customize the moved index with the level parameter.
+# The level parameter accepts the level's index position or its name. It can also accept a list of positions/names.
+world.unstack(level=0)
+world.unstack(level="year")
+world.unstack(level=-3)
+
+world.unstack(level=1)
+world.unstack(level="country")
+world.unstack(level=-2)
+world.unstack(level=2)
+
+world.unstack([1, 0])
+world.unstack(["country", "year"])
+
+world.unstack([0, 1])
+world.unstack(["year", "country"])
+
+world.unstack(["year", "country"]).sort_index(axis=1)
+```
+
+## Multi-Index - The pivot Method
+```xml
+# import data
+sales = pd.read_csv("salesmen.csv")
+sales
+
+# The pivot method reshapes data from a tall format to a wide format.
+# Ask yourself which direction the data will expand in if you add more entries.
+# A tall/long format expands down. A wide format expands out.
+# The index parameter sets the horizontal index of the pivoted DataFrame.
+# The columns parameter sets the column whose values will be the columns in the pivoted DataFrame.
+# The values parameter set the values of the pivoted DataFrame. 
+# Pandas will populate the correct values based on the index and column intersections.
+sales.pivot(index="Date", columns="Salesman", values="Revenue")
+
+```
+
+## Multi-Index - The melt Method
+```xml
+# import data
+quarters = pd.read_csv("quarters.csv")
+quarters
+
+# The melt method is the inverse of the pivot method.
+# It takes a 'wide' dataset and converts it to a 'tall' dataset.
+# The melt method is ideal when you have multiple columns storing the same data point.
+# Ask yourself whether the column's values are a type of the column header. 
+# If they're not, the data is likely stored in a wide format.
+# The id_vars parameters accepts the column whose values will be repeated for every column.
+# The var_name parameter sets the name of the new column for the varying values (the former column names).
+# The value_name parameter set the new name of the values column (holding the values from the original DataFrame).
+quarters.melt(id_vars="Salesman", var_name="Quarter", value_name="Revenue")
+
+Exercise
+--------
+# If you see a test failure when checking your solution,
+# note that [left] refers to YOUR code while [right]
+# refers to the correct code that the computer is comparing
+# to your work
+
+# Let's start by importing pandas below
+import pandas as pd
+# This challenge includes a weather.csv dataset.
+# It is a listing of temperatures across 4 seasons in several cities
+# The dataset has 4 columns: City,Fall,Winter,Spring,Summer
+# Notice that the Fall, Winter, Spring, and Summer columns are storing
+# the same data point -- the temperature. This makes them good candidates
+# for melting into a single column.
+# Import the weather.csv file into a DataFrame. 
+# Assign the imported DataFrame to a 'weather' variable.
+weather=pd.read_csv("weather.csv")
+
+# CHALLENGE 1:
+# Create a new DataFrame using the 'weather' DataFrame by 'melting'
+# the season columns' values into a single one. The 4 Season values
+# should be stored in a column called 'Season'. The temperature
+# values should be stored in a column called 'Temperature'.
+# Your goal is a DataFrame that looks like this:
+# 
+# City      Season   Temperature
+# London  Fall   68
+# London  Winter   94
+# London  Spring   103
+# London  Summer   21
+# Paris     Fall   46
+# Paris     Winter   86
+# Paris     Spring   26
+# Paris     Summer   70
+# ... more rows
+#
+# Assign this DataFrame to a 'melted' variable
+melted=weather.melt(id_vars="City", var_name="Season", value_name="Temperature")
+
+```
+
+## Multi-Index - The pivot_table Method
+```xml
+# import data
+foods = pd.read_csv("foods.csv")
+foods.head()
+
+# The pivot_table method operates similarly to the Pivot Table feature in Excel.
+# A pivot table is a table whose values are aggregations of groups of values from another table.
+# The values parameter accepts the numeric column whose values will be aggregated.
+# The index parameter sets the index labels of the pivot table. MultiIndexes are permitted.
+foods.pivot_table(values="Spend", index="Gender")
+
+# The aggfunc parameter declares the aggregation function (the default is mean/average).
+foods.pivot_table(values="Spend", index="Gender", aggfunc="mean")
+foods.pivot_table(values="Spend", index="Gender", aggfunc="sum")
+foods.pivot_table(values="Spend", index="Item", aggfunc="sum")
+foods.pivot_table(values="Spend", index=["Gender", "Item"], aggfunc="sum")
+
+# The columns parameter sets the column labels of the pivot table. MultiIndexes are permitted.
+foods.pivot_table(values="Spend", index=["Gender", "Item"], columns="City", aggfunc="sum")
+foods.pivot_table(values="Spend", index="Item", columns=["Gender", "City"], aggfunc="sum")
+foods.pivot_table(values="Spend", index="Item", columns=["Gender", "City"], aggfunc="mean")
+foods.pivot_table(values="Spend", index="Item", columns=["Gender", "City"], aggfunc="count")
+foods.pivot_table(values="Spend", index="Item", columns=["Gender", "City"], aggfunc="max")
+foods.pivot_table(values="Spend", index="Item", columns=["Gender", "City"], aggfunc="min")
+
+```
+
 # Pandas - Data Import
 ## Pandas - Import from csv
 ```xml
 # read csv and fill NA 
 nba = pd.read_csv("nba.csv").dropna(how="all")
+
+```
 
 ```
 
