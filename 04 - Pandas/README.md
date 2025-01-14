@@ -3214,13 +3214,83 @@ ecommerce["Delivery Time"].mean()
 
 ```
 
-# Pandas - Data Import
-## Pandas - Import from csv
+
+# Pandas - Data Import/Export 
+## Input and Output
 ```xml
+import pandas as pd
+
+Import data from csv files
+--------------------------
 # read csv and fill NA 
 nba = pd.read_csv("nba.csv").dropna(how="all")
 
+# read file from url 
+url = "https://data.cityofnewyork.us/api/views/25th-nujf/rows.csv"
+baby_names = pd.read_csv(url)
+baby_names.head()
+
+Export DataFrame to CSV File
+----------------------------
+# The to_csv method exports a DataFrame to a CSV file.
+# Its first argument is the filename.
+# By default, pandas will include the index. 
+# Set the index parameter to False to exclude the index.
+# The columns parameter limits the exported columns.
+baby_names.to_csv("baby_names.csv", index=False, columns=["Year of Birth", "Child's First Name", "Count"])
+
+
+Import Excel File into pandas
+-----------------------------
+Install openpyxl Library to Read and Write Excel Files
+Go to Anaconda navigator -> Environments -> <Select our environment> 
+-> All -> <search openpyxl> -> Apply 
+
+# The read_excel function reads an Excel file/workbook into a DataFrame.
+pd.read_excel("Data - Single Worksheet.xlsx")
+pd.read_excel("Data - Multiple Worksheets.xlsx")
+
+# Use the sheet_name parameter if the workbook contains multiple worksheets. 
+# Pass a single worksheet name or a list of worksheet names/index positions.
+# Pass the sheet_name parameter an argument of None to include all worksheets.
+pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name="Data 1")
+pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name="Data 2")
+pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name=0)
+pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name=1)
+
+# Pandas will store multiple worksheets in a Python dictionary. 
+# The keys will be the worksheet names, and the values will be the DataFrames.
+pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name=["Data 1", "Data 2"])
+type(pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name=["Data 1", "Data 2"]))
+
+pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name=[0, 1])
+data = pd.read_excel("Data - Multiple Worksheets.xlsx", sheet_name=None)
+
+data["Data 1"]
+data["Data 2"]
+
+Export Excel File from pandas
+-----------------------------
+# read file from url 
+url = "https://data.cityofnewyork.us/api/views/25th-nujf/rows.csv"
+baby_names = pd.read_csv(url)
+baby_names.head()
+
+females = baby_names[baby_names["Gender"] == "FEMALE"]
+males = baby_names[baby_names["Gender"] == "MALE"]
+
+# The ExcelWriter class writes one or more DataFrames to an Excel file.
+# Use a context manager (the with keyword) in combination 
+# with the ExcelWriter object and an assigned variable.
+# Invoke the to_excel method on every DataFrame to include in the Excel workbook 
+# and pass in the ExcelWriter object as the first argument.
+# The to_excel method supports sheet_name, index, and columns parameters.
+with pd.ExcelWriter("NYC Baby Data.xlsx") as excel_file:
+    females.to_excel(excel_file, sheet_name="Females", index=False)
+    males.to_excel(excel_file, sheet_name="Males", index=False, columns=["Year of Birth", "Child's First Name", "Rank"])
+
 ```
+
 
 ## Pandas - SQL Connection (MySQL)
 ```xml
