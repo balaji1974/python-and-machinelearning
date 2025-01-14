@@ -2987,6 +2987,233 @@ week1.join(times)
 
 ```
 
+## Working with Dates & Time
+```xml
+
+Review of Python's datetime Module
+----------------------------------
+
+import pandas as pd
+import datetime as dt
+
+# The datetime module is built into the core Python programming language.
+# The common alias for the datetime module is dt.
+# A module is a Python source file; think of like an internal library that Python loads on demand.
+# The datetime module includes date and datetime classes for representing dates and datetimes.
+# The date constructor accepts arguments for year, month, and day. Python defaults to 0 for any missing values.
+# The datetime constructor accepts arguments for year, month, day, hour, minute, and second.
+
+someday = dt.date(2025, 12, 15)
+
+someday.year
+someday.month
+someday.day
+
+dt.datetime(2025, 12, 15)
+dt.datetime(2025, 12, 15, 8)
+dt.datetime(2025, 12, 15, 8, 13)
+dt.datetime(2025, 12, 15, 8, 13, 59)
+
+sometime = dt.datetime(2025, 12, 15, 8, 13, 59)
+sometime.year
+sometime.month
+sometime.day
+sometime.hour
+sometime.minute
+sometime.second
+
+
+The Timestamp and DatetimeIndex Objects
+----------------------------------------
+# Pandas ships with several classes related to datetimes.
+# The Timestamp is similar to Python's datetime object (but with expanded functionality).
+# The Timestamp constructor accepts a string, a datetime object, 
+# or equivalent arguments to the datetime clas.
+pd.Timestamp(2027, 3, 12)
+pd.Timestamp(2027, 3, 12, 18, 23, 49)
+pd.Timestamp(dt.date(2028, 10, 23))
+pd.Timestamp(dt.datetime(2028, 10, 23, 14, 35))
+pd.Timestamp("2025-01-01")
+pd.Timestamp("2025/04/01")
+pd.Timestamp("2021-03-08 08:35:15")
+
+pd.Series([pd.Timestamp("2021-03-08 08:35:15")]).iloc[0]
+
+# A DatetimeIndex is an index of Timestamp objects.
+pd.DatetimeIndex(["2025-01-01", "2025-02-01", "2025-03-01"])
+index = pd.DatetimeIndex([
+    dt.date(2026, 1, 10),
+    dt.date(2026, 2, 20)
+])
+
+index[0]
+type(index[0])
+
+
+Create Range of Dates with pd.date_range Function
+-------------------------------------------------
+# The date_range function generates and returns a 
+# DatetimeIndex holding a sequence of dates.
+# The function requires 2 of the 3 following parameters: 
+# start, end, and period.
+# With start and end, Pandas will assume a daily period/interval.
+# Every element within a DatetimeIndex is a Timestamp
+
+pd.date_range(start="2025-01-01", end="2025-01-07") # interval will be one day 
+pd.date_range(start="2025-01-01", end="2025-01-07", freq="D") # same as above 
+pd.date_range(start="2025-01-01", end="2025-01-07", freq="2D") # interval set to 2 days
+pd.date_range(start="2025-01-01", end="2025-01-07", freq="B") # business days - Monday-Friday 
+pd.date_range(start="2025-01-01", end="2025-01-31", freq="W") # will contain weekly freqency - every sunday 
+pd.date_range(start="2025-01-01", end="2025-01-31", freq="W-FRI") # will contain weekly freqency - every friday
+pd.date_range(start="2025-01-01", end="2025-01-31", freq="W-THU") # will contain weekly freqency - every thursday
+
+pd.date_range(start="2025-01-01", end="2025-01-31", freq="h") # interval will be hourly 
+pd.date_range(start="2025-01-01", end="2025-01-31", freq="6h") # interval will be every 6 hours
+
+pd.date_range(start="2025-01-01", end="2025-12-31", freq="ME") # month end interval 
+pd.date_range(start="2025-01-01", end="2025-12-31", freq="MS") # month start interval
+pd.date_range(start="2025-01-01", end="2050-12-31", freq="YS") # year start interval
+pd.date_range(start="2025-01-01", end="2050-12-31", freq="YE") # year end interval
+
+pd.date_range(start="2012-09-09", freq="D", periods=25) # start with a date, interval in day and total 25 days
+pd.date_range(start="2012-09-09", freq="3D", periods=40) # start with a date, interval in 3 days and total 40 days
+pd.date_range(start="2012-09-09", freq="B", periods=180) # start with a date, interval in business days and total 180 days
+
+pd.date_range(end="2013-10-31", freq="D", periods=20) # end with a date, interval in day and total 20 days in reverse
+pd.date_range(end="2016-12-31", freq="B", periods=75) # end with a date, interval in business days and total 75 days in reverse
+pd.date_range(end="1991-04-12", freq="W-FRI", periods=75) # end with a date, interval every friday and total 75 days in reverse
+
+
+The dt Attribute
+----------------
+# Create a DatetimeIndex between start and end of year with an interval of of 24 days and 3 hours between each date
+bunch_of_dates = pd.Series(pd.date_range(start="2000-01-01", end="2020-12-31", freq="24D 3h"))
+bunch_of_dates.head()
+
+# The dt attribute reveals a DatetimeProperties object with attributes/methods 
+# for working with datetimes. It is similar to the str attribute for string methods.
+# The DatetimeProperties object has attributes like day, month, 
+# and year to reveal information about each date in the Series.
+
+bunch_of_dates.dt.day # will return day 
+bunch_of_dates.dt.month # will return month
+bunch_of_dates.dt.year # will return year 
+bunch_of_dates.dt.hour # will return hour
+bunch_of_dates.dt.day_of_year # will return day of the year 
+
+# The day_name method returns the written day of the week.
+bunch_of_dates.dt.day_name() # will return the day of the week 
+
+# Attributes like is_month_end and is_quarter_start return Boolean Series.
+bunch_of_dates.dt.is_month_end # will return true if it is month end  
+bunch_of_dates[bunch_of_dates.dt.is_month_end] # will return all month end dates 
+bunch_of_dates.dt.is_month_start # will return true if it is month start  
+bunch_of_dates[bunch_of_dates.dt.is_month_start] # will return all month start dates
+
+bunch_of_dates[bunch_of_dates.dt.is_quarter_start] # will return all quater start dates 
+
+Selecting Rows from a DataFrame with a DateTimeIndex
+----------------------------------------------------
+# Read file, parse Date, and index it and sort this index  
+stocks = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date").sort_index()
+stocks.head()
+
+# The iloc accessor is available for index position-based extraction.
+stocks.iloc[300] 
+
+# The loc accessor accepts strings or Timestamps to extract by index label/value. 
+# Note that Python's datetime objects will not work.
+stocks.loc["2014-03-04"]
+stocks.loc[pd.Timestamp(2014, 3, 4)]
+# Use list slicing to extract a sequence of dates. 
+stocks.loc["2014-03-04":"2014-12-31"]
+stocks.loc[pd.Timestamp(2014, 3, 4):pd.Timestamp(2014, 12, 31)]
+# The truncate method is another alternative.
+stocks.truncate("2014-03-04", "2014-12-31")
+
+stocks.loc["2014-03-04", "Close"] 
+stocks.loc["2014-03-04", "High":"Close"]
+
+stocks.loc[pd.Timestamp(2014, 3, 4):pd.Timestamp(2014, 12, 31), "High":"Close"]
+
+The DateOffset Object
+---------------------
+# Read file, parse Date, and index it and sort this index
+stocks = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date").sort_index()
+stocks.head()
+
+# A DateOffset object adds time to a Timestamp to arrive at a new Timestamp.
+stocks.index + pd.DateOffset(days=5)
+stocks.index - pd.DateOffset(days=5)
+stocks.index + pd.DateOffset(months=3)
+stocks.index - pd.DateOffset(years=1)
+stocks.index + pd.DateOffset(hours=7)
+
+# The DateOffset constructor accepts days, weeks, months, years parameters, and more.
+stocks.index + pd.DateOffset(years=1, months=3, days=2, hours=14, minutes=23, seconds=12)
+
+# We can pass a DateOffset object to the freq parameter of the pd.date_range function.
+# Find the IBM stock price on every one of my birthdays (April 12, 1991)
+birthdays = pd.date_range(start="1991-04-12", end="2023-04-12", freq=pd.DateOffset(years=1))
+birthdays
+stocks[stocks.index.isin(birthdays)]
+
+
+Specialized Date Offsets
+------------------------
+# Read file, parse Date, and index it and sort this index
+stocks = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date").sort_index()
+stocks.head()
+
+# Pandas nests more specialized date offsets in pd.tseries.offsets.
+# We can add a different amount of time to each date 
+# (for example, month end, quarter end, year begin)
+stocks.index + pd.tseries.offsets.MonthEnd()
+stocks.index - pd.tseries.offsets.MonthEnd()
+
+stocks.index + pd.tseries.offsets.QuarterEnd()
+stocks.index - pd.tseries.offsets.QuarterEnd()
+
+stocks.index + pd.tseries.offsets.QuarterBegin(startingMonth=1)
+stocks.index - pd.tseries.offsets.QuarterBegin(startingMonth=1)
+
+stocks.index + pd.tseries.offsets.YearEnd()
+stocks.index + pd.tseries.offsets.YearBegin()
+
+
+Timedeltas
+----------
+# Read file, parse Date, and index it and sort this index
+stocks = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date").sort_index()
+stocks.head()
+
+# A Timedelta is a pandas object that represents a duration (an amount of time).
+# Subtracting two Timestamp objects will yield a Timedelta object 
+# (this applies to subtracting a Series from another Series).
+pd.Timestamp("2023-03-31 12:30:48") - pd.Timestamp("2023-03-20 19:25:59")
+pd.Timestamp("2023-03-20 19:25:59") - pd.Timestamp("2023-03-31 12:30:48")
+
+# The Timedelta constructor accepts parameters for time as well as string descriptions
+pd.Timedelta(days=3, hours=2, minutes=5)
+pd.Timedelta("5 minutes")
+pd.Timedelta("3 days 2 hours 5 minutes")
+
+# Read file and parse Date
+ecommerce = pd.read_csv("ecommerce.csv", index_col="ID", parse_dates=["order_date", "delivery_date"], date_format="%m/%d/%y")
+ecommerce.head()
+
+ecommerce["Delivery Time"] = ecommerce["delivery_date"] - ecommerce["order_date"]
+ecommerce.head()
+
+ecommerce["If It Took Twice As Long"] = ecommerce["delivery_date"] + ecommerce["Delivery Time"]
+ecommerce.head()
+
+ecommerce["Delivery Time"].max()
+ecommerce["Delivery Time"].min()
+ecommerce["Delivery Time"].mean()
+
+```
+
 # Pandas - Data Import
 ## Pandas - Import from csv
 ```xml
