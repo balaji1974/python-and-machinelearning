@@ -3389,6 +3389,86 @@ ibm["Close"].apply(rank_performance).value_counts().plot(kind="pie", legend=True
 
 ```
 
+## Pandas - Options and Settings
+```xml
+# Next import the following panda libraries
+import pandas as pd
+import numpy as np
+
+# Create the following dataset
+# This will create a 61 rows × 50 columns dataframe with values between 0 to 100
+df = pd.DataFrame(np.random.randint(0, 100, [61, 50]))
+df
+
+Changing Options with Attributes
+--------------------------------
+# The pd.options module configures Pandas' settings.
+# The display module deals with the presentation of data.
+# The min_rows attribute sets the minimum number of displayed rows when max_rows is exceeded.
+pd.options.display.min_rows
+
+# The max_columns attribute sets the maximum number of displayed columns. 
+# There is no min_columns attribute.
+pd.options.display.max_rows
+
+# Overwrite an attribute's value with an equal sign and the new value.
+pd.options.display.min_rows = 20
+pd.options.display.max_rows = 80
+
+pd.options.display.max_columns
+pd.options.display.min_columns
+
+pd.options.display.max_columns = 30
+pd.options.display.max_columns = None
+
+
+Changing Options with Functions
+-------------------------------
+# Create the following dataset
+# This will create a 61 rows × 50 columns dataframe with values between 0 to 100
+df = pd.DataFrame(np.random.randint(0, 100, [61, 50]))
+df
+
+pd.options.display.min_rows
+pd.options.display.max_rows
+pd.options.display.max_columns
+
+# The pd.get_option function retrieves the current value for a pandas setting.
+pd.get_option("display.min_rows")
+pd.get_option("display.max_rows")
+pd.get_option("display.max_columns")
+
+# The pd.set_option function sets a new value for a pandas setting.
+pd.set_option("display.max_columns", 16)
+pd.set_option("display.max_rows", 20)
+
+# The pd.describe_option function provides documentation for a pandas setting.
+pd.describe_option("display.max_rows")
+
+# The pd.reset_option function returns a pandas setting back to its default value.
+pd.reset_option("display.min_rows")
+pd.reset_option("display.max_rows")
+pd.reset_option("display.max_columns")
+
+
+The precision Option
+---------------------
+# Create the following dataset
+df = pd.DataFrame(np.random.randn(5, 5))
+df
+
+
+# The display.precision option sets the number of digits that 
+# appears after a decimal point in a floating-point number.
+# The default value is 6.
+pd.options.display.precision
+pd.get_option("display.precision") # same as above
+
+pd.set_option("display.precision", 3)
+df 
+df.iloc[0, 3]
+
+```
 
 ## Pandas - SQL Connection (MySQL)
 ```xml
