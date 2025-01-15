@@ -3291,6 +3291,104 @@ with pd.ExcelWriter("NYC Baby Data.xlsx") as excel_file:
 
 ```
 
+## Pandas - Visualization
+```xml
+---> First import matplotlib library from Anaconda <---
+# Next import the following panda libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# import file 
+ibm = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date")
+ibm.head()
+
+The plot Method
+---------------
+# By default, the plot method renders a line chart, 
+# which is ideal for showing trends over time.
+# The plot method includes all numeric DataFrame columns by default. 
+# We can choose a subset with the y parameter.
+# Matplotlib will use the index values for the x-axis 
+# and the values for the y-axis.
+# Matplotlib will figure out reasonable intervals for the date index 
+# (days, months, years, etc.). These options are all customizable.
+
+# ibm.plot() # all columns are plotted by default 
+# ibm.plot(y="Close") # plotting only the 'Close' column
+# ibm["Close"].plot() # same as above
+ibm["Volume"].plot() # same as above, but with 'Volumn' column
+
+
+Modifying Plot Aesthetics with Templates
+----------------------------------------
+# Read data 
+ibm = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date")
+ibm.head()
+
+# The plt.style.available attribute returns a list of available styles.
+plt.style.available
+
+# Use the plt.style.use method and pass in a sample style string.
+# The next charts/graphs you render will implement that style.
+plt.style.use("fivethirtyeight")
+ibm.plot(y="Close")
+
+plt.style.use("dark_background")
+ibm.plot(y="Volume")
+
+plt.style.use("ggplot")
+ibm.plot(y="Low")
+
+
+Bar Charts
+----------
+# Read data 
+ibm = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date")
+ibm.head()
+
+# A bar chart uses bars to represent occurrences of values/categories.
+# We can customize the type of plot that matplotlib renders with the kind parameter.
+# Pass bar for a bar graph and barh for a horizontal bar graph.
+def rank_performance(stock_price):
+    if stock_price <= 50:
+        return "Poor"
+    elif stock_price > 50 and stock_price <= 100:
+        return "Satisfactory"
+    else:
+        return "Excellent"
+
+# ibm["Close"]
+# ibm["Close"].apply(rank_performance)
+# ibm["Close"].apply(rank_performance).value_counts() 
+# ibm["Close"].apply(rank_performance).value_counts().plot(kind="bar")
+# same as above but horizontal bar by flipping
+ibm["Close"].apply(rank_performance).value_counts().plot(kind="barh") 
+
+Pie Charts
+----------
+# Read data 
+ibm = pd.read_csv("ibm.csv", parse_dates=["Date"], index_col="Date")
+ibm.head()
+
+# A pie chart uses a circle to represent proportions (how much each chunk contributes to the whole).
+# Pass the kind parameter an argument of "pie".
+# The legend parameter renders a legend to map colors to labels.
+
+average_stock_price = ibm["Close"].mean()
+def rank_performance(stock_price):
+    if stock_price >= average_stock_price:
+        return "Above Average"
+    
+    return "Below Average"
+
+plt.style.use("fivethirtyeight")
+# ibm["Close"]
+# ibm["Close"].apply(rank_performance)
+# ibm["Close"].apply(rank_performance).value_counts()
+ibm["Close"].apply(rank_performance).value_counts().plot(kind="pie", legend=True)
+
+```
+
 
 ## Pandas - SQL Connection (MySQL)
 ```xml
