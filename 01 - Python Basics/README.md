@@ -178,12 +178,17 @@ print(5*5) -> This is for multiplication
 print(7-5) -> This is for subtraction
 print(7+5) -> This is for addition 
 print(6/2) -> This is for divison
+print(7//2) -> This is integer or floor divison and results in 3
 print(10**2) -> This is for power
 print(10%2) -> This is for reminder
 
 print(10+5*2) -> Complex activities, but presedence is for multiplcation 
 Operation precedence can be found in the link below:
 https://www.programiz.com/python-programming/precedence-associativity
+
+# Parenthesis, Exponents, Multiplication/Division, Addition/Subtraction - PENDAS
+3 + 4 * 5 -> This will follow the PENDAS rule 
+
 
 ```
  
