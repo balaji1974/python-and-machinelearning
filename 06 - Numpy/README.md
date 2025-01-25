@@ -3,7 +3,7 @@
 
 ## Numpy - Intro
 ```xml
-It stands for Numberical Python
+It stands for Numeric Python
 
 
 It is used for large count of numerical calculations.
@@ -366,6 +366,57 @@ dog[:5]
 
 ```
 
+## Numpy - Key Concepts
+```xml
+
+Array vs List
+-------------
+list_a = [[1,2,3],[4,5,6]] # List 
+array_a = np.array(list_a) # ndarray 
+
+
+Broadcasting
+------------
+If we want to perform elementwise operations, 
+but have elements of different size and/or dimension, 
+we can broadcast the smaller variable and 
+create a broadcased version with the size of the larger one. 
+It is like "stretching" on variable over the other 
+to produce output with the same shape 
+
+
+Type casting
+------------
+Taking every element of an array and changing it 
+to a specific datatypes 
+
+
+DataTypes
+---------
+Complete list of numpy datatypes 
+https://numpy.org/doc/2.1/user/basics.types.html
+
+Running a function on a given axis
+----------------------------------
+Break the ND array into smaller arrays of (n-1) dimensions 
+and apply the function to each one of these breakdowns either 
+row wise or column wise. 
+axis = 0 -> apply the function on the column of the array  
+axis = 1 -> apply the function on the row of the array  
+
+Slicing
+-------
+Creating a new array by taking chunks of values 
+from existing array
+Eg. 
+a[1:1:1] -> means one dimensional with 1st row, upto 1st row and step 1
+a[1:1:1, 1:1:1] -> means two dimensional with 1st row, upto 1st row and step 1 
+and 1st column,upto 1st column and step 1
+
+```
+
+
+
 ## Important Resources
 ```xml
 The Basics of NumPy Arrays by Jake VanderPlas
@@ -384,5 +435,7 @@ https://numpy.org/doc/1.17/user/quickstart.html
 ```xml
 https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery/
 https://numpy.org/doc/
+
+https://www.udemy.com/course/preprocessing-data-with-numpy/learn/
 
 ```
