@@ -413,9 +413,86 @@ a[1:1:1] -> means one dimensional with 1st row, upto 1st row and step 1
 a[1:1:1, 1:1:1] -> means two dimensional with 1st row, upto 1st row and step 1 
 and 1st column,upto 1st column and step 1
 
+Defining random numbers
+-----------------------
+from numpy.random import Generator as gen
+from numpy.random import PCG64 as pcg
+
+array_RG = gen(pcg())
+array_RG.normal(size = (5,5))
+
+array_RG = gen(pcg(seed = 365)) 
+array_RG.normal(size = (5,5))
+
 ```
 
+## Numpy - Random numbers and Statistical Distributions
+```xml
+# Generating random numbers between 0 to 1
+array_RG = gen(pcg(seed = 365)) 
+array_RG.random(size = (5,5))
 
+# Generating integers between 10 to 100 
+array_RG = gen(pcg(seed = 365)) 
+array_RG.integers(low = 10, high = 100, size = (5,5)) 
+
+# Chooses among a given set (with possible weighted probabilities).
+array_RG = gen(pcg(seed = 365)) 
+array_RG.choice((1,2,3,4,5), p = [0.1,0.1,0.1,0.1,0.6],size = (5,5))
+
+# The default Poisson distribution.
+array_RG = gen(pcg(seed = 365)) 
+array_RG.poisson(size = (5,5))
+
+# Poisson distribution while Specifying lambda. 
+array_RG = gen(pcg(seed = 365)) 
+array_RG.poisson(lam = 10,size = (5,5))
+
+# A binomial distribution with p = 0.4 and 100 trials. 
+array_RG = gen(pcg(seed = 365)) 
+array_RG.binomial(n = 100, p = 0.4, size = (5,5))
+
+# A logistic distribution with a location = 9 and scale = 1.2.
+array_RG = gen(pcg(seed = 365)) 
+array_RG.logistic(loc = 9, scale = 1.2, size = (5,5))
+
+https://numpy.org/doc/stable/reference/random/generator.html
+
+```
+
+## Numpy - Applications of Random Generators
+```xml
+
+# Create the individual columns of the dataset we're creating. 
+array_RG = gen(pcg(seed = 365)) 
+array_column_1 = array_RG.normal(loc = 2, scale = 3, size = (1000))
+array_column_2 = array_RG.normal(loc = 7, scale = 2, size = (1000))
+array_column_3 = array_RG.logistic(loc = 11, scale = 3, size = (1000))
+array_column_4  = array_RG.exponential(scale = 4, size = (1000))
+array_column_5  = array_RG.geometric(p = 0.7, size = (1000))
+
+
+# Use np.array to generate a new array with the 5 arrays we created earlier. 
+# Use the transpose method to make sure our dataset isn't flipped. 
+random_test_data = np.array([array_column_1, array_column_2, array_column_3, array_column_4, array_column_5]).transpose()
+random_test_data
+random_test_data.shape
+
+
+# Saving the arrays to an extrenal file we're creating. 
+# file name -> "Random-Test-from-NumPy.csv"
+# random_test_data -> data we're exporting (saving to an external file)
+# format -> strings
+# delimiter ","
+# We'll talk more about these in just a bit. 
+np.savetxt("Random-Test-from-NumPy.csv", random_test_data, fmt = '%s', delimiter = ',')
+
+
+# Importing the data from the file we just created. 
+rand_test_data = np.genfromtxt("Random-Test-from-NumPy.csv", delimiter = ',')
+print(rand_test_data)
+
+```
 
 ## Important Resources
 ```xml
