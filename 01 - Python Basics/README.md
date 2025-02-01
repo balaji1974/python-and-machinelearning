@@ -523,7 +523,6 @@ print('Hello World'.startswith('Hello')) # Output: True
 
 
 
-
 Finding a substring within a string
 print('Hello World'.find('Hello'))   # Output: 0
 print('Hello World'.find('ello'))    # Output: 1
@@ -1144,7 +1143,6 @@ Tuples are often used to represent a single set of related attributes or a recor
 Eg. 
 person = ('Alice', 30, 'USA')
 print(person)  # Outputs: ('Alice', 30, 'USA')
-
 
 
 

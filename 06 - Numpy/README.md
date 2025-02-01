@@ -396,6 +396,7 @@ DataTypes
 Complete list of numpy datatypes 
 https://numpy.org/doc/2.1/user/basics.types.html
 
+
 Running a function on a given axis
 ----------------------------------
 Break the ND array into smaller arrays of (n-1) dimensions 
@@ -403,6 +404,7 @@ and apply the function to each one of these breakdowns either
 row wise or column wise. 
 axis = 0 -> apply the function on the column of the array  
 axis = 1 -> apply the function on the row of the array  
+
 
 Slicing
 -------
@@ -412,6 +414,7 @@ Eg.
 a[1:1:1] -> means one dimensional with 1st row, upto 1st row and step 1
 a[1:1:1, 1:1:1] -> means two dimensional with 1st row, upto 1st row and step 1 
 and 1st column,upto 1st column and step 1
+
 
 Defining random numbers
 -----------------------
@@ -494,6 +497,190 @@ print(rand_test_data)
 
 ```
 
+## Importing Data with NumPy
+```xml
+# Two ways of importing file 
+# loadtxt is faster while genfromtxt is more flexible with multiple options 
+lending_co_data_numeric_1 = np.loadtxt("Lending-Company-Numeric-Data.csv", delimiter = ',')
+lending_co_data_numeric_2 = np.genfromtxt("Lending-Company-Numeric-Data.csv", delimiter = ',')
+np.array_equal(lending_co_data_numeric_1, lending_co_data_numeric_2) # will return True 
+
+# Example for genfromtxt parameters:
+lending_co_data_5, lending_co_data_0, lending_co_data_1 = 
+np.genfromtxt("Lending-Company-Numeric-Data-NAN.csv", delimiter = ';',
+       usecols = (5,0,1), skip_header = 2, skip_footer = 2, unpack = True)
+
+
+```
+
+## Writing NumPy Files - A fast file read approach (.npy & .npz)
+```xml
+## We're just importing a dataset, so we can save it later. 
+## Usually, we will be working with an array already, so we could skip this. 
+lending_co = np.genfromtxt("Lending-Company-Saving.csv", 
+                           delimiter = ',', dtype = 'U')
+print(lending_co)
+
+## Create an .npy file with the data from the lending_co array. 
+np.save("Lending-Company-Saving", lending_co)
+
+## Load the NPY file we just created. (Load =/= Import in this case)
+lending_data_save = np.load("Lending-Company-Saving.npy")
+print(lending_data_save)
+
+# Creates the .npz file, which is an archive of .npy files. 
+np.savez("Lending-Company-Saving", lending_co, lending_data_save)
+
+# We can save mulitple .npy files into a same .npz file
+# Assign custom recognizable names to the individual .npy files in the .npz
+# Here we save 2 files in the .npz file, company and data_save
+np.savez("Lending-Company-Saving", company = lending_co, data_save = lending_data_save) 
+
+# Shows the names of all the .npy files stored in the .npz
+lending_data_savez.files
+
+# Load the saved files
+print(lending_data_savez["company"]) # or 
+print(lending_data_savez["data_save"])
+
+# Save the file as a txt or csv file
+# We must specify the file extension (txt or csv).
+# We must specify the format (strings in this case).
+# We must set a delimiter (comma in this case).
+np.savetxt("Lending-Company-Saving.txt", 
+           lending_co, 
+           fmt = '%s', 
+           delimiter = ',')
+
+```
+
+## Statistics
+```xml
+# Create a matrix
+matrix_A = np.array([[1,0,0,3,1],[3,6,6,2,9],[4,5,3,8,0]])
+matrix_A
+
+# Mean
+np.mean(matrix_A) # will compute the mean of entire matrix
+np.mean(matrix_A[0]) # will compute the mean of first row of the array 
+np.mean(matrix_A[:,0]) # will compute the mean of first column of the array 
+np.mean(matrix_A, axis=0) # will compute the mean of every column of the array 
+np.mean(matrix_A, axis=1) # will compute the mean of every row of the array 
+# Below will compute the mean of every row of the array and 
+# return integer approximation as result
+np.mean(matrix_A, axis=1, dtype=np.int64) 
+
+
+# Minimum
+np.min(matrix_A) # np.amin(matrix_A) also retuns the same result
+# Elementwise minimum. Returns the lowest value out of a given set.
+# In this case, np.minimum() returns the lower value every position across the two rows the 1st and 2nd rows. 
+# (e.g. lowest value in 1st row and 2nd row's 1st column, 1st row and  2nd row's 2nd column and so on)
+np.minimum(matrix_A[1], matrix_A[2])
+# A way to make minimum() equivalent to min()
+np.minimum.reduce(matrix_A) # this is the same as np.min(matrix_A, axis=0)
+
+# Maximum - Everything same as mininum above
+np.max(matrix_A) # np.amax(matrix_A) also retuns the same result
+
+
+# Difference between highest and lowest values
+# Can be applied at all levels as all the above functions
+# ptp full form is peak to peak 
+# also same as doing np.max(matrix_A) - np.min(matrix_A)
+np.ptp(matrix_A) # will return 9 - 0 = 9 as result 
+
+# Percentile - this is a value greater than the corresponding % of the dataset 
+# Eg. 70% percentile is the value greater than 70% of the dataset 
+# Eg. If we have 15 values then 70% percentile is somewhere between 10.5 which is values between 10th and 11th element of the  dataset
+np.percentile(matrix_A, 70) # This will calculate the 70th percentile of the matrix 
+np.percentile(matrix_A, 70, interpolation="midpoint") # This will calculate the exact middle point between 2 given values
+# interpolation="higer" -> will return the higher value of the two values 
+# interpolation="lower" -> will return the lower value of the two values 
+# interpolation="nearest" -> will return the rounded value of the two values 
+np.percentile(matrix_A, 100) # 100-th percentile = max
+np.percentile(matrix_A, 50) # 50-th percentile = median
+np.percentile(matrix_A, 0) # 0-th percentile = min
+
+# Quantile - the value that is greater than the corresponding part of the dataset 
+# Quantile -> Similar to percentile, but works with parts of the dataset, rather than percentages. 
+# Hence, the N-th Quantile = 100*N-th Percentile of the same dataset. 
+np.quantile(matrix_A, 0.70, interpolation = "nearest")
+
+# Difference between percentile and quantile 
+# Percentiles are given as percent values, values such as 95%, 40%, or 27%. 
+# Quantiles are given as decimal values, values such as 0.95, 0.4, and 0.27. 
+# The 0.95 quantile point is exactly the same as the 95th percentile point.
+
+# Median - Middle value of a sorted dataset 
+np.median(matrix_A) # Returns the median for the flattened array. 
+
+# Mean 
+np.mean(matrix_A) # The arithmetic average of the flattened array. 
+
+# Average - Computes the weighted average 
+np.average(matrix_A) # The average of the flattened array. 
+Eg. 
+from numpy.random import Generator as gen
+from numpy.random import PCG64 as pcg
+
+array_RG = gen(pcg(365))
+
+# Generating some random weights for each entry of matrix_A (for the sake of the example)
+array_weights = array_RG.random(size = (3,5))
+array_weights
+
+# The weighted average of the flattened array. 
+np.average(matrix_A, weights = array_weights)
+
+# Variance
+np.var(matrix_A) # The variance of the array. 
+
+# Standard Deviation 
+np.std(matrix_A) # The standard deviation of the array. 
+
+# Covariance
+# The covariance of every row (array) of matrix_A and every other row of the variable.
+np.cov(matrix_A)
+
+# Correlation coefficient
+# The correlation coefficient of every row (array) of matrix_A and every other row of the variable. 
+np.corrcoef(matrix_A)
+
+# Histogram 
+# It is a way to examine a dataset by dissecting its density 
+# How many values from a dataset fall within a predetermined ranged 
+# Computes the bin edges and how many points fall in each bin. 
+# The 1-st array contains the number of points. The 2-nd array contains the bin edges. 
+np.histogram(matrix_A, bins = 4, range = (1,7)) # bins for total no. of bins and range for range of values to be included 
+
+# Check this in a graph
+import matplotlib.pyplot as plt
+plt.hist(matrix_A.flat, bins = np.histogram(matrix_A)[1])
+plt.show()
+
+# 2d Histogram
+# We pass two datasets for the 2-D histogram. 
+np.histogram2d(matrix_A[0], matrix_A[1], bins = 4)
+
+# Higher dimension histogram
+np.histogramdd(matrix_A.transpose(), bins = 4)
+
+# Nan Equivalent Functions 
+# NAN functions ignore "NaN" values and compute the mean. 
+# Create a matrix with NaN values 
+matrix_B = np.array([[1,0,0,3,1],[3,6,np.nan,2,9],[4,5,3,8,0]])
+matrix_B
+
+# if we run the regular stat functions we will get the result as NaN 
+# we need to run the quivalant NaN function to ignore NaN values during computation 
+np.nanmean(matrix_B)
+np.nanquantile(matrix_B, 0.7)
+np.nanvar(matrix_B)
+
+```
+
+
 ## Important Resources
 ```xml
 The Basics of NumPy Arrays by Jake VanderPlas
@@ -514,5 +701,6 @@ https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-
 https://numpy.org/doc/
 
 https://www.udemy.com/course/preprocessing-data-with-numpy/learn/
+https://numpy.org/doc/stable/reference/routines.statistics.html#statistics
 
 ```
