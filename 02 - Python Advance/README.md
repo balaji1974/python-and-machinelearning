@@ -82,6 +82,8 @@ file.close()
 
 ```
 
+
+
 ## Miscellaneous 
 ```xml
 
@@ -93,12 +95,6 @@ import keyword
 keyword.kwlist
 
 
-s="Hi balaji"
-# replace(<old value>, <new value>, <optional-occurance>)
-print(s.replace("i","X", 1)) # Will return HX balaji - Only 1 time i will be replaced by X 
-
-# counts no. of occurance
-print(s.count('i')) # will return 2 
 ```
 
 

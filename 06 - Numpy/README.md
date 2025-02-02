@@ -680,6 +680,165 @@ np.nanvar(matrix_B)
 
 ```
 
+## Cleaning and Manuplating Data 
+```xml
+# import two files 
+lending_co_data_numeric = np.loadtxt("Lending-company-Numeric.csv", delimiter = ',')
+# loadtxt will crash here because of missing values and so use genfromtxt 
+lending_co_data_numeric_NAN = np.genfromtxt("Lending-company-Numeric-NAN.csv", delimiter = ';') 
+
+# Check for missing values from the file imported
+np.isnan(lending_co_data_numeric).sum() # returns zero -> indicates no missing value
+np.isnan(lending_co_data_numeric_NAN).sum() # returns a count greater than zero -> indicates missing values 
+
+# Filling missing values with zero 
+# Filling_values substitutes every nan with the value we're passing (0 in this case)
+lending_co_data_numeric_NAN = np.genfromtxt("Lending-company-Numeric-NAN.csv", 
+                                            delimiter = ';',
+                                            filling_values = 0)
+
+# Filling with more than the max value of the dataset 
+# We use nanmax(), since max() returns nan. 
+# We want a value greater than the max, since we have be certain it's unique to the dataset.
+temporary_fill = np.nanmax(lending_co_data_numeric_NAN).round(2) + 1
+lending_co_data_numeric_NAN = np.genfromtxt("Lending-company-Numeric-NAN.csv", 
+                                            delimiter = ';',
+                                            filling_values = temporary_fill) 
+# Filling NaN with mean of the dataset 
+## Storing the means of every column. 
+temporary_mean = np.nanmean(lending_co_data_numeric_NAN, axis = 0).round(2)
+for i in range(lending_co_data_numeric_NAN.shape[1]):        
+    lending_co_data_numeric_NAN[:,i] = np.where(lending_co_data_numeric_NAN[:,i] == temporary_fill, 
+                                                temporary_mean[i], lending_co_data_numeric_NAN[:,i])
+
+# We can use this approach for other applications as well 
+# (e.g. remove all negative values and set them to 0)
+for i in range(lending_co_data_numeric_NAN.shape[1]):        
+    lending_co_data_numeric_NAN[:,i] = np.where(lending_co_data_numeric_NAN[:, i] < 0,
+                                                0, 
+                                                lending_co_data_numeric_NAN[:,i])
+
+# Reshaping array - convert columns to rows and rows to columns 
+np.transpose(lending_co_data_numeric)
+
+# Deleting a values from the array
+# By setting an axis, we can simultaneously delete entire rows or columns. 
+np.delete(lending_co_data_numeric, [0,2,4] , axis = 0) # delete row no. 0, 2 & 4
+np.delete(lending_co_data_numeric, [0,2,4] , axis = 1) # delete column no. 0, 2 & 4
+
+# Deleting both rows and columns in a single line of code
+np.delete(np.delete(lending_co_data_numeric, [0,2,4] , axis = 1), [0,2,-1] , axis = 0)
+
+# Supresses scientific notatoin when printing. 
+np.set_printoptions(suppress = True)
+
+# Sorting values
+np.sort(lending_co_data_numeric) # sort columns
+lending_co_data_numeric.sort(axis = 0) # sort rows 
+np.sort(lending_co_data_numeric[:,3]) # sort the 3rd column of the array
+## Adding two minus signs sorts the array in descending order
+-np.sort(-lending_co_data_numeric) 
+
+# Sorting entire row or columns 
+# Sorts the array based on the values in the 1st column. 
+lending_co_data_numeric = lending_co_data_numeric[np.argsort(lending_co_data_numeric[:,0])]
+lending_co_data_numeric
+
+# Argument Functions
+# Functions that return coordinates within an array are called argument functions 
+# Goes through the entire array and check if the individual element satisfy a given condition 
+# Output are indices for all the individual elements where the condition is met 
+# Default condition is to check for individual elements with values different from zero 
+np.argwhere(lending_co_data_numeric %2 == 0) # will give positions that contain even values 
+
+
+# Shuffle dataset - keeping rows intact 
+np.random.shuffle(lending_co_data_numeric)
+# or we write shuffle() instead of numpy.random.shuffle()
+from numpy.random import shuffle
+shuffle(lending_co_data_numeric)
+# or Random generators can be used for shuffling. 
+from numpy.random import Generator as gen
+from numpy.random import PCG64 as pcg
+array_RG = gen(pcg(seed = 365))
+array_RG.shuffle(lending_co_data_numeric)
+
+
+# Type casting
+lending_co_data_numeric.astype(dtype = np.int32) # convert from float to integer32
+# dtype = np.str -> dtype = np.float32 -> dtype = np.int32 # string can be converted to float before converting it to integer 
+lending_co_data_numeric.astype(dtype = np.float32).astype(dtype = np.int32)
+
+
+# Stripping - Removing specific part of the string
+# Import only text data  
+lending_co_total_price = np.genfromtxt("Lending-Company-Total-Price.csv",
+                                       delimiter = ',', dtype = str, skip_header = 1, usecols = [1,2,4])
+
+# Remove "id_" from the 1st column, as well as "Product " from the second and "Location " from the third one. 
+lending_co_total_price[:,0] = np.chararray.strip(lending_co_total_price[:,0], "id_")
+lending_co_total_price[:,1] = np.chararray.strip(lending_co_total_price[:,1], "Product ")
+lending_co_total_price[:,2] = np.chararray.strip(lending_co_total_price[:,2], "Location ")
+
+# We can combine stripping with substituting to transform all the letters to numbers. 
+lending_co_total_price[:,1] = np.where(lending_co_total_price[:,1] == 'A', 1, lending_co_total_price[:,1]) 
+lending_co_total_price[:,1] = np.where(lending_co_total_price[:,1] == 'B', 2, lending_co_total_price[:,1]) 
+lending_co_total_price[:,1] = np.where(lending_co_total_price[:,1] == 'C', 3, lending_co_total_price[:,1]) 
+lending_co_total_price[:,1] = np.where(lending_co_total_price[:,1] == 'D', 4, lending_co_total_price[:,1]) 
+lending_co_total_price[:,1] = np.where(lending_co_total_price[:,1] == 'E', 5, lending_co_total_price[:,1]) 
+lending_co_total_price[:,1] = np.where(lending_co_total_price[:,1] == 'F', 6, lending_co_total_price[:,1]) 
+
+# Even though the values look like numbers, they're actually just text, so we need to cast them once again. 
+lending_co_total_price = lending_co_total_price.astype(dtype = np.int32)
+lending_co_total_price
+
+
+# Stacking - Placing multiple objects over one another to create a bigger object 
+lending_co_data_numeric = np.loadtxt("Lending-company-Numeric.csv", delimiter = ',') # import data
+
+# We create a filler, reimport and fill all the nan-s, then subsitute all the temporary fillers with more appropriate value
+lending_co_data_numeric_NAN = np.genfromtxt("Lending-company-Numeric-NAN.csv", delimiter = ';')
+temporary_fill = np.nanmax(lending_co_data_numeric_NAN).round(2) + 1
+temporary_mean = np.nanmean(lending_co_data_numeric_NAN, axis = 0).round(2)
+lending_co_data_numeric_NAN = np.genfromtxt("Lending-company-Numeric-NAN.csv", 
+                                            delimiter = ';', 
+                                            filling_values = temporary_fill)
+for i in range(lending_co_data_numeric_NAN.shape[1]):
+    lending_co_data_numeric_NAN[:,i] = np.where(lending_co_data_numeric_NAN[:,i] == temporary_fill,
+                                                temporary_mean[i], lending_co_data_numeric_NAN[:,i])
+lending_co_data_numeric_NAN
+
+# We can stack more than 2 arrays. 
+np.stack((lending_co_data_numeric[:,0],lending_co_data_numeric[:,1], lending_co_data_numeric[:,2]), axis = 1)
+
+# vstack - vertical stack - stack one over the other 
+np.vstack((lending_co_data_numeric, lending_co_data_numeric_NAN))
+
+# hstack - horizontal stack - side by side stack 
+np.hstack((lending_co_data_numeric, lending_co_data_numeric_NAN))
+
+# dstack - stack arrays in the 3rd dimension - returns arrays of higher dimension
+np.dstack((lending_co_data_numeric, lending_co_data_numeric_NAN)) # becomes a 3 dimensional array of shape (1043, 6, 2)
+
+# concatenating - linking together objects in a chain
+# The concatenated array has the same number of dimensions as the inputs. 
+np.concatenate((lending_co_data_numeric[0,:], lending_co_data_numeric[1,:])) # one dimension 
+np.concatenate((lending_co_data_numeric, lending_co_data_numeric_NAN), axis = 1) # two dimension
+
+# Unique values 
+lending_co_data_numeric = np.loadtxt("Lending-company-Numeric.csv", delimiter = ',')  # import data 
+# Unique -> returns the unique values within the array in increasing order
+# return_counts -> returns how many times each unique value appears in the array
+# return_index -> returns the index of the first encounter with each unique value
+np.unique(lending_co_data_numeric[:,1], return_counts = True, return_index = True)
+
+```
+
+## Sample practical example for Numpy 
+```xml
+Refer to 10-A-Loan-Data-Example-with-NumPy.ipynb file 
+
+```
 
 ## Important Resources
 ```xml

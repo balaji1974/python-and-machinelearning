@@ -564,6 +564,14 @@ x=text.split() # splits the string into words
 
 print(sorted('Balaji')) #sorts the word - ascii sort, better to apply upper or lower before sorting
 
+s="Hi balaji"
+# replace(<old value>, <new value>, <optional-occurance>)
+print(s.replace("i","X", 1)) # Will return HX balaji - Only 1 time i will be replaced by X 
+
+# counts no. of occurance
+print(s.count('i')) # will return 2 
+
+
 String samples
 --------------
 data = "Hello World"
