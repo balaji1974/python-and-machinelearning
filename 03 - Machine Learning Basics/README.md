@@ -549,7 +549,7 @@ This means saving updated models and updated datasets regularly.
 
 ### Reference
 ```xml
-https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery/l
+https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery/
 https://www.mrdbourke.com/a-6-step-field-guide-for-building-machine-learning-projects/
 
 
