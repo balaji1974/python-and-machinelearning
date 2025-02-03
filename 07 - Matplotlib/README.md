@@ -54,6 +54,10 @@ ax.plot(x, y);
 
 ```
 
+## Anatomy of Plotting
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/07%20-%20Matplotlib/resources/matplotlib-anatomy-of-a-plot-with-code.png?raw=true)
+
+
 ### Reference
 ```xml
 https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery/learn/
