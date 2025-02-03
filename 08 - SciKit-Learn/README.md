@@ -46,10 +46,19 @@ Saving you from having to build them from scratch.
 
 ```
 
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
 
+## Scikit-learn workflow 
+```xml 
+1. Getting the data ready
+2. Choosing the right maching learning estimator/aglorithm/model for your problem
+3. Fitting your chosen machine learning model to data and using it to make a prediction
+4. Evaluting a machine learning model
+5. Improving predictions through experimentation (hyperparameter tuning)
+6. Saving and loading a pretrained model
+7. Putting it all together in a pipeline
 
-
-
+```
 
 ### Reference
 ```xml
