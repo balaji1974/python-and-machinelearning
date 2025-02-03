@@ -430,13 +430,16 @@ If the elif condition is true, it executes the code block underneath it.
 
 ### While Loop
 ```xml
-While loop is a powerful control structure that allows repetitive execution of a block of code while a specified condition is true. 
-It's essential to manage the loop variables properly to avoid infinite loops and other logical errors.
+While loop is a powerful control structure that allows repetitive execution 
+of a block of code while a specified condition is true. 
+It's essential to manage the loop variables properly to avoid 
+infinite loops and other logical errors.
 
 
-
-The break statement is used to exit a loop when a specific condition is met. Here's a simple example to illustrate how it works:
-The continue statement is used to skip the current iteration of a loop and proceed to the next iteration. Here's how you can use it:
+The break statement is used to exit a loop when a specific condition is met. 
+Here's a simple example to illustrate how it works:
+The continue statement is used to skip the current iteration of a loop and 
+proceed to the next iteration. Here's how you can use it:
 
 Using while loops:
 Continues until a specified condition is met.
@@ -1135,6 +1138,13 @@ print(type(occurances))  # <class 'dict'>
 
 See example code for usage 
 
+# Different ways to create a dictionary
+a = dict (one=1, two=2, three=3)
+b = {"one":1, "two":2, "three":3}
+c = dict(zip(["one", "two", "three"],[1, 2, 3]))
+d = dict([("one",1),("two",2),("three",3)])
+e = dict({"one":1, "two":2, "three":3})
+
 ```
 
 ### Data Structure - Tuples
@@ -1152,7 +1162,17 @@ Eg.
 person = ('Alice', 30, 'USA')
 print(person)  # Outputs: ('Alice', 30, 'USA')
 
+person =("Hi", 37) # Can be reassigned new set of values 
+print(person)  # Outputs: ('Hi', 37)
 
+print(person[1]) # Outputs: 37
+
+# person[1] = "bala" # Will not work as tuples are immutable, once assigned cannot change 
+
+person2 =("Hi All", 50)
+
+person3 = person + person2
+print(person3)  # Outputs: ('Hi', 37, 'Hi All', 50)
 
 ```
 

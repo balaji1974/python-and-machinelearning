@@ -82,7 +82,17 @@ file.close()
 
 ```
 
+## Global and local variables
+```xml
+def my_function(global_variable):
+    print(global_variable)
+    local_variable="Local Hello"
+    print(local_variable)
 
+global_variable="Global Hello"
+my_function(global_variable)
+
+```
 
 ## Miscellaneous 
 ```xml
