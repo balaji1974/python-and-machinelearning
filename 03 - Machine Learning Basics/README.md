@@ -544,6 +544,8 @@ This means saving updated models and updated datasets regularly.
 
 ```
 
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/03%20-%20Machine%20Learning%20Basics/resources/6-step-ml-framework-tools.png?raw=true)
+
 
 ### Reference
 ```xml
