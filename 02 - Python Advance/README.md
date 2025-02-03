@@ -95,11 +95,28 @@ import keyword
 keyword.kwlist
 
 
+# Escape codes
+print ("c\\test\data.txt")
+# Other escape codes are as follows: 
+\<newline> - Backslash and newline ignored
+\\ - Backslash (\)
+\' - Single quote (')
+\" - Double quote (")
+\a - ASCII Bell (BEL)
+\b - ASCII Backspace (BS)
+\f - ASCII Formfeed (FF)
+\n - ASCII Linefeed (LF)
+\r - ASCII Carriage Return (CR)
+\t - ASCII Horizontal Tab (TAB)
+\v - ASCII Vertical Tab (VT) 
+https://docs.python.org/3/reference/lexical_analysis.html#grammar-token-python-grammar-stringescapeseq
+
+
 ```
 
 
 ### Reference
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
-
+https://docs.python.org/3/reference/
 ```

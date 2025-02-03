@@ -1,6 +1,9 @@
 
 # A.I, Machine Learning & Data Science 
 
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/03%20-%20Machine%20Learning%20Basics/resources/6-step-ml-framework.png?raw=true)
+
+
 ## Machine Learning - Introduction 
 ```xml
 AI -> With AI computers are as good or better than humans in tasks 
