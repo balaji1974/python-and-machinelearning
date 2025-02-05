@@ -94,6 +94,30 @@ my_function(global_variable)
 
 ```
 
+## Python Graphics 
+```xml
+From the Pycharm IDE import PythonTurtle module 
+PyCharm -> Settings -> Python Interpreter -> Add (+) -> PythonTurtle -> Install Package -> Close
+
+Run the following program: (save it first as turtledemo.py)
+from turtle import *
+forward(90)
+right(120)
+forward(90)
+done()
+
+
+Drawing a square: (square.py)
+from turtle import *
+forward(90)
+right(120)
+forward(90)
+done()
+
+
+```
+
+
 ## Miscellaneous 
 ```xml
 

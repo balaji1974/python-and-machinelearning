@@ -60,6 +60,22 @@ Saving you from having to build them from scratch.
 
 ```
 
+## Scikit-learn imports 
+```xml 
+
+# Standard imports
+# %matplotlib inline # No longer required in newer versions of Jupyter (2022+)
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+import sklearn
+print(f"Using Scikit-Learn version: {sklearn.__version__} (materials in this notebook require this version or newer).")
+# Using Scikit-Learn version: 1.5.1 (materials in this notebook require this version or newer).
+
+
+```
+
 ### Reference
 ```xml
 https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery
