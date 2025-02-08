@@ -46,20 +46,6 @@ Saving you from having to build them from scratch.
 
 ```
 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
-
-## Scikit-learn workflow 
-```xml 
-1. Getting the data ready
-2. Choosing the right maching learning estimator/aglorithm/model for your problem
-3. Fitting your chosen machine learning model to data and using it to make a prediction
-4. Evaluting a machine learning model
-5. Improving predictions through experimentation (hyperparameter tuning)
-6. Saving and loading a pretrained model
-7. Putting it all together in a pipeline
-
-```
-
 ## Scikit-learn imports 
 ```xml 
 
@@ -72,9 +58,125 @@ import pandas as pd
 import sklearn
 print(f"Using Scikit-Learn version: {sklearn.__version__} (materials in this notebook require this version or newer).")
 # Using Scikit-Learn version: 1.5.1 (materials in this notebook require this version or newer).
+```
+
+
+# Scikit-learn Workflow 
+
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
+
+## Scikit-learn workflow - Steps
+```xml 
+1. Getting the data ready
+2. Choosing the right maching learning estimator/aglorithm/model for your problem
+3. Fitting your chosen machine learning model to data and using it to make a prediction
+4. Evaluting a machine learning model
+5. Improving predictions through experimentation (hyperparameter tuning)
+6. Saving and loading a pretrained model
+7. Putting it all together in a pipeline
+
+```
+
+## 1. Get the data ready 
+```xml 
+# Import dataset
+heart_disease = pd.read_csv("./heart-disease.csv")
+
+# View the data
+heart_disease.head()
+
+# Create X (all the feature columns except target column)
+X = heart_disease.drop("target", axis=1)
+
+# Create y (the target column)
+y = heart_disease["target"]
+
+```
+
+## 2. Choosing the right model and hyper parameters
+```xml 
+# Random Forest Classifier (for classification problems)
+from sklearn.ensemble import RandomForestClassifier
+
+# Instantiating a Random Forest Classifier (clf short for classifier)
+clf = RandomForestClassifier()
+
+# We will keep the default parameters 
+clf.get_params() # checking the default parameters
+
+```
+
+## 3. Fit the model to the training data 
+```xml 
+# Split the data into training and test sets
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+# View the data shapes
+X_train.shape, X_test.shape, y_train.shape, y_test.shape
+
+# All models/estimators have the fit() function built-in
+clf.fit(X_train, y_train);
+
+# Once fit is called, you can make predictions using predict()
+y_preds = clf.predict(X_test)
+
+```
+
+## 4. Evaluate the model 
+```xml 
+# All models/estimators have a score() function
+# On the training set
+clf.score(X_train, y_train)
+
+# On the test set (unseen)
+clf.score(X_test, y_test)
+
+# Import different classification metrics
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+# Classification report
+print(classification_report(y_test, y_preds))
+
+# Confusion matrix
+confusion_matrix(y_test, y_preds)
+
+# Accuracy score
+accuracy_score(y_test, y_preds)
+
+```
+
+## 5. Improve a model 
+```xml 
+# Try different numbers of estimators (n_estimators is a hyperparameter you can change)
+np.random.seed(42)
+for i in range(10,100,10):
+    print(f"Trying model with {i} estimator....")
+    clf = RandomForestClassifier(n_estimators=i).fit(X_test, y_test)
+    print(f"Model accuracy on test set : {clf.score(X_test, y_test) * 100:.2f}%")
+    print("")
 
 
 ```
+## 4. Save the model and load it
+```xml 
+
+# Saving a model with pickle
+import pickle
+
+# Save an existing model to file
+pickle.dump(clf, open("rs_random_forest_model_1.pkl", "wb"))
+
+# Load a saved pickle model
+loaded_pickle_model = pickle.load(open("rs_random_forest_model_1.pkl", "rb"))
+
+# Evaluate loaded model
+loaded_pickle_model.score(X_test, y_test)
+
+```
+
+
 
 ### Reference
 ```xml

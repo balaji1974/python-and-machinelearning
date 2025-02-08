@@ -420,9 +420,15 @@ print(bool(0))  # False
 
 
 
-The if statement checks a specific condition. If the condition is true, it executes the code block underneath it.
-The else statement provides an alternative code block that will execute if the if statement's condition is not met (i.e., if it's false).
-elif stands for "else if". This statement allows us to check multiple conditions. If the if condition is false, the program checks the elif condition. 
+The if statement checks a specific condition. 
+If the condition is true, it executes the code block underneath it.
+
+The else statement provides an alternative code block that will execute 
+if the if statement's condition is not met (i.e., if it's false).
+
+elif stands for "else if". 
+This statement allows us to check multiple conditions. 
+If the if condition is false, the program checks the elif condition. 
 If the elif condition is true, it executes the code block underneath it.
 
 
