@@ -146,6 +146,12 @@ print ("c\\test\data.txt")
 https://docs.python.org/3/reference/lexical_analysis.html#grammar-token-python-grammar-stringescapeseq
 
 
+# Ignore all warning in python
+import warnings
+warnings.filterwarnings("ignore") # Not advisable 
+
+warnings.filterwarnings("default") # this will bring warnings back 
+
 ```
 
 

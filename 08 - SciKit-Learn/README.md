@@ -58,6 +58,8 @@ import pandas as pd
 import sklearn
 print(f"Using Scikit-Learn version: {sklearn.__version__} (materials in this notebook require this version or newer).")
 # Using Scikit-Learn version: 1.5.1 (materials in this notebook require this version or newer).
+
+sklearn.show_versions() # This also shows the version information 
 ```
 
 
@@ -75,10 +77,14 @@ print(f"Using Scikit-Learn version: {sklearn.__version__} (materials in this not
 6. Saving and loading a pretrained model
 7. Putting it all together in a pipeline
 
+
 ```
 
 ## 1. Get the data ready 
 ```xml 
+# The problem at hand is see if someone has heart disease of not.
+# It is a classification problem 
+
 # Import dataset
 heart_disease = pd.read_csv("./heart-disease.csv")
 
@@ -88,8 +94,8 @@ heart_disease.head()
 # Create X (all the feature columns except target column)
 X = heart_disease.drop("target", axis=1)
 
-# Create y (the target column)
-y = heart_disease["target"]
+# Create y (the target column - label)
+y = heart_disease["target"] # This is a result that says if the person has heart disease or not
 
 ```
 
@@ -99,10 +105,11 @@ y = heart_disease["target"]
 from sklearn.ensemble import RandomForestClassifier
 
 # Instantiating a Random Forest Classifier (clf short for classifier)
-clf = RandomForestClassifier()
+clf = RandomForestClassifier(n_estimators=100)
 
-# We will keep the default parameters 
-clf.get_params() # checking the default parameters
+# We will keep the default hyperparameters 
+# These are used for fine tuning the model 
+clf.get_params() # checking the default hyperparameters
 
 ```
 
@@ -111,7 +118,7 @@ clf.get_params() # checking the default parameters
 # Split the data into training and test sets
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # View the data shapes
 X_train.shape, X_test.shape, y_train.shape, y_test.shape
@@ -153,29 +160,325 @@ accuracy_score(y_test, y_preds)
 np.random.seed(42)
 for i in range(10,100,10):
     print(f"Trying model with {i} estimator....")
-    clf = RandomForestClassifier(n_estimators=i).fit(X_test, y_test)
+    clf = RandomForestClassifier(n_estimators=i).fit(X_train, y_train)
     print(f"Model accuracy on test set : {clf.score(X_test, y_test) * 100:.2f}%")
     print("")
 
+# The output of this will help us select the best estimator to use:
+# select the one with the highest accuracy score
 
 ```
-## 4. Save the model and load it
+## 6. Save the model and load it
 ```xml 
-
 # Saving a model with pickle
 import pickle
 
 # Save an existing model to file
-pickle.dump(clf, open("rs_random_forest_model_1.pkl", "wb"))
+pickle.dump(clf, open("rs_random_forest_model_1.pkl", "wb")) # wb- write binary
 
 # Load a saved pickle model
-loaded_pickle_model = pickle.load(open("rs_random_forest_model_1.pkl", "rb"))
+loaded_pickle_model = pickle.load(open("rs_random_forest_model_1.pkl", "rb")) # read binary
 
 # Evaluate loaded model
 loaded_pickle_model.score(X_test, y_test)
 
 ```
 
+## Getting the data ready
+```xml 
+1. Split the data into feature and labels (X and y)
+2. Converting non-numerical values into numeric values (also known as feature encoding)
+3. Filling (also known as imputing) or disregarding missing values 
+
+
+1. Split the data into feature and labels (X and y)
+---------------------------------------------------
+
+# Import dataset
+heart_disease = pd.read_csv("./resources/heart-disease.csv")
+
+# View the data
+heart_disease.head()
+
+# Create X (all the feature columns except target column)
+X = heart_disease.drop("target", axis=1)
+
+# Create y (the target column - label)
+y = heart_disease["target"] # This is a result that says if the person has heart disease or not
+
+# import the train_test_split module from scikit-learn
+from sklearn.model_selection import train_test_split
+
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# View the data shapes
+X_train.shape, X_test.shape, y_train.shape, y_test.shape
+
+
+2. Converting non-numericial values into numeric values 
+-------------------------------------------------------
+# For this example lets import a new dataset containing non-numeric data 
+# Import and view dataset 
+car_sales = pd.read_csv("./resources/car-sales-extended.csv")
+car_sales.head()
+
+# Explore the dataset  
+car_sales["Doors"].value_counts()
+len(car_sales)
+car_sales.dtypes
+
+# Split into X/y
+X = car_sales.drop("Price", axis=1)
+y = car_sales["Price"]
+
+# Split into training and test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Build machine learning model
+from sklearn.ensemble import RandomForestRegressor
+
+model = RandomForestRegressor()
+model.fit(X_train, y_train)
+model.score(X_test, y_test)
+
+# The above will throw ValueError: could not convert string to float: 'Toyota'
+# We need to convert all Strings into numbers 
+
+# Turn the categories into numbers
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+categorical_features = ["Make", "Colour", "Doors"]
+one_hot = OneHotEncoder()
+transformer = ColumnTransformer([("one_hot", one_hot, categorical_features)],
+                                   remainder="passthrough")
+
+transformed_X = transformer.fit_transform(X)
+transformed_X
+
+pd.DataFrame(transformed_X)
+
+
+# Another way to do the same thing with pd.dummies...
+dummies = pd.get_dummies(car_sales[["Make", "Colour", "Doors"]],dtype=int)
+dummies
+
+# Let's refit the model
+np.random.seed(42)
+X_train, X_test, y_train, y_test = train_test_split(transformed_X, y, test_size=0.2)
+model.fit(X_train, y_train);
+
+# Test the model 
+model.score(X_test, y_test)
+
+
+3. Disregarding missing values or Filling (also known as imputing) 
+------------------------------------------------------------------
+# Import car sales missing data
+car_sales_missing = pd.read_csv("./resources/car-sales-extended-missing-data.csv")
+car_sales_missing.head()
+
+# Find the count of missing values in each column
+car_sales_missing.isna().sum()
+
+# Create X & y
+X = car_sales_missing.drop("Price", axis=1)
+y = car_sales_missing["Price"]
+
+# Let's try and convert our data to numbers
+# Turn the categories into numbers
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+categorical_features = ["Make", "Colour", "Doors"]
+one_hot = OneHotEncoder()
+transformer = ColumnTransformer([("one_hot", one_hot,
+                 categorical_features)],remainder="passthrough")
+
+transformed_X = transformer.fit_transform(X)
+transformed_X
+
+# The above will throw ValueError: Input contains NaN (but in newer versions of Scikit Learn this is ignored)
+
+3.1 Fill the missing values using Pandas
+----------------------------------------
+# Fill the "Make" column
+car_sales_missing["Make"]=car_sales_missing["Make"].fillna("missing")
+
+# Fill the "Colour" column
+car_sales_missing["Colour"]=car_sales_missing["Colour"].fillna("missing")
+
+# Fill the "Odometer (KM)" column
+car_sales_missing["Odometer (KM)"]=car_sales_missing["Odometer (KM)"].fillna(car_sales_missing["Odometer (KM)"].mean())
+
+# Fill the "Doors" column
+car_sales_missing["Doors"]=car_sales_missing["Doors"].fillna(4)
+
+# Check our dataframe again
+car_sales_missing.isna().sum()
+
+# Remove rows with missing Price value
+# This is because we are trying to predict car sales and so cannot have any missing value here
+car_sales_missing.dropna(inplace=True) 
+
+# Check our dataframe again
+car_sales_missing.isna().sum()
+
+# To check how many missing values we have remaining after removing price = NA  
+len(car_sales_missing)
+
+# ReCreate X & y
+X = car_sales_missing.drop("Price", axis=1)
+y = car_sales_missing["Price"]
+
+# Let's try and convert our data to numbers
+# Turn the categories into numbers
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+categorical_features = ["Make", "Colour", "Doors"]
+one_hot = OneHotEncoder()
+transformer = ColumnTransformer([("one_hot",one_hot,
+                    categorical_features)],remainder="passthrough")
+
+transformed_X = transformer.fit_transform(car_sales_missing)
+transformed_X
+
+3.2 Fill missing values with Scikit-Learn
+-----------------------------------------
+
+car_sales_missing = pd.read_csv("resources/car-sales-extended-missing-data.csv")
+car_sales_missing.head()
+
+car_sales_missing.isna().sum()
+
+# Drop the rows with no labels
+car_sales_missing.dropna(subset=["Price"], inplace=True)
+car_sales_missing.isna().sum()
+
+# Check missing values
+X.isna().sum()
+
+# Fill missing values with Scikit-Learn
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+
+# Fill categorical values with 'missing' & numerical values with mean
+cat_imputer = SimpleImputer(strategy="constant", fill_value="missing")
+door_imputer = SimpleImputer(strategy="constant", fill_value=4)
+num_imputer = SimpleImputer(strategy="mean")
+
+# Define columns
+cat_features = ["Make", "Colour"]
+door_feature = ["Doors"]
+num_features = ["Odometer (KM)"]
+
+# Create an imputer (something that fills missing data)
+imputer = ColumnTransformer([
+    ("cat_imputer", cat_imputer, cat_features),
+    ("door_imputer", door_imputer, door_feature),
+    ("num_imputer", num_imputer, num_features)
+])
+
+# Fill train and test values separately
+filled_X_train = imputer.fit_transform(X_train)
+filled_X_test = imputer.transform(X_test)
+
+# Check filled X_train
+filled_X_train
+
+# Get our transformed data array's back into DataFrame's
+car_sales_filled_train = pd.DataFrame(filled_X_train, 
+                                      columns=["Make", "Colour", "Doors", "Odometer (KM)"])
+car_sales_filled_test = pd.DataFrame(filled_X_test, 
+                                     columns=["Make", "Colour", "Doors", "Odometer (KM)"])
+
+# Check missing data in training set
+car_sales_filled_train.isna().sum()
+
+# Check to see the original... still missing values
+car_sales_missing.isna().sum()
+
+# Now let's one hot encode the features with the same code as before 
+categorical_features = ["Make", "Colour", "Doors"]
+one_hot = OneHotEncoder()
+transformer = ColumnTransformer([("one_hot", one_hot, 
+                        categorical_features)], remainder="passthrough")
+
+# Fill train and test values separately
+transformed_X_train = transformer.fit_transform(car_sales_filled_train)
+transformed_X_test = transformer.transform(car_sales_filled_test)
+
+# Check transformed and filled X_train
+transformed_X_train.toarray()
+
+# Now we've transformed X, let's see if we can fit a model
+np.random.seed(42)
+from sklearn.ensemble import RandomForestRegressor
+
+model = RandomForestRegressor()
+
+# Make sure to use transformed (filled and one-hot encoded X data)
+model.fit(transformed_X_train, y_train)
+model.score(transformed_X_test, y_test)
+
+# Check length of transformed data (filled and one-hot encoded)
+# vs. length of original data 
+# This model performs worst than the original model 
+# because of the size of the data which is smaller than the original data 
+len(transformed_X_train.toarray())+len(transformed_X_test.toarray()), len(car_sales)
+
+```
+
+## Feature Scaling  
+```xml
+Feature Scaling
+Once your data is all in numerical format, there's one more transformation 
+you'll probably want to do to it.
+
+It's called Feature Scaling.
+
+In other words, making sure all of your numerical data is on the same scale.
+
+For example, say you were trying to predict the sale price of cars and 
+the number of kilometres on their odometers varies from 6,000 to 345,000 
+but the median previous repair cost varies from 100 to 1,700. 
+A machine learning algorithm may have trouble finding patterns in 
+these wide-ranging variables.
+
+To fix this, there are two main types of feature scaling.
+
+Normalization (also called min-max scaling):  
+This rescales all the numerical values to between 0 and 1, 
+with the lowest value being close to 0 and the highest previous value being 
+close to 1. 
+Scikit-Learn provides functionality for this in the MinMaxScalar class.
+
+Standardization:  
+This subtracts the mean value from all of the features 
+(so the resulting features have 0 mean). 
+It then scales the features to unit variance (by dividing the feature 
+by the standard deviation). Scikit-Learn provides functionality for 
+this in the StandardScalar class.
+
+A couple of things to note.
+
+Feature scaling usually isn't required for your target variable.
+
+Feature scaling is usually not required with tree-based models 
+(e.g. Random Forest) since they can handle varying features.
+
+References: (Good reads)
+https://www.analyticsvidhya.com/blog/2020/04/feature-scaling-machine-learning-normalization-standardization/
+https://benalexkeen.com/feature-scaling-with-scikit-learn/
+https://rahul-saini.medium.com/feature-scaling-why-it-is-required-8a93df1af310
+```
+
+
+# Choosing the righ estimator 
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/choosing-the-right-estimator.png?raw=true)
+https://scikit-learn.org/stable/machine_learning_map.html
 
 
 ### Reference
