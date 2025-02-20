@@ -1186,7 +1186,8 @@ print(person3)  # Outputs: ('Hi', 37, 'Hi All', 50)
 ```xml
 guessnumber.py -> Number guessing game (guess between 1 to 99)
 rolldice.py -> Rolling dice game (roll dice until you dont want to roll again)
-
+milespergallon.py -> Calculates the miles per gallon cost 
+findavgmarks.py -> Find the avg marks for 5 students 
 ```
 
 ### Reference
