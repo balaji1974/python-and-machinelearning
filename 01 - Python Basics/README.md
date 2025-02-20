@@ -1182,6 +1182,12 @@ print(person3)  # Outputs: ('Hi', 37, 'Hi All', 50)
 
 ```
 
+## Check out codes in the sample code section
+```xml
+guessnumber.py -> Number guessing game (guess between 1 to 99)
+rolldice.py -> Rolling dice game (roll dice until you dont want to roll again)
+
+```
 
 ### Reference
 ```xml
@@ -1189,5 +1195,6 @@ https://www.udemy.com/course/python-programming-for-beginners-with-exercises/
 https://www.python.org/downloads/
 
 https://www.udemy.com/course/data-analysis-with-pandas/
+https://www.udemy.com/course/pythoncourse/
 
 ```
