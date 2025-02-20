@@ -184,7 +184,10 @@ loaded_pickle_model.score(X_test, y_test)
 
 ```
 
-## Getting the data ready
+# Scikit-learn Workflow - In Detail  
+
+
+## 1. Getting the data ready
 ```xml 
 1. Split the data into feature and labels (X and y)
 2. Converting non-numerical values into numeric values (also known as feature encoding)
@@ -480,10 +483,185 @@ https://rahul-saini.medium.com/feature-scaling-why-it-is-required-8a93df1af310
 ![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/choosing-the-right-estimator.png?raw=true)
 https://scikit-learn.org/stable/machine_learning_map.html
 
+## 2. Choosing the right estimator/algorithm for your problem
+```xml
+2.1 Picking a machine learning model for a regression problem
+
+# Get California Housing dataset
+from sklearn.datasets import fetch_california_housing
+housing = fetch_california_housing()
+housing
+
+# Getting it into a dataframe
+housing_df = pd.DataFrame(housing["data"], columns=housing["feature_names"])
+housing_df
+
+# Adding the target variable into our dataset 
+housing_df["target"] = housing["target"]
+housing_df.head()
+
+# Import algorithm/estimator
+from sklearn.linear_model import Ridge
+
+# Setup random seed
+np.random.seed(42)
+
+# Create the data
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"] # median house price in $100,000s
+
+# Split the data into training and test sets
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate and fit the model (on the training set)
+model = Ridge()
+model.fit(X_train, y_train)
+
+# Check the score of the model (on the test set)
+model.score(X_test, y_test)
+0.5758549611440126 <- result 
+
+What if Ridge didn't work or the score didn't fit our needs?
+
+Well, we could always try a different model...
+
+How about we try an ensemble model (an ensemble is combination of smaller models to try and make better predictions than just a single model)?
+
+Sklearn's ensemble models can be found here: https://scikit-learn.org/stable/modules/ensemble.html
+
+# Import the RandomForestRegressor model class from the ensemble module
+from sklearn.ensemble import RandomForestRegressor
+
+# Setup random seed
+np.random.seed(42)
+
+# Create the data
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"]
+
+# Split into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create random forest model
+model = RandomForestRegressor()
+model.fit(X_train, y_train)
+
+# Check the score of the model (on the test set)
+model.score(X_test, y_test)
+0.8066196804802649 <- result 
+
+
+2.2 Picking a machine learning model for a classification problem
+Let's go to the map... https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
+
+# Get the data (be sure to click "raw") - https://github.com/mrdbourke/zero-to-mastery-ml/blob/master/data/heart-disease.csv 
+heart_disease = pd.read_csv("https://raw.githubusercontent.com/mrdbourke/zero-to-mastery-ml/master/data/heart-disease.csv")
+heart_disease.head()
+
+len(heart_disease)
+
+# Consulting the map and it says to try LinearSVC.
+
+# Import the LinearSVC estimator class
+from sklearn.svm import LinearSVC
+
+# Setup random seed
+np.random.seed(42)
+
+# Make the data
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate LinearSVC
+clf = LinearSVC(max_iter=10000)
+clf.fit(X_train, y_train)
+
+# Evaluate the LinearSVC
+clf.score(X_test, y_test)
+
+# Result -> 0.8688524590163934
+
+heart_disease["target"].value_counts()
+
+# Import the RandomForestClassifier estimator class
+from sklearn.ensemble import RandomForestClassifier
+
+# Setup random seed
+np.random.seed(42)
+
+# Make the data
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate Random Forest Classifier
+clf = RandomForestClassifier(n_estimators=100)
+clf.fit(X_train, y_train)
+
+# Evaluate the Random Forest Classifier
+clf.score(X_test, y_test)
+
+# Result -> 0.8524590163934426
+
+
+# Tidbit:
+# 1. If you have structured data, used ensemble methods
+# 2. If you have unstructured data, use deep learning or transfer learning
+
+heart_disease
+
+
+```
+
+## 3. Fit the model/algorithm on our data and use it to make predictions
+```xml
+# 3.1 Fitting the model to the data
+
+Different names for:
+X = features, features variables, data 
+y = labels, targets, target variables
+
+
+# Import the RandomForestClassifier estimator class
+from sklearn.ensemble import RandomForestClassifier
+
+# Setup random seed
+np.random.seed(42)
+
+# Make the data
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate Random Forest Classifier
+clf = RandomForestClassifier(n_estimators=100)
+
+# Fit the model to the data (training the machine learning model)
+clf.fit(X_train, y_train)
+
+# Evaluate the Random Forest Classifier (use the patterns the model has learned)
+clf.score(X_test, y_test)
+
+# Result -> 0.8524590163934426
+
+
+```
+
+
 
 ### Reference
 ```xml
 https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery
 https://scikit-learn.org/stable/user_guide.html
+
+https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d
 
 ```
