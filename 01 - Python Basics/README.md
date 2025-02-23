@@ -539,6 +539,14 @@ print('Hello World'.find('Ello'))    # Output: -1
 print('Hello World'.find('bello'))   # Output: -1
 print('Hello World'.find('Ello'))    # Output: -1
 
+Find a string with a given string
+print('Hello World'.find('l'))   # Output: 2, first occurance of l
+print('Hello World'.find('l',3)) # Output: 3, second occurance of l
+print('Hello World'.find('l',4)) # Output: 9, third occurance of l
+# The second parameter will the start position from which it will find the next occurance. 
+
+print('Hello World'.rfind('l')) # Output:9, Will find the right most match 
+print('Hello World'.find('l')) # Output:2, will find the left most match, note no lfind here, we still use find
 
 
 You can use the in keyword to check whether a character or sequence of characters exists within a specific set.
@@ -1104,6 +1112,23 @@ Global Exception Handling: Implement a top-level exception handler to catch any 
 A set in Python does not contain duplicates.
 Set is represented by {} 
 
+number1={1,2,3,5}
+number2={2,3}
+
+# The below conditions are both true 
+if(number2.issubset(number1)) :
+    print("This is subset")
+if(number1.issuperset(number2)) :
+    print("This is superset")
+
+a1 = set() # this is an empty set definition
+a1.add(3) # adding element to a set 
+
+Union = | -> Combines elements of both set by exculding duplicate elements 
+Intersection = & -> Returns the elements common to both sets 
+Difference = - -> Removes the duplicate of first and second sets and returns the remaining elements in the first set 
+
+
 List vs Set 
 -----------
 Duplication of Elements:
@@ -1124,10 +1149,6 @@ Set: Uses Curly Braces. {1,2,3,4,5}
 
 Packing elements into lists and sets provides a flexible way to pass multiple arguments to functions and manage collections of data effectively.
 You can use the * operator to unpack elements from a list and pass them as arguments to a function.
-
-Union = | -> Combines elements of both set by exculding duplicate elements 
-Intersection = & -> Returns the elements common to both sets 
-Difference = - -> Removes the duplicate of first and second sets and returns the remaining elements in the first set 
 
 ```
 
@@ -1150,6 +1171,11 @@ b = {"one":1, "two":2, "three":3}
 c = dict(zip(["one", "two", "three"],[1, 2, 3]))
 d = dict([("one",1),("two",2),("three",3)])
 e = dict({"one":1, "two":2, "three":3})
+
+# Traversing the dictionary
+a = {"one":1, "two":2, "three":3}
+for n1, n2 in a.items():
+    print("for key %s this is value %s" %(n1, n2))
 
 ```
 
@@ -1181,6 +1207,29 @@ person3 = person + person2
 print(person3)  # Outputs: ('Hi', 37, 'Hi All', 50)
 
 ```
+### Other packages
+```xml
+import time
+print(time.time()) # numeric time 
+print(time.ctime()) # human readable time 
+print(time.ctime(time.time() +15)) # 15 seconds from now
+print(time.tzname) # prints the current timezone
+print(time.timezone) # print the timezone
+print(time.gmtime()) # shows the gmtime structure
+print(time.localtime()) # local time 
+
+import os, sys
+print(os.stat('<file name>')) # will display the stats of file 
+print(os.stat('<file name>').st_atime) # access time of file
+print(os.stat('<file name>').st_mtime) # modified time of file
+
+# Modifying atime and mtime
+os.utime("<file name>",(1330712280, 1330712292))
+
+
+
+```
+
 
 ## Check out codes in the sample code section
 ```xml
@@ -1188,6 +1237,7 @@ guessnumber.py -> Number guessing game (guess between 1 to 99)
 rolldice.py -> Rolling dice game (roll dice until you dont want to roll again)
 milespergallon.py -> Calculates the miles per gallon cost 
 findavgmarks.py -> Find the avg marks for 5 students 
+mylinkedlist.py -> Linkedlist implementation
 ```
 
 ### Reference
