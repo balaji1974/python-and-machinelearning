@@ -118,6 +118,117 @@ done()
 ```
 
 
+## Python `self` attribute
+```xml
+# Self represents the instance of the class. 
+# By using the “self”  we can access the attributes 
+# and methods of the class in Python
+
+class Mynumber:
+    def __init__(self, value):
+        self.value = value
+    
+    def print_value(self):
+        print(self.value)
+
+obj1 = Mynumber(17)
+obj1.print_value()
+
+```
+
+## Python module
+```xml
+# A module is nothing but a python file 
+# that could be imported into another python
+# program and called locally
+
+# calmodule.py
+def summation(a,b):
+    return a+b
+
+def subtraction(a,b):
+    return a-b
+
+# runmodule.py
+from calmodule import summation, subtraction
+
+print(summation(1,7))
+print(subtraction(7,3))
+
+# Another way of importing modules
+import calmodule
+print(calmodule.summation(1,7))
+print(calmodule.subtraction(7,3))
+
+```
+
+## Python packages
+```xml
+
+# Python packages are a way to organize and structure code 
+# by grouping related modules into directories. 
+# A package is essentially a folder that contains an __init__.py file 
+# and one or more Python files (modules). 
+# This organization helps manage and reuse code effectively, 
+# especially in larger projects. 
+# It also allows functionality to be easily shared and 
+# distributed across different applications.
+
+# 1. Create a package 
+# A package is a folder in the current working directory of python 
+# create a package called vertibrates
+
+# 2. Create modules inside the package
+# Create 2 files called bird and fish inside the folder 
+# bird.py
+class bird:
+    def __init__(self):
+        self.members = ["pigeon", "crow", "sparrow"]
+
+    def printBird(self):
+        for member in self.members:
+            print(member)
+
+# fish.py
+class fish:
+    def __init__(self):
+        self.members = ["shark", "squid", "salmon"]
+
+    def printFish(self):
+        for member in self.members:
+            print(member)
+
+# 3. create an init file to initize the 2 python files 
+# as modules inside the package
+# __init__.py
+from .fish import fish
+from .bird import bird
+
+# 4. From the parent folder outside of vertibrates 
+# create a calling file that calls this package and its 
+# assocaiated modules
+from vertibrates import fish
+from vertibrates import bird
+
+fishprint = fish()
+fishprint.printFish()
+birdprint = bird()
+birdprint.printBird()
+
+
+# This will print the following result:
+shark
+squid
+salmon
+pigeon
+crow
+sparrow
+
+```
+
+
+
+
 ## Miscellaneous 
 ```xml
 
@@ -159,4 +270,5 @@ warnings.filterwarnings("default") # this will bring warnings back
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
 https://docs.python.org/3/reference/
+https://www.geeksforgeeks.org/
 ```
