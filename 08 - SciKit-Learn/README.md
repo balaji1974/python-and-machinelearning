@@ -652,16 +652,134 @@ clf.score(X_test, y_test)
 
 # Result -> 0.8524590163934426
 
+X.head()
+y.tail()
 
+# 3.2 Make predictions using a machine learning model
+2 ways to make predictions:
+predict()
+predict_proba()
+
+clf.predict(X_test)
+np.array(y_test)
+
+# Compare predictions to truth labels to evaluate the model
+y_preds = clf.predict(X_test)
+np.mean(y_preds == y_test) 
+=> 0.8524590163934426
+
+# The below will give the same results as above
+clf.score(X_test, y_test)
+=> 0.8524590163934426
+
+# or one more way of checking this
+from sklearn.metrics import accuracy_score
+accuracy_score(y_test, y_preds)
+=> 0.8524590163934426
+
+# Make predictions with predict_proba() - use this if someone asks you 
+# "what's the probability your model is assigning to each prediction?"
+# predict_proba() returns probabilities of a classification label 
+clf.predict_proba(X_test[:5])
+=> Result
+array([[0.89, 0.11],
+       [0.49, 0.51],
+       [0.43, 0.57],
+       [0.84, 0.16],
+       [0.18, 0.82]])
+# Here instead of returning 0 or 1 as from the below result of predict 
+# it gives a probability of model being 0 or 1. Eg. for the first sample
+# the probability of model returning 0 is 0.89 
+# and the probability of model returing 1 is 0.11. 
+
+# Let's predict() on the same data...
+clf.predict(X_test[:5])
+X_test[:5]
+
+# `predict()` can also be used for regression models.
+from sklearn.ensemble import RandomForestRegressor
+
+np.random.seed(42)
+
+# Create the data
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"]
+
+# Split into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create model instance
+model = RandomForestRegressor()
+
+# Fit the model to the data
+model.fit(X_train, y_train)
+
+# Make predictions
+y_preds = model.predict(X_test)
+
+y_preds[:10]
+np.array(y_test[:10])
+
+# Compare the predictions to the truth
+from sklearn.metrics import mean_absolute_error
+mean_absolute_error(y_test, y_preds)
+result => 0.3265721842781009 => This means our prediction is 
+0.3265... different from the target value 
+
+housing_df["target"]
 ```
 
 
+## 4. Evaluating a machine learning model
+```xml
+Three ways to evaluate Scikit-Learn models/estimators:
+
+1. Estimator's built-in score() method
+2. The scoring parameter
+3. Problem-specific metric functions
+You can read more about these here: 
+https://scikit-learn.org/stable/modules/model_evaluation.html
+
+# 4.1 Evaluating a model with the score method
+from sklearn.ensemble import RandomForestClassifier
+
+# Setup random seed
+np.random.seed(42)
+
+# Make the data
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate Random Forest Classifier
+clf = RandomForestClassifier(n_estimators=1000)
+
+# Fit the model to the data (training the machine learning model)
+clf.fit(X_train, y_train)
+
+# The highest value for the .score() method is 1.0, the lowest is 0.0
+clf.score(X_train, y_train)
+result=> 1.0
+
+clf.score(X_test, y_test)
+result => 0.8688524590163934
+
+```
+
+## Additional Resources
+```xml
+# Random Forest model deep dive
+## These resources will help you understand what's happening inside the Random Forest models we've been using.
+https://en.wikipedia.org/wiki/Random_forest
+https://builtin.com/data-science/random-forest-python-deep-dive
+https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d
+
+```
 
 ### Reference
 ```xml
 https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-mastery
 https://scikit-learn.org/stable/user_guide.html
-
-https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d
-
 ```
