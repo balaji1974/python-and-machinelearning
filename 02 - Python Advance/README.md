@@ -226,8 +226,53 @@ sparrow
 
 ```
 
+## Python - GUI
+```xml
+# Default bundled GUI framework of Python
+Tkinter - check feet2meter.py
+
+# Top GUI frameworks of Python
+Kivy
+PyQt
+PyGUI
 
 
+
+
+```
+
+## Python - Variable arguments
+```xml
+# *args example
+def fun(*args):
+    return sum(args)
+
+print(fun(1, 2, 3, 4)) 
+print(fun(5, 10, 15))
+Output =>
+10
+30
+
+# **kwargs example
+def fun(**kwargs):
+    for k, val in kwargs.items():
+        print(k, val)
+
+fun(a=1, b=2, c=3)
+Output => 
+a 1
+b 2
+c 3
+```
+
+## Install python package from juypter notebook 
+```xml
+import sys
+!conda install --yes --prefix {sys.prefix} seaborn # This will install the seaborn package 
+
+
+
+```
 
 ## Miscellaneous 
 ```xml
