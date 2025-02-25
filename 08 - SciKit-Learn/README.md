@@ -766,6 +766,204 @@ result=> 1.0
 clf.score(X_test, y_test)
 result => 0.8688524590163934
 
+Let's use the score() on our regression problem...
+from sklearn.ensemble import RandomForestRegressor
+
+np.random.seed(42)
+
+# Create the data
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"]
+
+# Split into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create model instance
+model = RandomForestRegressor(n_estimators=100)
+
+# Fit the model to the data
+model.fit(X_train, y_train)
+
+# The default score() evaluation metric is r_squared for regression algorithms
+# Highest = 1.0, lowest = 0.0
+model.score(X_test, y_test)
+
+
+# 4.2 Evaluating a model using the scoring parameter
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(42)
+
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+clf = RandomForestClassifier(n_estimators=100)
+
+clf.fit(X_train, y_train);
+clf.score(X_test, y_test)
+
+
+# In cross validation score, the model is trained on different set 
+# of training data (based on cv value that is set) and evaluated on 
+# different set of test data (same number set by the cv value)
+cross_val_score(clf, X, y, cv=5) # five different scores
+cross_val_score(clf, X, y, cv=10) # ten different scores 
+
+
+np.random.seed(42)
+
+# Single training and test split score
+clf_single_score = clf.score(X_test, y_test)
+
+# Take the mean of 5-fold cross-validation score
+clf_cross_val_score = np.mean(cross_val_score(clf, X, y, cv=5))
+
+# Compare the two
+clf_single_score, clf_cross_val_score
+
+# Scoring parameter set to None by default
+cross_val_score(clf, X, y, cv=5, scoring=None)
+
+
+# 4.2.1 Classification model evaluation metrics
+Accuracy
+Area under ROC curve
+Confusion matrix
+Classification report
+
+# Accuracy
+heart_disease.head()
+
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(42)
+
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+clf = RandomForestClassifier(n_estimators=100)
+cross_val_score = cross_val_score(clf, X, y, cv=5)
+
+np.mean(cross_val_score)
+print(f"Heart Disease Classifier Cross-Validated Accuracy: {np.mean(cross_val_score) *100:.2f}%")
+result => Heart Disease Classifier Cross-Validated Accuracy: 82.48%
+
+
+# Area under the receiver operating characteristic curve (AUC/ROC)
+Area under curve (AUC)
+ROC curve
+
+# ROC curves are a comparison of a model's true postive rate (tpr) 
+# versus a models false positive rate (fpr).
+True positive = model predicts 1 when truth is 1
+False positive = model predicts 1 when truth is 0
+True negative = model predicts 0 when truth is 0
+False negative = model predicts 0 when truth is 1
+
+# Create test,train split 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+from sklearn.metrics import roc_curve
+
+# Fit the classifier
+clf.fit(X_train, y_train)
+
+# Make predictions with probabilities
+y_probs = clf.predict_proba(X_test)
+
+y_probs[:10], len(y_probs)
+
+y_probs_positive = y_probs[:, 1]
+y_probs_positive[:10]
+
+# Caculate fpr, tpr and thresholds
+fpr, tpr, thresholds = roc_curve(y_test, y_probs_positive)
+
+# Check the false positive rates
+fpr
+
+# Create a function for plotting ROC curves
+import matplotlib.pyplot as plt
+
+def plot_roc_curve(fpr, tpr):
+    """
+    Plots a ROC curve given the false positive rate (fpr)
+    and true positive rate (tpr) of a model.
+    """
+    # Plot roc curve
+    plt.plot(fpr, tpr, color="orange", label="ROC")
+    # Plot line with no predictive power (baseline)
+    #plt.plot([0, 1], [0, 1], color="darkblue", linestyle="--", label="Guessing")
+    
+    # Customize the plot
+    plt.xlabel("False positive rate (fpr)")
+    plt.ylabel("True positive rate (tpr)")
+    plt.title("Receiver Operating Characteristic (ROC) Curve")
+    plt.legend()
+    plt.show()
+
+plot_roc_curve(fpr, tpr)
+
+from sklearn.metrics import roc_auc_score
+roc_auc_score(y_test, y_probs_positive)
+
+# Plot perfect ROC curve and AUC score
+fpr, tpr, thresholds = roc_curve(y_test, y_test)
+plot_roc_curve(fpr, tpr)
+
+# Perfect AUC score
+roc_auc_score(y_test, y_test)
+
+# ROC curves and AUC metrics are evaluation metrics 
+# for binary classification models (a model which predicts 
+# one thing or another, such as heart disease or not).
+
+# The ROC curve compares the true positive rate (tpr) 
+# versus the false positive rate (fpr) at different 
+# classification thresholds.
+
+# The AUC metric tells you how well your model is at choosing 
+# between classes (for example, how well it is at deciding 
+# whether someone has heart disease or not). 
+# A perfect model will get an AUC score of 1.
+
+
+# Confusion matrix
+# The next way to evaluate a classification model is by using a confusion matrix.
+# A confusion matrix is a quick way to compare the labels a model predicts and 
+# the actual labels it was supposed to predict. 
+# In essence, giving you an idea of where the model is getting confused.
+
+from sklearn.metrics import confusion_matrix
+
+preds = clf.predict(X_test)
+
+confusion_matrix(y_test, y_preds)
+
+# Again, this is probably easier visualized.
+# One way to do it is with pd.crosstab().
+pd.crosstab(y_test, 
+            y_preds, 
+            rownames=["Actual Label"], 
+            colnames=["Predicted Label"])
+
+# For the below to work install seabourn module
+# Make our confusion matrix more visual with Seaborn's heatmap()
+import seaborn as sns
+
+# Set the font scale 
+sns.set(font_scale=1.5)
+
+# Create a confusion matrix
+conf_mat = confusion_matrix(y_test, y_preds)
+
+# Plot it using Seaborn
+sns.heatmap(conf_mat);
+
 ```
 
 ## Additional Resources
@@ -775,6 +973,9 @@ result => 0.8688524590163934
 https://en.wikipedia.org/wiki/Random_forest
 https://builtin.com/data-science/random-forest-python-deep-dive
 https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d
+https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
+https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc
+https://www.youtube.com/watch?v=4jRBRDbJemM
 
 ```
 
