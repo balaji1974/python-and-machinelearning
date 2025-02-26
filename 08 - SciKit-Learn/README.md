@@ -60,6 +60,7 @@ print(f"Using Scikit-Learn version: {sklearn.__version__} (materials in this not
 # Using Scikit-Learn version: 1.5.1 (materials in this notebook require this version or newer).
 
 sklearn.show_versions() # This also shows the version information 
+
 ```
 
 
@@ -963,6 +964,59 @@ conf_mat = confusion_matrix(y_test, y_preds)
 
 # Plot it using Seaborn
 sns.heatmap(conf_mat);
+
+# Creating a confusion matrix using Scikit-Learn
+# Scikit-Learn has multiple different implementations of plotting confusion matrices:
+
+# 1. sklearn.metrics.ConfusionMatrixDisplay.from_estimator(estimator, X, y) - 
+# this takes a fitted estimator (like our clf model), features (X) and labels (y), 
+# it then uses the trained estimator to make predictions on X and 
+# compares the predictions to y by displaying a confusion matrix.
+
+# 2. sklearn.metrics.ConfusionMatrixDisplay.from_predictions(y_true, y_pred) - 
+# this takes truth labels and predicted labels and 
+# compares them by displaying a confusion matrix.
+
+# Note: Both of these methods/classes require Scikit-Learn 1.0+. To check your version of Scikit-Learn run:
+
+import sklearn
+sklearn.__version__
+# If you don't have 1.0+, you can upgrade at: https://scikit-learn.org/stable/install.html
+
+from sklearn.metrics import ConfusionMatrixDisplay
+ConfusionMatrixDisplay.from_estimator(estimator=clf, X=X, y=y);
+
+# Plot confusion matrix from predictions
+ConfusionMatrixDisplay.from_predictions(y_true=y_test, 
+                                        y_pred=y_preds);
+
+# Classification Report
+from sklearn.metrics import classification_report
+
+print(classification_report(y_test, y_preds))
+
+# Where precision and recall become valuable
+disease_true = np.zeros(10000)
+disease_true[0] = 1 # only one positive case
+
+disease_preds = np.zeros(10000) # model predicts every case as 0
+
+pd.DataFrame(classification_report(disease_true,
+                                   disease_preds,
+                                   output_dict=True,
+                                   zero_division=0))
+
+# To summarize classification metrics:
+# Accuracy is a good measure to start with if all classes are balanced 
+# (e.g. same amount of samples which are labelled with 0 or 1).
+# Precision and recall become more important when classes are imbalanced.
+# If false positive predictions are worse than false negatives, 
+# aim for higher precision.
+# If false negative predictions are worse than false positives, 
+# aim for higher recall.
+# F1-score is a combination of precision and recall.
+
+
 
 ```
 
