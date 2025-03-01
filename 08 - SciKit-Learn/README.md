@@ -1017,6 +1017,378 @@ pd.DataFrame(classification_report(disease_true,
 # F1-score is a combination of precision and recall.
 
 
+# 4.2.2 Regression model evaluation metrics
+# Model evaluation metrics documentation - 
+# https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics
+
+# The ones we're going to cover are:
+
+# 1. R^2 (pronounced r-squared) or coefficient of determination
+# 2. Mean absolute error (MAE)
+# 3. Mean squared error (MSE)
+
+
+# R^2
+# What R-squared does: Compares your models predictions to the mean of the targets. 
+# Values can range from negative infinity (a very poor model) to 1. 
+# For example, if all your model does is predict the mean of the targets, 
+# it's R^2 value would be 0. 
+# And if your model perfectly predicts a range of numbers it's R^2 value would be 1.
+
+from sklearn.ensemble import RandomForestRegressor
+
+np.random.seed(42)
+
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = RandomForestRegressor(n_estimators=100)
+model.fit(X_train, y_train)
+
+model.score(X_test, y_test)
+
+housing_df.head()
+y_test
+y_test.mean()
+
+
+from sklearn.metrics import r2_score
+
+# Fill an array with y_test mean
+y_test_mean = np.full(len(y_test), y_test.mean())
+
+y_test_mean[:10]
+
+r2_score(y_true=y_test,
+         y_pred=y_test_mean)
+-> 0.0
+
+r2_score(y_true=y_test,
+         y_pred=y_test)
+-> 1.0
+
+# Mean absolute error (MAE)
+# MAE is the average of the absolute differences 
+# between predictions and actual values.
+# It gives you an idea of how wrong your models predictions are
+
+# MAE
+from sklearn.metrics import mean_absolute_error
+
+y_preds = model.predict(X_test)
+mae = mean_absolute_error(y_test, y_preds)
+mae
+
+df = pd.DataFrame(data={"actual values": y_test,
+                        "predicted values": y_preds})
+df["differences"] = df["predicted values"] - df["actual values"]
+df.head(10)
+
+# Mean squared error (MSE)
+# MSE is the mean of the square of the errors between actual and predicted values.
+
+# Mean squared error
+from sklearn.metrics import mean_squared_error
+
+y_preds = model.predict(X_test)
+mse = mean_squared_error(y_test, y_preds)
+mse
+
+df["squared_differences"] = np.square(df["differences"])
+df.head()
+
+# Calculate MSE by hand
+squared = np.square(df["differences"])
+squared.mean()
+
+df_large_error = df.copy()
+df_large_error.iloc[0]["squared_differences"] = 16 # increase "squared_differences" for 1 sample
+
+df_large_error.head()
+
+# Calculate MSE with large error
+df_large_error["squared_differences"].mean()
+
+# Artificially increase error in "squared_differences" column for ~100 samples
+df_large_error.iloc[1:100, 3] = 20
+df_large_error
+
+# Calculate MSE with large error(s)
+df_large_error["squared_differences"].mean()
+
+
+# Finally using the scoring parameter
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(42)
+
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+clf = RandomForestClassifier(n_estimators=100)
+
+np.random.seed(42)
+
+# Cross-validation accuracy
+cv_acc = cross_val_score(clf, X, y, cv=5, scoring=None) # if scoring=None, esitmator's default scoring evaulation metric is used (accuracy for classification models)
+cv_acc
+
+# Cross-validated accuracy
+print(f"The cross-validated accuracy is: {np.mean(cv_acc)*100:.2f}%")
+
+np.random.seed(42)
+
+cv_acc = cross_val_score(clf, X, y, cv=5, scoring="accuracy")
+cv_acc
+
+# Cross-validated accuracy
+print(f"The cross-validated accuracy is: {np.mean(cv_acc)*100:.2f}%")
+
+# Precision
+np.random.seed(42)
+cv_precision = cross_val_score(clf, X, y, cv=5, scoring="precision")
+cv_precision
+
+# Cross-validated precision
+print(f"The cross-validated precision is: {np.mean(cv_precision)}")
+
+# Recall
+np.random.seed(42)
+cv_recall = cross_val_score(clf, X, y, cv=5, scoring="recall")
+cv_recall
+
+# Cross-validated recall
+print(f"The cross-validated recall is: {np.mean(cv_recall)}")
+
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestRegressor
+
+np.random.seed(42)
+
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"]
+
+model = RandomForestRegressor(n_estimators=100)
+
+np.random.seed(42)
+cv_r2 = cross_val_score(model, X, y, cv=3, scoring=None)
+np.mean(cv_r2)
+
+cv_r2
+
+# Mean squared error
+cv_mse = cross_val_score(model, X, y, cv=5, scoring="neg_mean_squared_error")
+np.mean(cv_mse)
+
+cv_mse
+
+# Mean absolute error
+cv_mae = cross_val_score(model, X, y, cv=5, scoring="neg_mean_absolute_error")
+np.mean(cv_mae)
+
+cv_mae
+
+### 4.3 Using different evaluation metrics as Scikit-Learn functions
+The 3rd way to evaluate scikit-learn machine learning models/estimators is to using the sklearn.metrics module - https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+np.random.seed(42)
+
+# Create X & y
+X = heart_disease.drop("target", axis=1)
+y = heart_disease["target"]
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create model
+clf = RandomForestClassifier()
+
+# Fit model
+clf.fit(X_train, y_train)
+
+# Make predictions
+y_preds = clf.predict(X_test)
+
+# Evaluate model using evaluation functions
+print("Classifier metrics on the test set")
+print(f"Accurracy: {accuracy_score(y_test, y_preds)*100:.2f}%")
+print(f"Precision: {precision_score(y_test, y_preds)}")
+print(f"Recall: {recall_score(y_test, y_preds)}")
+print(f"F1: {f1_score(y_test, y_preds)}")
+
+
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+
+np.random.seed(42)
+
+# Create X & y
+X = housing_df.drop("target", axis=1)
+y = housing_df["target"]
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create model
+model = RandomForestRegressor()
+
+# Fit model
+model.fit(X_train, y_train)
+
+# Make predictions
+y_preds = model.predict(X_test)
+
+# Evaluate model using evaluation functions
+print("Regression metrics on the test set")
+print(f"R2 score: {r2_score(y_test, y_preds)}")
+print(f"MAE: {mean_absolute_error(y_test, y_preds)}")
+print(f"MSE: {mean_squared_error(y_test, y_preds)}")
+
+
+```
+
+## 5. Improving a model
+```xml
+
+# First predictions = baseline predictions. First model = baseline model.
+
+# From a data perspective:
+
+# Could we collect more data? (generally, the more data, the better)
+# Could we improve our data?
+# From a model perspective:
+
+# Is there a better model we could use?
+# Could we improve the current model?
+# Hyperparameters vs. Parameters
+
+# Parameters = model find these patterns in data
+# Hyperparameters = settings on a model you can adjust to (potentially) improve its ability to find patterns
+# Three ways to adjust hyperparameters:
+
+# By hand
+# Randomly with RandomSearchCV
+# Exhaustively with GridSearchCV
+
+
+
+
+
+```
+
+## Machine Learning Model Evaluation - Consolidated 
+```xml
+
+Evaluating the results of a machine learning model is as important as building one.
+
+But just like how different problems have different machine learning models, 
+different machine learning models have different evaluation metrics.
+
+Below are some of the most important evaluation metrics you'll want 
+to look into for classification and regression models.
+
+
+Classification Model Evaluation Metrics/Techniques
+--------------------------------------------------
+1. Accuracy - The accuracy of the model in decimal form. Perfect accuracy is equal to 1.0.
+
+2. Precision - Indicates the proportion of positive identifications (model predicted class 1) 
+which were actually correct. A model which produces no false positives has a precision of 1.0.
+
+3. Recall - Indicates the proportion of actual positives which were correctly classified. 
+A model which produces no false negatives has a recall of 1.0.
+
+4. F1 score - A combination of precision and recall. A perfect model achieves an F1 score of 1.0.
+
+5. Confusion matrix - Compares the predicted values with the true values in a tabular way, 
+if 100% correct, all values in the matrix will be top left to bottom right (diagonal line).
+
+6. Cross-validation - Splits your dataset into multiple parts and train and 
+tests your model on each part then evaluates performance as an average.
+
+7. Classification report - Sklearn has a built-in function called classification_report() 
+which returns some of the main classification metrics such as precision, recall and f1-score.
+
+8. ROC Curve - Also known as receiver operating characteristic is a plot of true positive rate 
+versus false-positive rate.
+
+9. Area Under Curve (AUC) Score - The area underneath the ROC curve. 
+A perfect model achieves an AUC score of 1.0.
+
+Which classification metric should you use?
+-------------------------------------------
+1. Accuracy is a good measure to start with if all classes are balanced 
+(e.g. same amount of samples which are labelled with 0 or 1).
+
+2. Precision and recall become more important when classes are imbalanced.
+
+3. If false-positive predictions are worse than false-negatives, 
+aim for higher precision.
+
+4. If false-negative predictions are worse than false-positives, aim for higher recall.
+
+5. F1-score is a combination of precision and recall.
+
+6. A confusion matrix is always a good way to visualize how a classification model is going.
+
+
+Regression Model Evaluation Metrics/Techniques
+----------------------------------------------
+1. R^2 (pronounced r-squared) or the coefficient of determination - 
+Compares your model's predictions to the mean of the targets. 
+Values can range from negative infinity (a very poor model) to 1. 
+For example, if all your model does is predict the mean of the targets, 
+its R^2 value would be 0. 
+And if your model perfectly predicts a range of numbers it's R^2 value would be 1.
+
+2. Mean absolute error (MAE) - The average of the absolute differences between 
+predictions and actual values. It gives you an idea of how wrong your predictions were.
+
+3. Mean squared error (MSE) - The average squared differences between predictions and 
+actual values. Squaring the errors removes negative errors. 
+It also amplifies outliers (samples which have larger errors).
+
+Which regression metric should you use?
+---------------------------------------
+
+1. R2 is similar to accuracy. 
+It gives you a quick indication of how well your 
+model might be doing. Generally, the closer your R2 value is to 1.0, 
+the better the model. But it doesn't really tell exactly how wrong your 
+model is in terms of how far off each prediction is.
+
+2. MAE gives a better indication of how far off each of your model's 
+predictions are on average.
+
+3. As for MAE or MSE, because of the way MSE is calculated, 
+squaring the differences between predicted values and actual values, 
+it amplifies larger differences. 
+Let's say we're predicting the value of houses (which we are).
+-> Pay more attention to MAE: When being $10,000 off is twice as bad as being $5,000 off.
+-> Pay more attention to MSE: When being $10,000 off is more than twice as bad as being $5,000 off.
+
+
+----------------------------------------------------------
+For more resources on evaluating a machine learning model, 
+be sure to check out the following resources:
+----------------------------------------------------------
+Scikit-Learn documentation for metrics and scoring (quantifying the quality of predictions)
+https://scikit-learn.org/stable/modules/model_evaluation.html
+
+Beyond Accuracy: Precision and Recall by Will Koehrsen
+https://medium.com/towards-data-science/beyond-accuracy-precision-and-recall-3da06bea9f6c
+
+Stack Overflow answer describing MSE (mean squared error) and RSME (root mean squared error)
+https://stackoverflow.com/questions/17197492/is-there-a-library-function-for-root-mean-square-error-rmse-in-python/37861832#37861832
+
 
 ```
 
