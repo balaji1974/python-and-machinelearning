@@ -1,9 +1,9 @@
 
-# Scikit-learn (sklearn)
+# scikit-learn (sklearn)
 
 ## Introduction
 ```xml 
-Scikit-Learn, also referred to as sklearn, is an open-source Python machine learning library.
+scikit-learn, also referred to as sklearn, is an open-source Python machine learning library.
 
 It's built on top on NumPy (Python library for numerical computing) 
 and Matplotlib (Python library for data visualization).
@@ -39,14 +39,14 @@ and another to test them on (the testing set).
 Choosing a machine learning model and then evaluating whether 
 or not your model has learned anything.
 
-Scikit-Learn offers Python implementations for doing all of these kinds of tasks 
+scikit-learn offers Python implementations for doing all of these kinds of tasks 
 (from preparing data to modelling data). 
 Saving you from having to build them from scratch.
 
 
 ```
 
-## Scikit-learn imports 
+## scikit-learn imports 
 ```xml 
 
 # Standard imports
@@ -56,19 +56,19 @@ import numpy as np
 import pandas as pd
 
 import sklearn
-print(f"Using Scikit-Learn version: {sklearn.__version__} (materials in this notebook require this version or newer).")
-# Using Scikit-Learn version: 1.5.1 (materials in this notebook require this version or newer).
+print(f"Using scikit-learn version: {sklearn.__version__} (materials in this notebook require this version or newer).")
+# Using scikit-learn version: 1.5.1 (materials in this notebook require this version or newer).
 
 sklearn.show_versions() # This also shows the version information 
 
 ```
 
 
-# Scikit-learn Workflow 
+# scikit-learn Workflow 
 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20scikit-learn/images/sklearn-workflow-title.png?raw=true)
 
-## Scikit-learn workflow - Steps
+## scikit-learn workflow - Steps
 ```xml 
 1. Getting the data ready
 2. Choosing the right maching learning estimator/aglorithm/model for your problem
@@ -185,7 +185,7 @@ loaded_pickle_model.score(X_test, y_test)
 
 ```
 
-# Scikit-learn Workflow - In Detail  
+# scikit-learn Workflow - In Detail  
 
 
 ## 1. Getting the data ready
@@ -349,7 +349,7 @@ transformer = ColumnTransformer([("one_hot",one_hot,
 transformed_X = transformer.fit_transform(car_sales_missing)
 transformed_X
 
-3.2 Fill missing values with Scikit-Learn
+3.2 Fill missing values with scikit-learn
 -----------------------------------------
 
 car_sales_missing = pd.read_csv("resources/car-sales-extended-missing-data.csv")
@@ -364,7 +364,7 @@ car_sales_missing.isna().sum()
 # Check missing values
 X.isna().sum()
 
-# Fill missing values with Scikit-Learn
+# Fill missing values with scikit-learn
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 
@@ -457,13 +457,13 @@ Normalization (also called min-max scaling):
 This rescales all the numerical values to between 0 and 1, 
 with the lowest value being close to 0 and the highest previous value being 
 close to 1. 
-Scikit-Learn provides functionality for this in the MinMaxScalar class.
+scikit-learn provides functionality for this in the MinMaxScalar class.
 
 Standardization:  
 This subtracts the mean value from all of the features 
 (so the resulting features have 0 mean). 
 It then scales the features to unit variance (by dividing the feature 
-by the standard deviation). Scikit-Learn provides functionality for 
+by the standard deviation). scikit-learn provides functionality for 
 this in the StandardScalar class.
 
 A couple of things to note.
@@ -481,7 +481,7 @@ https://rahul-saini.medium.com/feature-scaling-why-it-is-required-8a93df1af310
 
 
 # Choosing the righ estimator 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/choosing-the-right-estimator.png?raw=true)
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20scikit-learn/images/choosing-the-right-estimator.png?raw=true)
 https://scikit-learn.org/stable/machine_learning_map.html
 
 ## 2. Choosing the right estimator/algorithm for your problem
@@ -733,7 +733,7 @@ housing_df["target"]
 
 ## 4. Evaluating a machine learning model
 ```xml
-Three ways to evaluate Scikit-Learn models/estimators:
+Three ways to evaluate scikit-learn models/estimators:
 
 1. Estimator's built-in score() method
 2. The scoring parameter
@@ -965,8 +965,8 @@ conf_mat = confusion_matrix(y_test, y_preds)
 # Plot it using Seaborn
 sns.heatmap(conf_mat);
 
-# Creating a confusion matrix using Scikit-Learn
-# Scikit-Learn has multiple different implementations of plotting confusion matrices:
+# Creating a confusion matrix using scikit-learn
+# scikit-learn has multiple different implementations of plotting confusion matrices:
 
 # 1. sklearn.metrics.ConfusionMatrixDisplay.from_estimator(estimator, X, y) - 
 # this takes a fitted estimator (like our clf model), features (X) and labels (y), 
@@ -977,7 +977,7 @@ sns.heatmap(conf_mat);
 # this takes truth labels and predicted labels and 
 # compares them by displaying a confusion matrix.
 
-# Note: Both of these methods/classes require Scikit-Learn 1.0+. To check your version of Scikit-Learn run:
+# Note: Both of these methods/classes require scikit-learn 1.0+. To check your version of scikit-learn run:
 
 import sklearn
 sklearn.__version__
@@ -1191,7 +1191,7 @@ np.mean(cv_mae)
 
 cv_mae
 
-### 4.3 Using different evaluation metrics as Scikit-Learn functions
+### 4.3 Using different evaluation metrics as scikit-learn functions
 The 3rd way to evaluate scikit-learn machine learning models/estimators is to using the sklearn.metrics module - https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -1251,34 +1251,6 @@ print("Regression metrics on the test set")
 print(f"R2 score: {r2_score(y_test, y_preds)}")
 print(f"MAE: {mean_absolute_error(y_test, y_preds)}")
 print(f"MSE: {mean_squared_error(y_test, y_preds)}")
-
-
-```
-
-## 5. Improving a model
-```xml
-
-# First predictions = baseline predictions. First model = baseline model.
-
-# From a data perspective:
-
-# Could we collect more data? (generally, the more data, the better)
-# Could we improve our data?
-# From a model perspective:
-
-# Is there a better model we could use?
-# Could we improve the current model?
-# Hyperparameters vs. Parameters
-
-# Parameters = model find these patterns in data
-# Hyperparameters = settings on a model you can adjust to (potentially) improve its ability to find patterns
-# Three ways to adjust hyperparameters:
-
-# By hand
-# Randomly with RandomSearchCV
-# Exhaustively with GridSearchCV
-
-
 
 
 ```
@@ -1379,7 +1351,7 @@ Let's say we're predicting the value of houses (which we are).
 For more resources on evaluating a machine learning model, 
 be sure to check out the following resources:
 ----------------------------------------------------------
-Scikit-Learn documentation for metrics and scoring (quantifying the quality of predictions)
+scikit-learn documentation for metrics and scoring (quantifying the quality of predictions)
 https://scikit-learn.org/stable/modules/model_evaluation.html
 
 Beyond Accuracy: Precision and Recall by Will Koehrsen
@@ -1390,6 +1362,266 @@ https://stackoverflow.com/questions/17197492/is-there-a-library-function-for-roo
 
 
 ```
+
+## 5. Improving a model
+```xml
+
+# First predictions = baseline predictions. First model = baseline model.
+
+# From a data perspective:
+# 1. Could we collect more data? (generally, the more data, the better)
+# 2. Could we improve our data?
+
+# From a model perspective:
+# 1. Is there a better model we could use?
+# 2. Could we improve the current model?
+
+# Hyperparameters vs. Parameters
+# 1. Parameters = model find these patterns in data
+# 2. Hyperparameters = settings on a model you can adjust to (potentially) improve its ability to find patterns
+
+# Three ways to adjust hyperparameters:
+# 1. By hand
+# 2. Randomly with RandomSearchCV
+# 3. Exhaustively with GridSearchCV
+
+from sklearn.ensemble import RandomForestClassifier
+
+clf = RandomForestClassifier(n_estimators=100)
+clf.get_params()
+
+# 5.1 Tuning hyperparameters by hand
+# Let's make 3 sets, training, validation and test.
+
+clf.get_params()
+
+# We're going to try and adjust:
+# max_depth
+# max_features
+# min_samples_leaf
+# min_samples_split
+# n_estimators
+
+def evaluate_preds(y_true, y_preds):
+    """
+    Performs evaluation comparison on y_true labels vs. y_pred labels
+    on a classification.
+    """
+    accuracy = accuracy_score(y_true, y_preds)
+    precision = precision_score(y_true, y_preds)
+    recall = recall_score(y_true, y_preds)
+    f1 = f1_score(y_true, y_preds)
+    metric_dict = {"accuracy": round(accuracy, 2),
+                   "precision": round(precision, 2),
+                   "recall": round(recall, 2),
+                   "f1": round(f1, 2)}
+    print(f"Acc: {accuracy * 100:.2f}%")
+    print(f"Precision: {precision:.2f}")
+    print(f"Recall: {recall:.2f}")
+    print(f"F1 score: {f1:.2f}")
+    
+    return metric_dict
+
+
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(42)
+
+# Shuffle the data
+heart_disease_shuffled = heart_disease.sample(frac=1)
+
+# Split into X & y
+X = heart_disease_shuffled.drop("target", axis=1)
+y = heart_disease_shuffled["target"]
+
+# Split the data into train, validation & test sets
+train_split = round(0.7 * len(heart_disease_shuffled)) # 70% of data
+valid_split = round(train_split + 0.15 * len(heart_disease_shuffled)) # 15% of data
+X_train, y_train = X[:train_split], y[:train_split]
+X_valid, y_valid = X[train_split:valid_split], y[train_split:valid_split]
+X_test, y_test = X[valid_split:], y[:valid_split]
+
+clf = RandomForestClassifier()
+clf.fit(X_train, y_train)
+
+# Make baseline predictions
+y_preds = clf.predict(X_valid)
+
+# Evaluate the classifier on validation set
+baseline_metrics = evaluate_preds(y_valid, y_preds)
+baseline_metrics
+
+np.random.seed(42)
+
+# Create a second classifier with different hyperparameters
+clf_2 = RandomForestClassifier(n_estimators=100)
+clf_2.fit(X_train, y_train)
+
+# Make predictions with different hyperparameters
+y_preds_2 = clf_2.predict(X_valid)
+
+# Evalute the 2nd classsifier
+clf_2_metrics = evaluate_preds(y_valid, y_preds_2)
+
+
+np.random.seed(42)
+
+# Create a third classifier with different hyperparameters
+clf_3 = RandomForestClassifier(n_estimators=100, max_depth=10)
+clf_3.fit(X_train, y_train)
+
+# Make predictions with different hyperparameters
+y_preds_3 = clf_3.predict(X_valid)
+
+# Evalute the 3rd classsifier
+clf_3_metrics = evaluate_preds(y_valid, y_preds_3)
+
+
+# 5.2 Hyperparameter tuning with RandomizedSearchCV
+
+from sklearn.model_selection import RandomizedSearchCV
+
+grid = {"n_estimators": [10, 100, 200, 500, 1000, 1200],
+        "max_depth": [None, 5, 10, 20, 30],
+        "max_features": [None, "sqrt"],
+        "min_samples_split": [2, 4, 6],
+        "min_samples_leaf": [1, 2, 4]}
+
+np.random.seed(42)
+
+# Split into X & y
+X = heart_disease_shuffled.drop("target", axis=1)
+y = heart_disease_shuffled["target"]
+
+# Split into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate RandomForestClassifier
+clf = RandomForestClassifier(n_jobs=1)
+
+# Setup RandomizedSearchCV
+rs_clf = RandomizedSearchCV(estimator=clf,
+                            param_distributions=grid, 
+                            n_iter=10, # number of models to try
+                            cv=5,
+                            verbose=2)
+
+# Fit the RandomizedSearchCV version of clf
+rs_clf.fit(X_train, y_train);
+
+
+rs_clf.best_params_
+
+# Make predictions with the best hyperparameters
+rs_y_preds = rs_clf.predict(X_test)
+
+# Evaluate the predictions
+rs_metrics = evaluate_preds(y_test, rs_y_preds)
+
+
+# 5.3 Hyperparameter tuning with GridSearchCV
+
+grid
+
+grid_2 = {'n_estimators': [100, 200, 500],
+          'max_depth': [None],
+          'max_features': [None, 'sqrt'],
+          'min_samples_split': [6],
+          'min_samples_leaf': [1, 2]}
+
+from sklearn.model_selection import GridSearchCV, train_test_split
+
+np.random.seed(42)
+
+# Split into X & y
+X = heart_disease_shuffled.drop("target", axis=1)
+y = heart_disease_shuffled["target"]
+
+# Split into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Instantiate RandomForestClassifier
+clf = RandomForestClassifier(n_jobs=1)
+
+# Setup GridSearchCV
+gs_clf = GridSearchCV(estimator=clf,
+                      param_grid=grid_2, 
+                      cv=5,
+                      verbose=2)
+
+# Fit the GridSearchCV version of clf
+gs_clf.fit(X_train, y_train);
+
+gs_clf.best_params_
+
+gs_y_preds = gs_clf.predict(X_test)
+
+# evaluate the predictions
+gs_metrics = evaluate_preds(y_test, gs_y_preds)
+
+# Let's compare our different models metrics.
+
+compare_metrics = pd.DataFrame({"baseline": baseline_metrics,
+                                "clf_2": clf_2_metrics,
+                                "random search": rs_metrics,
+                                "grid search": gs_metrics})
+
+compare_metrics.plot.bar(figsize=(10, 8));
+
+
+# When comparing models, you should be careful to make sure they're 
+# compared on the same splits of data.
+# For example, let's say you have model_1 and model_2 which each differ slightly.
+# If you want to compare and evaluate their results, model_1 and 
+# model_2 should both be trained on the same data (e.g. X_train and y_train) and 
+# their predictions should each be made on the same data, for example:
+model_1.fit(X_train, y_train) -> model_1.predict(X_test) -> model_1_preds
+model_2.fit(X_train, y_train) -> model_2.predict(X_test) -> model_2_preds
+
+# Example: 
+https://colab.research.google.com/drive/1ISey96a5Ag6z2CvVZKVqTKNWRwZbZl0m
+
+
+```
+
+
+## 6. Saving and loading trained machine learning models
+```xml
+# Two ways to save and load machine learning models:
+    * With Python's pickle module
+    * With the joblib module
+
+# Pickle 
+import pickle
+
+# Save an extisting model to file
+pickle.dump(gs_clf, open("gs_random_random_forest_model_1.pkl", "wb"))
+
+# Load a saved model
+loaded_pickle_model = pickle.load(open("gs_random_random_forest_model_1.pkl", "rb"))
+
+# Make some predictions
+pickle_y_preds = loaded_pickle_model.predict(X_test)
+evaluate_preds(y_test, pickle_y_preds)
+
+
+# Joblib
+
+from joblib import dump, load
+
+# Save model to file
+dump(gs_clf, filename="gs_random_forest_model_1.joblib")
+
+# Import a saved joblib model
+loaded_joblib_model = load(filename="gs_random_forest_model_1.joblib")
+
+# Make and evaluate joblib predictions
+joblib_y_preds = loaded_joblib_model.predict(X_test)
+evaluate_preds(y_test, joblib_y_preds)
+
+
+```
+
 
 ## Additional Resources
 ```xml
