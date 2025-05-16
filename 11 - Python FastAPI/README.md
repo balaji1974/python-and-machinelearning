@@ -192,17 +192,18 @@ curl --location 'http://localhost:8000/todos'
 
 
 # POST
-@app.post('/todos', response_model=Todo)
-def create_todo(todo : TodoCreate):
-    new_todo_id =  max(todo.todo_id for todo in all_todos) + 1
-    new_todo = Todo(
-                todo_id=new_todo_id, 
-                todo_name=todo.todo_name, 
-                todo_description=todo.todo_description,
-                todo_priority = todo.todo_priority
-                )
-    all_todos.append(new_todo)
-    return new_todo
+@app.put('/todos/{todo_id}', response_model=Todo)
+def update_todo(todo_id : int, updated_todo: TodoUpdate):
+    for todo in all_todos: 
+        if(todo.todo_id == todo_id):
+            if updated_todo.todo_name is not None:
+                todo.todo_name = updated_todo.todo_name
+            if updated_todo.todo_description is not None:
+                todo.todo_description = updated_todo.todo_description
+            if updated_todo.todo_priority is not None:
+                todo.todo_priority = updated_todo.todo_priority
+            return todo
+    raise HTTPException(status_code=404, detail='Todo not found')
 
 curl --location 'http://localhost:8000/todos' \
 --header 'Content-Type: application/json' \
@@ -246,10 +247,33 @@ curl --location --request DELETE 'http://localhost:8000/todos/6'
 
 ```
 
+## Advance REST with HTTP Exceptions - advrestwithhttpexception.py
+```xml 
+Changes needed:
+1. from fastapi import HTTPException
+2. raise HTTPException(status_code=404, detail='Todo not found')
+
+# Check below for implementation
+from fastapi import FastAPI, HTTPException
+
+@app.get('/todos/{todo_id}', response_model=Todo)
+def get_todo(todo_id : int):
+    for todo in all_todos: 
+        if todo.todo_id == todo_id:
+            return todo
+    raise HTTPException(status_code=404, detail='Todo not found')
+
+```
+
+## Async Requests with FastAPI - asyncrest.py
+```xml 
+Check the python program asyncrest.py 
+It has incode comments with all the explainations 
+```
 
 ### Reference
 ```xml
 https://www.youtube.com/watch?v=rvFsGRvj9jo
 https://fastapi.tiangolo.com/
-
+https://www.youtube.com/watch?v=tGD3653BrZ8&t=10s
 ```
