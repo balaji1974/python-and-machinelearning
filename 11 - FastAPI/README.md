@@ -1,7 +1,7 @@
 
-# Fast API
+# Fast API & SQL Model
 
-## Introduction
+## Introduction 
 ```xml 
 What is FAST API
 ------------------
@@ -271,9 +271,34 @@ Check the python program asyncrest.py
 It has incode comments with all the explainations 
 ```
 
+## SQL Model 
+```xml 
+SQLModel is designed to simplify interacting with SQL databases in FastAPI applications.
+
+It combines SQLAlchemy and Pydantic and tries to simplify the code you write 
+as much as possible, allowing you to reduce the code duplication to a minimum, 
+but while getting the best developer experience possible.
+
+SQLModel is, in fact, a thin layer on top of Pydantic and SQLAlchemy, 
+carefully designed to be compatible with both.
+
+# Installation
+--------------
+pip install sqlmodel
+https://www.youtube.com/watch?v=pRYzMF04fLw
+
+
+*** To complete****
+
+
+
+```
+
 ### Reference
 ```xml
 https://www.youtube.com/watch?v=rvFsGRvj9jo
 https://fastapi.tiangolo.com/
 https://www.youtube.com/watch?v=tGD3653BrZ8&t=10s
+
+https://sqlmodel.tiangolo.com/#sponsors
 ```

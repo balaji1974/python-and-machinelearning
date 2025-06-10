@@ -136,6 +136,64 @@ obj1.print_value()
 
 ```
 
+## Python import - different ways
+```xml
+
+1. Standard Import 
+Imports the entire module using its original name 
+Example: import random
+
+2. Import Specific Items
+Imports specific attributes (functions, classes, variables) from a module.
+Example: from random import choice, randint
+
+3. Import with an Alias
+Imports a module and renames it, usually with a shorter name.
+Example: import pandas as pd
+
+4. Absolute Imports
+Specifies the full path to the module, starting from the project's root.
+Example: import mypackage.mymodule
+
+5. Import Specific Items with Alias
+Imports specific attributes from a module and renames them.
+Example: from os.path import join as join_path
+
+6. Import All Items
+Imports all attributes from a module.
+Example: from math import *
+Note: Using * is generally discouraged due to potential namespace conflicts.
+
+7. Relative Imports 
+Specifies the location of the module relative to the current script.
+Uses dots (.) to indicate the level of the directory.
+. (single dot): Refers to the current directory.
+Example: from . import mymodule 
+.. (two dots): Refers to the parent directory.
+Example: from .. import mypackage
+
+8. Dynamic Imports Imports modules at runtime using importlib.
+Example: 
+import importlib
+my_module = importlib.import_module('my_module')
+
+9. Implicit and Explicit Relative Imports
+Implicit relative imports have been deprecated in Python 3.
+Explicit relative imports use dots to specify the relative path.
+
+10. Namespace Packages 
+Allows subpackages to be distributed independently while still importable under a shared namespace.
+Example: google.cloud.logging
+
+11. Importing Inside Functions Modules can be imported within a function's scope 
+Example:
+def my_function():
+    import math
+    print(math.sqrt(16))
+    
+```
+
+
 ## Python module
 ```xml
 # A module is nothing but a python file 
@@ -270,9 +328,32 @@ c 3
 import sys
 !conda install --yes --prefix {sys.prefix} seaborn # This will install the seaborn package 
 
+```
+
+
+## File system commands (file.py)
+```xml
+import os 
+
+All Operating system commands are in this library. 
+Please refer to file.py which has sufficient comments to explain each command
+
+```
+
+## TempFile (temp.py)
+```xml
+import tempfile 
+
+check temp.py which contains code with the necessary comments
+
+```
+
+## Connect to internet (http1.py)
+```xml
 
 
 ```
+
 
 ## Miscellaneous 
 ```xml

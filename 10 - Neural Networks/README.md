@@ -348,6 +348,245 @@ X_train[:5], y_train[:2]
 
 ## Preprocessing images (turning images into Tensors)
 ```xml
+Preprocessing Images (turning images into Tensors)
+To preprocess our images into Tensors we're going to write a function which does a few things:
+1. Take an image filepath as input
+2. Use TensorFlow to read the file and save it to a variable, image
+3. Turn our image (a jpg) into Tensors
+4. Normalize our image (convert color channel values from from 0-255 to 0-1).
+5. Resize the image to be a shape of (224, 224)
+6. Return the modified image
+
+# Convert image to NumPy array
+from matplotlib.pyplot import imread
+image = imread(filenames[42])
+image.shape
+
+image.max(), image.min()
+
+image[:2]
+
+# turn image into a tensor
+tf.constant(image)[:2]
+
+
+Now we've seen what an image looks like as a Tensor, 
+let's make a function to preprocess them.
+
+We'll create a function to:
+
+1. Take an image filepath as input
+2. Use TensorFlow to read the file and save it to a variable, image
+3. Turn our image (a jpg) into Tensors
+4. Normalize our image (convert color channel values from from 0-255 to 0-1).
+5. Resize the image to be a shape of (224, 224)
+6. Return the modified image
+
+More information on loading images in TensorFlow can be seen here: 
+https://www.tensorflow.org/tutorials/load_data/images
+
+# Define image size
+IMG_SIZE = 224
+
+# Create a function for preprocessing images
+def process_image(image_path, img_size=IMG_SIZE):
+  """
+  Takes an image file path and turns the image into a Tensor.
+  """
+  # Read in an image file
+  image = tf.io.read_file(image_path)
+  # Turn the jpeg image into numerical Tensor with 3 colour channels (Red, Green, Blue)
+  image = tf.image.decode_jpeg(image, channels=3)
+  # Convert the colour channel values from 0-255 to 0-1 values
+  image = tf.image.convert_image_dtype(image, tf.float32)
+  # Resize the image to our desired value (224, 224)
+  image = tf.image.resize(image, size=[IMG_SIZE, IMG_SIZE])
+
+  return image
+
+```
+
+
+## Turning our data into batches
+```xml
+Turning our data into batches
+Why turn our data into batches?
+
+Let's say you're trying to process 10,000+ images in one go... 
+they all might not fit into memory.
+
+So that's why we do about 32 (this is the batch size) images at a time 
+(you can manually adjust the batch size if need be).
+
+In order to use TensorFlow effectively, we need our data in the form of 
+Tensor tuples which look like this: (image, label).
+
+# Create a simple function to return a tuple (image, label)
+def get_image_label(image_path, label):
+  """
+  Takes an image file path name and the assosciated label,
+  processes the image and reutrns a typle of (image, label).
+  """
+  image = process_image(image_path)
+  return image, label
+
+# Demo of the above
+(process_image(X[42]), tf.constant(y[42]))
+
+
+
+# Define the batch size, 32 is a good start
+BATCH_SIZE = 32
+
+# Create a function to turn data into batches
+def create_data_batches(X, y=None, batch_size=BATCH_SIZE, valid_data=False, test_data=False):
+  """
+  Creates batches of data out of image (X) and label (y) pairs.
+  Shuffles the data if it's training data but doesn't shuffle if it's validation data.
+  Also accepts test data as input (no labels).
+  """
+  # If the data is a test dataset, we probably don't have have labels
+  if test_data:
+    print("Creating test data batches...")
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(X))) # only filepaths (no labels)
+    data_batch = data.map(process_image).batch(BATCH_SIZE)
+    return data_batch
+  
+  # If the data is a valid dataset, we don't need to shuffle it
+  elif valid_data:
+    print("Creating validation data batches...")
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(X), # filepaths
+                                               tf.constant(y))) # labels
+    data_batch = data.map(get_image_label).batch(BATCH_SIZE)
+    return data_batch
+
+  else:
+    print("Creating training data batches...")
+    # Turn filepaths and labels into Tensors
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(X),
+                                               tf.constant(y)))
+    # Shuffling pathnames and labels before mapping image processor function is faster than shuffling images
+    data = data.shuffle(buffer_size=len(X))
+
+    # Create (image, label) tuples (this also turns the iamge path into a preprocessed image)
+    data = data.map(get_image_label)
+
+    # Turn the training data into batches
+    data_batch = data.batch(BATCH_SIZE)
+  return data_batch
+
+
+# Create training and validation data batches
+train_data = create_data_batches(X_train, y_train)
+val_data = create_data_batches(X_val, y_val, valid_data=True)
+
+# Check out the different attributes of our data batches
+train_data.element_spec, val_data.element_spec
+
+```
+
+
+## Visualizing Data Batches
+```xml
+
+Our data is now in batches, however, these can be a little hard to understand/comprehend, 
+let's visualize them!
+
+
+import matplotlib.pyplot as plt
+
+# Create a function for viewing images in a data batch
+def show_25_images(images, labels):
+  """
+  Displays a plot of 25 images and their labels from a data batch.
+  """
+  # Setup the figure
+  plt.figure(figsize=(10, 10))
+  # Loop through 25 (for displaying 25 images)
+  for i in range(25):
+    # Create subplots (5 rows, 5 columns)
+    ax = plt.subplot(5, 5, i+1)
+    # Display an image 
+    plt.imshow(images[i])
+    # Add the image label as the title
+    plt.title(unique_breeds[labels[i].argmax()])
+    # Turn the grid lines off
+    plt.axis("off")
+
+
+train_data
+
+# # Now let's visualize the data in a training batch
+train_images, train_labels = next(train_data.as_numpy_iterator())
+show_25_images(train_images, train_labels)
+
+
+# # Now let's visualize our validation set
+val_images, val_labels = next(val_data.as_numpy_iterator())
+show_25_images(val_images, val_labels)
+```
+
+## Building a model
+```xml
+Before we build a model, there are a few things we need to define:
+
+The input shape (our images shape, in the form of Tensors) to our model.
+The output shape (image labels, in the form of Tensors) of our model.
+The URL of the model we want to use from TensorFlow Hub - 
+https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/4
+
+IMG_SIZE
+
+# Setup input shape to the model
+INPUT_SHAPE = [None, IMG_SIZE, IMG_SIZE, 3] # batch, height, width, colour channels
+
+# Setup output shape of our model
+OUTPUT_SHAPE = len(unique_breeds)
+
+# Setup model URL from TensorFlow Hub
+MODEL_URL = "https://tfhub.dev/google/imagenet/mobilenet_v2_130_224/classification/4"
+
+INPUT_SHAPE
+
+
+Now we've got our inputs, outputs and model ready to go. 
+Let's put them together into a Keras deep learning model!
+
+Knowing this, let's create a function which:
+
+* Takes the input shape, output shape and the model we've chosen as parameters.
+* Defines the layers in a Keras model in sequential fashion (do this first, then this, then that).
+* Compiles the model (says it should be evaluated and improved).
+* Builds the model (tells the model the input shape it'll be getting).
+* Returns the model.
+
+All of these steps can be found here: https://www.tensorflow.org/guide/keras/overview
+
+# Create a function which builds a Keras model
+def create_model(input_shape=INPUT_SHAPE, output_shape=OUTPUT_SHAPE, model_url=MODEL_URL):
+  print("Building model with:", MODEL_URL)
+
+  # Setup the model layers
+  model = tf.keras.Sequential([
+    hub.KerasLayer(MODEL_URL), # Layer 1 (input layer)
+    tf.keras.layers.Dense(units=OUTPUT_SHAPE,
+                          activation="softmax") # Layer 2 (output layer)
+  ])
+
+  # Compile the model
+  model.compile(
+      loss=tf.keras.losses.CategoricalCrossentropy(),
+      optimizer=tf.keras.optimizers.Adam(),
+      metrics=["accuracy"]
+  )
+
+  # Build the model
+  model.build(INPUT_SHAPE)
+
+  return model
+
+model = create_model()
+model.summary()
 
 
 ```
