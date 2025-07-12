@@ -53,13 +53,14 @@ print(cookie.output())
 
 # urllib.parse is a module that provides functions for parsing and manipulating URLs
 import urllib.parse
-# urlparse is a function that parses a URL into its components
-from urllib.parse import urlparse, urlunparse, urljoin
+# urllib.request is a module that provides functions for opening and reading URLs
+import urllib.request
+
 
 # parse a URL into its components
-url = 'http://www.example.com/'
-values = {'s': 'basic',
-          'submit': 'Search'}
+url = 'http://www.claydesk.com/'
+values ={'s': 'basic',
+        'submit': 'Search'}
 # urlunparse is a function that constructs a URL from its components
 data = urllib.parse.urlencode(values)
 
@@ -67,6 +68,6 @@ data = data.encode('utf-8')  # data should be bytes
 req = urllib.request.Request(url, data)
 resp = urllib.request.urlopen(req)
 respData = resp.read()
-print(respData.decode('utf-8'))  # decode the bytes to string
+print(respData)  # decode the bytes to string
 
 

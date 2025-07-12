@@ -350,9 +350,17 @@ check temp.py which contains code with the necessary comments
 
 ## Connect to internet (http1.py)
 ```xml
-
+check http1.py which contains code with the necessary comments
 
 ```
+
+## Networking
+```xml
+Check myserver.py 
+
+```
+
+
 
 
 ## Miscellaneous 
