@@ -47,8 +47,11 @@ Data Modelling is an iterative process comprising of following steps:
 
 ###  1. Problem definition -> What problem are we trying to solve? 
 ```xml
-The four major types of machine learning are supervised learning, unsupervised learning, transfer learning 
-and reinforcement learning. 
+The four major types of machine learning are: 
+Supervised learning
+Unsupervised learning
+Transfer learning 
+Reinforcement learning
 
 Supervised learning
 -------------------
@@ -113,18 +116,32 @@ you could tweak the existing text model to your own problem.
 If machine learning can be used in your business, 
 it’s likely it’ll fall under one of these three types of learning.
 
-But let’s break them down further into classification, regression and recommendation.
 
-Classification -> Do you want to predict whether something is one thing or another? 
+Reinforcement learning
+----------------------
+This works on outcomes and rewarding. If the outcome of a move is towards sucess 
+then the reward is positive and if the outcome is leading to failure then the reward 
+is negative. 
+Eg. Moves of a classic chess game.
+
+
+Types of Supervised Learning:
+-----------------------------
+But let’s break supervised learning further into classification, regression and recommendation.
+
+Classification: 
+Do you want to predict whether something is one thing or another? 
 Such as whether a customer will churn or not churn? Or whether a patient has heart disease or not? 
 Note, there can be more than two things. Two classes is called binary classification, 
 more than two classes is called multi-class classification. 
 Multi-label is when an item can belong to more than one class.
 
-Regression -> Do you want to predict a specific number of something? 
+Regression:
+Do you want to predict a specific number of something? 
 Such as how much a house will sell for? Or how many customers will visit your site next month?
 
-Recommendation -> Do you want to recommend something to someone? 
+Recommendation:
+Do you want to recommend something to someone? 
 Such as products to buy based on their previous purchases? 
 Or articles to read based on their reading history?
 Now you know these things, your next step is to define your business problem in machine learning terms.
@@ -156,18 +173,26 @@ The data you have or need to collect will depend on the problem you want to solv
 If you already have data, it’s likely it will be in one of two forms. Structured or unstructured. 
 Within each of these, you have static or streaming data.
 
-Structured data -> Think a table of rows and columns, 
+Structured data:
+---------------
+Think a table of rows and columns, 
 an Excel spreadsheet of customer transactions, a database of patient records. 
 Columns can be numerical, such as average heart rate, categorical, 
 such as sex, or ordinal, such as chest pain intensity.
 
-Unstructured data -> Anything not immediately able to be put into row and column format, 
+Unstructured data:
+-----------------
+Anything not immediately able to be put into row and column format, 
 images, audio files, natural language text.
 
-Static data -> Existing historical data which is unlikely to change. 
+
+Within structured and Unstructured data we have the following:
+Static data:
+Existing historical data which is unlikely to change. 
 Your companies customer purchase history is a good example.
 
-Streaming data -> Data which is constantly updated, older records may be changed, 
+Streaming data:
+Data which is constantly updated, older records may be changed, 
 newer records are constantly being added.
 There are overlaps.
 

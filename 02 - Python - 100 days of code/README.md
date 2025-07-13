@@ -58,7 +58,7 @@ print("Your band name could be "+city+" "+ pet)
 ```
 
 
-## Day 2  
+## Day 2 - Data types and String Manupulations 
 ```xml
 
 ```
