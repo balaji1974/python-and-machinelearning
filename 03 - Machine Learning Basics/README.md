@@ -127,7 +127,10 @@ Eg. Moves of a classic chess game.
 
 Types of Supervised Learning:
 -----------------------------
-But let’s break supervised learning further into classification, regression and recommendation.
+But let’s break supervised learning further into:
+Classification
+Regression and 
+Recommendation
 
 Classification: 
 Do you want to predict whether something is one thing or another? 
@@ -249,33 +252,79 @@ But for predicting heart disease, you’ll likely want better results.
 
 Other things you should take into consideration for classification problems.
 
-False negatives -> Model predicts negative, actually positive. 
+False negatives:
+---------------
+Model predicts negative, actually positive. 
 In some cases, like email spam prediction, false negatives aren’t too much to worry about. 
 But if a self-driving cars computer vision system predicts no pedestrian when there was one, 
 this is not good.
 
-False positives -> Model predicts positive, actually negative. 
+False positives:
+----------------
+Model predicts positive, actually negative. 
 Predicting someone has heart disease when they don’t, might seem okay. 
 Better to be safe right? Not if it negatively affects the person’s lifestyle or 
 sets them on a treatment plan they don’t need.
 
-True negatives -> Model predicts negative, actually negative. This is good.
+True negatives:
+--------------
+Model predicts negative, actually negative. This is good.
 
-True positives -> Model predicts positive, actually positive. This is good.
+True positives:
+--------------
+Model predicts positive, actually positive. This is good.
 
-Precision -> What proportion of positive predictions were actually correct? 
+
+Classification Metrics:
+----------------------
+Precision
+Recall 
+F1 Score 
+
+Precision:
+----------
+What proportion of positive predictions were actually correct? 
 A model that produces no false positives has a precision of 1.0.
 
-Recall -> What proportion of actual positives were predicted correctly? 
+Precision= (True Positives (TP) / (True Positives (TP)+False Positives(FP))
+
+
+Recall:
+-------
+What proportion of actual positives were predicted correctly? 
 A model that produces no false negatives has a recall of 1.0.
 
-F1 score -> A combination of precision and recall. The closer to 1.0, the better.
+Recall= (True Positives (TP) / (True Positives (TP)+False Negative (FN))
 
-Receiver operating characteristic (ROC) curve and Area under the curve (AUC) -> 
+
+F1 score:
+---------
+A combination of precision and recall. The closer to 1.0, the better.
+
+F1 Score= 2 * ((Precision×Recall)/(Precision+Recall))
+
+A high F1 score indicates that your model is performing well on 
+both precision and recall — meaning:
+It makes few false positives (high precision)
+It misses few actual positives (high recall)
+
+
+Receiver operating characteristic (ROC) curve:
+----------------------------------------------
 The ROC curve is a plot comparing true positive and false positive rate. 
+
+Area under the curve (AUC):
+--------------------------
 The AUC metric is the area under the ROC curve. 
 A model whose predictions are 100% wrong has an AUC of 0.0, 
 one whose predictions are 100% right has an AUC of 1.0.
+
+
+Regression Metrics:
+-------------------
+Mean absolute error (MAE)
+Mean squared error (MSE)
+Root mean square error (RMSE)
 
 For regression problems (where you want to predict a number), 
 you’ll want to minimise the difference between what your model predicts 
@@ -285,17 +334,20 @@ If you’re trying to predict the price a house will sell for,
 you’ll want your model to get as close as possible to the actual price. 
 To do this, use MAE or RMSE.
 
-Mean absolute error (MAE) -> The average difference between your model's predictions 
+Mean absolute error (MAE):
+--------------------------
+The average difference between your model's predictions 
 and the actual numbers.
 
-Root mean square error (RMSE) -> The square root of the average of squared differences 
+Root mean square error (RMSE):
+------------------------------
+The square root of the average of squared differences 
 between your model's predictions and the actual numbers.
 
 Use RMSE if you want large errors to be more significant. 
 Such as, predicting a house to be sold at $300,000 instead of $200,000 
-and being off by $100,000 is more than 
-twice as bad as being off by $50,000. Or MAE if being off by $100,000 
-is twice as bad as being off by $50,000.
+and being off by $100,000 is more than twice as bad as being off by $50,000. 
+Or MAE if being off by $100,000 is twice as bad as being off by $50,000.
 
 Recommendation problems are harder to test in experimentation. 
 One way to do so is to take a portion of your data and hide it away. 
@@ -310,6 +362,10 @@ not someone is likely to buy an item.
 
 However, traditional classification metrics aren’t the best for recommendation problems. 
 Precision and recall have no concept of ordering.
+
+Recommendation Metrics:
+-----------------------
+Precision @ k
 
 If your machine learning model returned back a list of 10 recommendations 
 to be displayed to a customer on your website, 
@@ -332,16 +388,22 @@ how to evaluate your machine learning project.
 Not all data is the same. And when you hear someone referring to features, 
 they’re referring to different kinds of data within data.
 
-The three main types of features are categorical, continuous (or numerical) and derived.
+The three main types of features are:
+Categorical
+Continuous (or numerical)
+Derived.
 
-Categorical features -> One or the other(s). For example, in our heart disease problem, 
+Categorical features:
+One or the other(s). For example, in our heart disease problem, 
 the sex of the patient. 
 Or for an online store, whether or not someone has made a purchase or not.
 
-Continuous (or numerical) features -> A numerical value such as average heart rate 
+Continuous (or numerical) features: 
+A numerical value such as average heart rate 
 or the number of times logged in.
 
-Derived features -> Features you create from the data. 
+Derived features:
+Features you create from the data. 
 Often referred to as feature engineering. 
 Feature engineering is how a subject matter expert takes their knowledge 
 and encodes it into the data. 

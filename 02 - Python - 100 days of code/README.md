@@ -60,6 +60,95 @@ print("Your band name could be "+city+" "+ pet)
 
 ## Day 2 - Data types and String Manupulations 
 ```xml
+# Subscripting
+print("Hello"[4]) # this will print o
+print("Hello"[-3]) # this will print l, ie 3 chars from reverse 
+
+# Integer
+print(123+456) # will result in 579
+
+# Large numbers
+print(123456789)
+print(123_456_789) # both represent same number and _ just for vizuvalization
+
+# floating point
+print(123.45)
+
+#Boolean
+print(True)
+print(False)
+
+
+#Printing data type - this will print the data type 
+print(type("abc")) # <class 'str'>
+print(type(124)) # <class 'int'>
+print(type(124.67)) # <class 'float'>
+print(type(True)) # <class 'bool'>
+
+# Type conversion
+# will convert string to integer data type
+print(int("134")+int("123"))
+
+int() -> to convert to integer 
+str() -> to convert to string 
+float() -> to convert to float
+bool() -> to convert to boolean 
+
+# Mathematical Operations
+print(7+6) # 13
+print(65-4) # 61
+print(9*3) # 27
+print(25/5) # 5.0, division will always result in floating point number
+print(25//5) # 5, will just remove the decimal part after division 
+print(5**3) # 125, which is 5 to the power of 3 
+
+
+# Python follows PEDMAS rule 
+print(3 * 3 + 3 / 3 - 3) # will result in 7.0
+print(3 * (3 + 3 / 3 - 3)) # will result in 3.0
+
+
+# Number manipulation
+bmi = 84 / 1.65 ** 2
+print(bmi)
+
+print(int(bmi)) # floor or truncates the decimal value
+print(round(bmi)) # rounds the integer value
+print(round(bmi,2)) # rounds with 2 decimal places
+
+# Assignment operators such as the addition assignment operator 
++= will add the number on the right to the original value of the variable 
+on the left and assign the new value to the variable.
+
++=
+-=
+*=
+/=
+
+score = 5
+score += 1 # increment by 1
+print(score)
+score -= 2 # decrement by 2
+print(score)
+
+# f-Strings 
+# In Python, we can use f-strings to insert a variable 
+# or an expression into a string.
+
+age = 12
+height = 5.3
+# Below will output I am 12 years old and my height is 5.3.
+print(f"I am {age} years old and my height is {height}") 
+
+# Format the output after rounding to 2 decimal places
+subtotal=round((bill+ (bill * (tip/100)))/people,2)
+print(format(subtotal, '.2f')) # will print 55.00 for bill=150, tip=10% and people=3
+
+```
+
+## Day 3 - Control flow and logical operators
+```xml
+
 
 ```
 
