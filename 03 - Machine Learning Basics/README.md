@@ -391,20 +391,22 @@ they’re referring to different kinds of data within data.
 The three main types of features are:
 Categorical
 Continuous (or numerical)
-Derived.
+Derived
 
 Categorical features:
+--------------------
 One or the other(s). For example, in our heart disease problem, 
 the sex of the patient. 
 Or for an online store, whether or not someone has made a purchase or not.
 
 Continuous (or numerical) features: 
+----------------------------------
 A numerical value such as average heart rate 
 or the number of times logged in.
 
 Derived features:
-Features you create from the data. 
-Often referred to as feature engineering. 
+-----------------
+Features you create from the data, often referred to as feature engineering. 
 Feature engineering is how a subject matter expert takes their knowledge 
 and encodes it into the data. 
 You might combine the number of times logged in with timestamps 
@@ -415,22 +417,22 @@ Regardless, they all get turned into numbers before a machine learning
 algorithm can model them.
 
 Some important things to remember when it comes to features:
-
-Keep them the same during experimentation (training) and production (testing) -> 
+------------------------------------------------------------
+Keep them the same during experimentation (training) and production (testing):
 A machine learning model should be trained on features which represent 
 as close as possible to what it will be used for in a real system.
 
-Work with subject matter experts -> What do you already know about the problem, 
-how can that influence what features you use? 
+Work with subject matter experts:
+What do you already know about the problem, how can that influence what features you use? 
 Let your machine learning engineers and data scientists know this.
 
-Are they worth it? -> If only 10% of your samples have a feature, 
-is it worth incorporating it in a model? 
+Are they worth it?
+If only 10% of your samples have a feature, is it worth incorporating it in a model? 
 Have a preference for features with the most coverage. 
 The ones where lots of samples have data for.
 
-Perfect equals broken -> If your model is achieving perfect performance, 
-you’ve likely got feature leakage somewhere. 
+Perfect equals broken:
+If your model is achieving perfect performance, you’ve likely got feature leakage somewhere. 
 Which means the data your model has trained on is being used to test it. 
 No model is perfect.
 
@@ -452,19 +454,24 @@ machine learning can improve upon or not.
 Once you’ve defined your problem, prepared your data, evaluation criteria and 
 features it’s time to model.
 
-Splitting the Data
-------------------
-The 3 set approach to data: Split data into 3 sets -> 
-Training Set (70% to 80% data) -> Validation Set (10% to 15% data) -> Testing Set (10% to 15% data)
+Splitting the Data: The 3 set approach to data: 
+----------------------------------------------
+Split data into 3 sets: 
+Training Set (70% to 80% data)
+Validation Set (10% to 15% data)
+Testing Set (10% to 15% data)
 
 All experiments should be conducted on different portions of your data.
 
-Training data set — Use this set for model training, 70–80% of your data is the standard.
+Training data set:
+Use this set for model training, 70–80% of your data is the standard.
 
-Validation/development data set — Use this set for model hyperparameter tuning 
+Validation/development data set:
+Use this set for model hyperparameter tuning 
 and experimentation evaluation, 10–15% of your data is the standard.
 
-Test data set — Use this set for model testing and comparison, 
+Test data set:
+Use this set for model testing and comparison, 
 10–15% of your data is the standard.
 
 These amounts can fluctuate slightly, depending on your problem and the data you have.
@@ -488,9 +495,10 @@ Poor performance once deployed (in the real world) means there’s a difference 
 and tested your model on and what is actually happening. 
 Ensure the data you're using during experimentation matches up with the data you're using in production.
 
-
-Modelling breaks into three parts, choosing a model, improving a model or model tuning, 
-comparing it with others.
+Modelling breaks into three parts:
+Choosing a model
+Improving a model or model tuning, 
+Comparing it with others
 
 Choosing a model
 ----------------

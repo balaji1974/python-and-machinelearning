@@ -101,7 +101,7 @@ print(9*3) # 27
 print(25/5) # 5.0, division will always result in floating point number
 print(25//5) # 5, will just remove the decimal part after division 
 print(5**3) # 125, which is 5 to the power of 3 
-
+pritn(5%3) # will return 2 which is the reminder after division
 
 # Python follows PEDMAS rule 
 print(3 * 3 + 3 / 3 - 3) # will result in 7.0
@@ -148,9 +148,94 @@ print(format(subtotal, '.2f')) # will print 55.00 for bill=150, tip=10% and peop
 
 ## Day 3 - Control flow and logical operators
 ```xml
+If else:
+-------
+if condition:
+	do this
+else:
+	do this
+
+# To check if the number is odd or even
+num=int(input("Enter the number to check odd or even: "))
+if num % 2 == 0:
+    print("This is a even number")
+else:
+    print("This is a odd number")
+
+
+Nested If Else:
+--------------
+if condition:
+	if another condition:
+		do this
+	else:
+		do this
+else:
+	do this 
+
+# To pay different price based on age 
+print("Welcome to the rollercoaster!")
+height = int(input("What is your height in cm? "))
+if height >= 120:
+    age = int(input("What is your age? "))
+    if age >= 21:
+        print("Please pay $15 for ticket")
+    else:
+        print("Please pay $7 for ticket")
+else:
+    print("Sorry you have to grow taller before you can ride.")
+
+If, Elif Else
+-------------
+if condition1:
+	do A
+elif condition2:
+	do B
+else:
+	do C
+
+# To pay based on age groups and photo needed or not
+print("Welcome to the rollercoaster!")
+height = int(input("What is your height in cm? "))
+bill=0
+if height >= 120:
+    print("You can ride the rollercoaster")
+    age = int(input("What is your age? "))
+    if age <= 12:
+        print("Child tickets are $5.")
+        bill=5
+    elif age <= 18:
+        print("Please pay $7.")
+        bill=7
+    else:
+        print("Please pay $12.")
+        bill=12
+    photo = input("Do you want a photo? ")
+    if photo == "y":
+        bill+=3
+    print(f"Your final ticket price is ${bill}")
+else:
+    print("Sorry you have to grow taller before you can ride.")
+
+
+Logical Operators:
+------------------
+and => both expressions to be true to evalutate to true
+or => any expression to be true to evaluate to true 
+not => inverse, true will evulate to false and false will evaluate to true
+
+age >= 45 and age <= 65 can be written in a simpler way as:
+45 <= age <= 65 
 
 
 ```
+
+## Day 4 - Randomisation and List 
+```xml
+
+
+```
+
 
 ### Reference
 ```xml
