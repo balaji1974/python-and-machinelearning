@@ -496,22 +496,25 @@ and tested your model on and what is actually happening.
 Ensure the data you're using during experimentation matches up with the data you're using in production.
 
 Modelling breaks into three parts:
-Choosing a model
-Improving a model or model tuning, 
-Comparing it with others
+----------------------------------
+Choosing & Training a model (Training Data used)
+Tuning a Model or Improving a model (Validation Data used)
+Model Comparision (Test Data used)
 
 Choosing a model
 ----------------
 When choosing a model, you’ll want to take into consideration, 
 interpretability and ease to debug, amount of data, training and prediction limitations.
 
-Interpretability and ease to debug -> Why did a model make a decision it made? 
+Interpretability and ease to debug:
+Why did a model make a decision it made? 
 How can the errors be fixed?
 
-Amount of data -> How much data do you have? Will this change?
+Amount of data:
+How much data do you have? Will this change?
 
-Training and prediction limitations -> This ties in with the above, 
-how much time and resources do you have for training and prediction?
+Training and prediction limitations:
+This ties in with the above, how much time and resources do you have for training and prediction?
 To address these, start simple. A state of the art model can be tempting to reach for. 
 But if it requires 10x the compute resources to train and prediction times are 5x longer 
 for a 2% boost in your evaluation metric, it might not be the best choice.
@@ -541,8 +544,8 @@ This saves dramatically on training time and allows you to experiment faster.
 
 Where do I find pre-trained models?
 
-Pre-trained models are available on PyTorch hub, TensorFlow hub, model zoo 
-and within the fast.ai framework. 
+Pre-trained models are available on PyTorch hub, TensorFlow hub, Model zoo, 
+Hugging Face models (https://huggingface.co/models) and within the fast.ai framework. 
 This is a good place to look first for building any kind of proof of concept.
 
 What about the other kinds of models?
@@ -593,6 +596,26 @@ Model 2, trained on data X, evaluated on data Y.
 Where model 1 and 2 can vary but not data X or data Y.
 
 
+Underfitting:
+-------------
+Training set performance is dramatically higher than the test set 
+(Data mistmatch - Training data might be different from the test data)
+
+Solution:
+Try more advanced model
+Increase Hyper parameters
+Reduce amount of features
+Train Longer
+
+Overfitting:
+------------
+Training set performance is dramatically lesser than the test set
+(Training data might have leaked into the test data)
+
+Solution:
+Collect more data 
+Try a less advance model 
+
 
 ```
 
@@ -636,6 +659,23 @@ should be able to reproduce what you’ve done.
 
 This means saving updated models and updated datasets regularly.
 
+
+```
+
+## Machine Learning Tools
+```xml
+Anaconda 
+Juypter
+
+Pandas
+Numpy
+Matplotlib
+
+Scikit-Learn
+Tensorflow
+PyTorch 
+XGBoost
+CatBoost
 
 ```
 
