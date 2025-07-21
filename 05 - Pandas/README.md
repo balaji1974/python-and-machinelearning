@@ -951,7 +951,7 @@ car_sales.columns
 car_sales.index
 
 
-# Statical information about dataframe
+# Statical information about dataframe - only on the numeric column
 car_sales.describe()
 
 # Gives complete information of the dataframe 
@@ -1030,7 +1030,6 @@ car_sales["Price"] =
 # Divide by 100 as decimal was removed in previous step 
 # and round result by 2 decimials
 car_sales["Price"] = car_sales["Price"].div(100).round(2)
-
 
 ```
 
@@ -3521,6 +3520,7 @@ https://www.udemy.com/course/complete-machine-learning-and-data-science-zero-to-
 https://pandas.pydata.org/pandas-docs/stable/
 https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html
 https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html
+https://pandas.pydata.org/docs/getting_started/index.html
 
 https://www.udemy.com/course/data-analysis-with-pandas
 

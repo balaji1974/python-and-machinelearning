@@ -633,17 +633,19 @@ Online experiments happen when your machine learning model is in production.
 
 All experiments should be conducted on different portions of your data.
 
-Training data set -> Use this set for model training, 70–80% of your data is the standard.
+Training data set:
+Use this set for model training, 70–80% of your data is the standard.
 Validation/development data set -> Use this set for model tuning, 
 10–15% of your data is the standard.
 
-Test data set -> Use this set for model testing and comparison, 
+Test data set:
+Use this set for model testing and comparison, 
 10–15% of your data is the standard.
 These amounts can fluctuate slightly, depending on your problem and the data you have.
 
 Poor performance on training data means the model hasn’t learned properly. 
-Try a different model, 
-improve the existing one, collect more data, collect better data.
+Try a different model, improve the existing one, 
+collect more data, collect better data.
 
 Poor performance on test data means your model doesn’t generalise well. 
 Your model may be overfitting the training data. Use a simpler model or collect more data.
@@ -658,7 +660,6 @@ like model tuning, someone, including your future self,
 should be able to reproduce what you’ve done.
 
 This means saving updated models and updated datasets regularly.
-
 
 ```
 

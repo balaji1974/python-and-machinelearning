@@ -232,10 +232,168 @@ age >= 45 and age <= 65 can be written in a simpler way as:
 
 ## Day 4 - Randomisation and List 
 ```xml
+# import the random module
+import random
+
+#This will produce a random whole number between 1 and 10 (inclusive).
+rand_num = random.randint(1, 10)
+print (rand_num)
+
+# This will produce a random number between 0.0 and 1.0
+# 0.0 <= random.random() < 1.0
+rand_num_0_to_1 = random.random()
+print(rand_num_0_to_1)
+
+# This will generate a random number between 0 and 5.
+print(random.random() * 5)
+
+# This will also generate a random floating point number between 1 and 10.
+random_float = random.uniform(1, 10)
+print(random_float)
+
+# Head or Tail based on random int 
+head_tail = random.randint(0, 1)
+if head_tail==0:
+    print("Head")
+else:
+    print("Tail")
+
+
+# Python List 
+# Inbetween square brackets
+fruits = ["Cherry", "Apple", "Pear"]
+
+# This will print Cherry
+print(fruits[0])
+
+# This will print Apple, from the end 2 places backwards
+print(fruits[-2])
+
+# Alter list
+fruits[2] = "Orange"
+print(fruits)
+
+# Append will add to the end of the list
+fruits.append("Mango")
+print(fruits)
+
+# Extend will add a list of elements to the end of the existing list
+fruits.extend(["Pears", "Avacodo", "Grapes"])
+print(fruits)
+
+# Insert an element in the index position
+fruits.insert(3,"Pineapple")
+print(fruits)
+
+# Removes and returns the element at the specified index
+print(fruits.pop(1))
+print(fruits)
+
+# Removes the first occurance of the element
+fruits.remove("Avacodo")
+print(fruits)
+
+
+# Pick an item randomly from the list - challenge
+friends = ["Alice", "Bob", "Charlie", "David", "Emanuel"]
+
+import random
+# Print random item from the list
+print(friends[random.randint(0,len(friends)-1)]) # Total length -1 as upper limit 
+
+# Same can be achieved with the choice function in random module
+print(random.choice(friends))
+
+# Nested List
+fruits = ["Cherry", "Apple", "Pear"]
+veg = ["Cucumber", "Kale", "Spinnach"]
+
+#The list would look like this: [["Cherry", "Apple", "Pear"], ["Cucumber", "Kale", "Spinnach"]]
+fruits_and_veg = [fruits, veg]
+print(fruits_and_veg)
+
+```
+
+## Day 5 - Loops
+```xml
+fruits = ["Apple", "Peach", "Pear"]
+
+# For Loops
+for fruit in fruits:
+    print(fruit)
+
+# sum
+student_scores = [150, 142, 185, 120, 171, 184, 149, 24, 59, 68, 199, 78, 65, 89, 86, 55, 91, 64, 89]
+total = 0
+for score in student_scores:
+    total += score
+print(total)
+# without loop
+print(sum(student_scores))
+
+# max
+scores = [8, 65, 89, 86, 55, 91, 64, 89]
+max_score= 0
+for score in scores:
+    if score > max_score:
+        max_score=score
+print(max_score)
+# without loop
+print(max(scores))
+
+
+# Range function 
+# Will print from 1 to 100
+for number in range(1, 101):
+    print(number)
+
+# Will print from 1 to 100 with intervals of 3 
+for number in range(1, 101, 3):
+    print(number)
+
+
+## Exercise
+# Program to print random password
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+print("Welcome to the PyPassword Generator!")
+nr_letters = int(input("How many letters would you like in your password?\n"))
+nr_symbols = int(input(f"How many symbols would you like?\n"))
+nr_numbers = int(input(f"How many numbers would you like?\n"))
+
+# To print password in the order of letters first, numbers next and finally symbols
+import random
+pwd=''
+for l in range (0,nr_letters):
+    pwd += random.choice(letters)
+for n in range (0,nr_numbers):
+    pwd += random.choice(numbers)
+for s in range (0,nr_symbols):
+    pwd += random.choice(symbols)
+print(pwd)
+
+# To print password in completely random order of letters, numbers and symbols
+pwd_list=[]
+for l in range (0,nr_letters):
+    pwd_list.append(random.choice(letters))
+for n in range (0,nr_numbers):
+    pwd_list.append(random.choice(numbers))
+for s in range (0,nr_symbols):
+    pwd_list.append(random.choice(symbols))
+random.shuffle(pwd_list) # shuffle the list
+res = ''.join(pwd_list)  # create a string by joining elements of the list
+print(res)
 
 
 ```
 
+## Day 6 - Functions and Karel 
+```xml
+
+
+```
 
 ### Reference
 ```xml
