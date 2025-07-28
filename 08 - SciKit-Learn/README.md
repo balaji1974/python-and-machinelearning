@@ -68,7 +68,6 @@ sklearn.show_versions() # This also shows the version information
 
 ![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/03%20-%20Machine%20Learning%20Basics/resources/6-step-ml-framework.png?raw=true)
 
 ## scikit-learn workflow - Steps
 ```xml 
