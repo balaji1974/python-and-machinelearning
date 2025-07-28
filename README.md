@@ -142,6 +142,7 @@ print(pokemon.get("Digimon", "Nonexistent"))
 DataFrames:
 -----------
 
+
 ```
 
 ## Important Numpy Reference - For details check numpy folders

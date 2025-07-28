@@ -391,6 +391,128 @@ print(res)
 
 ## Day 6 - Functions and Karel 
 ```xml
+Check the below link for Python Built-in Functions:
+https://docs.python.org/3/library/functions.html
+
+Functions:
+# defining function
+def  print_hello():
+    print("Hello")
+
+# calling function
+print_hello()
+
+
+The Hurdles race
+Reeborg has entered a hurdles race. Make him run the course, following the path shown:
+https://reeborg.ca/reeborg.html?lang=en&mode=python&menu=worlds%2Fmenus%2Freeborg_intro_en.json&name=Hurdle%201&url=worlds%2Ftutorial_en%2Fhurdle1.json
+
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+    
+def jump():
+    move()
+    turn_left()
+    move()
+    turn_right()
+    move()
+    turn_right()
+    move()
+    turn_left()
+
+for step in range(6):
+    jump()
+
+The same thing can be achieved with a While Loop as below:
+no_of_hurdles=6
+while no_of_hurdles>0:
+    jump()
+    no_of_hurdles -=1
+
+
+With random number of hurdles (as in link below) we can use something like this:
+https://reeborg.ca/reeborg.html?lang=en&mode=python&menu=worlds%2Fmenus%2Freeborg_intro_en.json&name=Hurdle%202&url=worlds%2Ftutorial_en%2Fhurdle2.json
+while not at_goal():
+    jump()
+
+In this challenge the the position and number of hurdles changes each time this world is reloaded:
+https://reeborg.ca/reeborg.html?lang=en&mode=python&menu=worlds%2Fmenus%2Freeborg_intro_en.json&name=Hurdle%203&url=worlds%2Ftutorial_en%2Fhurdle3.json
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+    
+def jump():
+    turn_left()
+    move()
+    turn_right()
+    move()
+    turn_right()
+    move()
+    turn_left()
+
+while not at_goal():
+    if wall_in_front():
+        jump()
+    else: 
+        move()
+
+In this next challenge the position, the height and the number of hurdles changes each time this world is reloaded:
+https://reeborg.ca/reeborg.html?lang=en&mode=python&menu=worlds%2Fmenus%2Freeborg_intro_en.json&name=Hurdle%204&url=worlds%2Ftutorial_en%2Fhurdle4.json
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+    
+def jump():
+    turn_left()
+    while wall_on_right():
+        move()
+    turn_right()
+    move()
+    turn_right()
+    while front_is_clear():
+    move()
+    turn_left()
+
+while not at_goal():
+    if wall_in_front():
+        jump()
+    else: 
+        move()
+
+Lost in a maze
+Write a program using an if/elif/else statement so Reeborg can find the exit. 
+The secret is to have Reeborg follow along the right edge of the maze, 
+turning right if it can, going straight ahead if it can’t turn right, 
+or turning left as a last resort.
+
+What you need to know
+The functions move() and turn_left().
+Either the test front_is_clear() or wall_in_front(), right_is_clear() or wall_on_right(), and at_goal().
+How to use a while loop and if/elif/else statements.
+
+https://reeborg.ca/reeborg.html?lang=en&mode=python&menu=worlds%2Fmenus%2Freeborg_intro_en.json&name=Maze&url=worlds%2Ftutorial_en%2Fmaze1.json
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+
+while front_is_clear():
+    move()
+
+turn_left()
+
+while not at_goal():
+    if right_is_clear():
+        turn_right()
+        move()
+    elif front_is_clear():
+        move()
+    else:
+        turn_left()
 
 
 ```

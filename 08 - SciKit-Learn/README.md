@@ -66,7 +66,7 @@ sklearn.show_versions() # This also shows the version information
 
 # scikit-learn Workflow 
 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20scikit-learn/images/sklearn-workflow-title.png?raw=true)
+![alt text](https://github.com/balaji1974/python-and-machinelearning/tree/499069567d06b277bf632dd44120a72782520888/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
 
 ## scikit-learn workflow - Steps
 ```xml 
@@ -77,7 +77,6 @@ sklearn.show_versions() # This also shows the version information
 5. Improving predictions through experimentation (hyperparameter tuning)
 6. Saving and loading a pretrained model
 7. Putting it all together in a pipeline
-
 
 ```
 

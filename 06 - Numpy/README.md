@@ -5,7 +5,6 @@
 ```xml
 It stands for Numeric Python
 
-
 It is used for large count of numerical calculations.
 It is fase (since optimizations are written in C)
 Numpy operations are much faster when it comes to Lists than traditional Python
