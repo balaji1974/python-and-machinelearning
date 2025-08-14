@@ -274,6 +274,27 @@ import pandas as pd
 
 ```
 
+## Jupyter Lab 
+```xml
+Shortcuts:
+
+1. To shift between Code and Markdown cells 
+Esc + M -> Markdown
+Esc + Y -> Code 
+
+finally hit shift + enter 
+
+2. Help on a function
+Locate the function: Navigate to a code cell in your JupyterLab notebook and 
+type the name of a function or method (e.g., print().)
+Activate help: Place the cursor inside the parentheses, then press Shift + Tab.
+View documentation: A tooltip will appear, displaying the function's documentation. 
+Pressing Shift + Tab again will expand this to show the full docstring. 
+
+
+
+```
+
 
 ### Reference
 ```xml

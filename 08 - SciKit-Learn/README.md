@@ -48,6 +48,12 @@ Saving you from having to build them from scratch.
 
 ## scikit-learn imports 
 ```xml 
+Open Anaconda
+Select jypter lab
+Select your kernal inside jypter lab 
+Choose your working folder
+Create a new notebook and rename it. 
+
 
 # Standard imports
 # %matplotlib inline # No longer required in newer versions of Jupyter (2022+)
@@ -87,7 +93,7 @@ sklearn.show_versions() # This also shows the version information
 # It is a classification problem 
 
 # Import dataset
-heart_disease = pd.read_csv("./heart-disease.csv")
+heart_disease = pd.read_csv("data/heart-disease.csv")
 
 # View the data
 heart_disease.head()
