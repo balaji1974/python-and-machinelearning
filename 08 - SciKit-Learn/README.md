@@ -487,7 +487,8 @@ https://rahul-saini.medium.com/feature-scaling-why-it-is-required-8a93df1af310
 
 
 # Choosing the righ estimator 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20scikit-learn/images/choosing-the-right-estimator.png?raw=true)
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/choosing-the-right-estimator.png?raw=true)
+Ref:
 https://scikit-learn.org/stable/machine_learning_map.html
 
 ## 2. Choosing the right estimator/algorithm for your problem
