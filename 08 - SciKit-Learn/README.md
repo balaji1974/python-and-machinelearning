@@ -69,7 +69,6 @@ sklearn.show_versions() # This also shows the version information
 
 ```
 
-
 # scikit-learn Workflow 
 
 ![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/sklearn-workflow-title.png?raw=true)
@@ -85,13 +84,36 @@ sklearn.show_versions() # This also shows the version information
 6. Saving and loading a pretrained model
 7. Putting it all together in a pipeline
 
+
+In simple english & shortform:
+Raw Data
+   ↓
+Train/Test Split
+   ↓
+Preprocessing (fit only on train)
+   ↓
+Model Training
+   ↓
+Evaluation
+   ↓
+Tuning
+   ↓
+Persist Model
+   ↓
+Deploy & Predict
+
+
 ```
 
-## 1. Get the data ready 
+## Sample machine learning end to end workflow  
 ```xml 
+Refer to 01-End-To-End-Workflow-RandomForestClassifer.ipynb 
+
 # The problem at hand is see if someone has heart disease of not.
 # It is a classification problem 
 
+1. Getting the data ready
+-------------------------
 # Import dataset
 heart_disease = pd.read_csv("data/heart-disease.csv")
 
@@ -104,10 +126,10 @@ X = heart_disease.drop("target", axis=1)
 # Create y (the target column - label)
 y = heart_disease["target"] # This is a result that says if the person has heart disease or not
 
-```
 
-## 2. Choosing the right model and hyper parameters
-```xml 
+2. Choosing the right maching learning estimator/aglorithm/model for your problem
+---------------------------------------------------------------------------------
+# Choosing the right model and hyper parameters
 # Random Forest Classifier (for classification problems)
 from sklearn.ensemble import RandomForestClassifier
 
@@ -118,10 +140,8 @@ clf = RandomForestClassifier(n_estimators=100)
 # These are used for fine tuning the model 
 clf.get_params() # checking the default hyperparameters
 
-```
-
-## 3. Fit the model to the training data 
-```xml 
+3. Fit the model to the training data 
+-------------------------------------
 # Split the data into training and test sets
 from sklearn.model_selection import train_test_split
 
@@ -136,10 +156,8 @@ clf.fit(X_train, y_train);
 # Once fit is called, you can make predictions using predict()
 y_preds = clf.predict(X_test)
 
-```
-
-## 4. Evaluate the model 
-```xml 
+4. Evaluate the model 
+---------------------
 # All models/estimators have a score() function
 # On the training set
 clf.score(X_train, y_train)
@@ -159,10 +177,8 @@ confusion_matrix(y_test, y_preds)
 # Accuracy score
 accuracy_score(y_test, y_preds)
 
-```
-
-## 5. Improve a model 
-```xml 
+5. Improve a model 
+------------------
 # Try different numbers of estimators (n_estimators is a hyperparameter you can change)
 np.random.seed(42)
 for i in range(10,100,10):
@@ -174,9 +190,8 @@ for i in range(10,100,10):
 # The output of this will help us select the best estimator to use:
 # select the one with the highest accuracy score
 
-```
-## 6. Save the model and load it
-```xml 
+6. Save the model and load it
+-----------------------------
 # Saving a model with pickle
 import pickle
 
@@ -196,6 +211,8 @@ loaded_pickle_model.score(X_test, y_test)
 
 ## 1. Getting the data ready
 ```xml 
+Clean -> Transform -> Reduce 
+
 1. Split the data into feature and labels (X and y)
 2. Converting non-numerical values into numeric values (also known as feature encoding)
 3. Filling (also known as imputing) or disregarding missing values 
