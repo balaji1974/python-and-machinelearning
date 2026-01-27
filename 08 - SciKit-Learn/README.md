@@ -208,7 +208,7 @@ loaded_pickle_model.score(X_test, y_test)
 
 # Scikit-learn Workflow In Detail  
 
-## 1. Getting the data ready
+## Getting the data ready
 ```xml 
 Refer to 02-Getting-The-Data-Ready.ipynb
 
@@ -383,7 +383,7 @@ car_sales_missing.isna().sum()
 
 ```
 
-## Feature Scaling 
+# Feature Scaling 
 ```xml
 Feature Scaling
 Once your data is all in numerical format, there's one more transformation 
@@ -428,12 +428,28 @@ https://rahul-saini.medium.com/feature-scaling-why-it-is-required-8a93df1af310
 
 # Choosing the righ estimator 
 ![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/choosing-the-right-estimator.png?raw=true)
+
+```xml
+Sklearn refers to machine learning models, algorithms as estimators.
+Classification problem - predicting a category (heart disease or not)
+Sometimes you'll see clf (short for classifier) used as a classification estimator
+Regression problem - predicting a number (selling price of a car)
+
 Ref:
 https://scikit-learn.org/stable/machine_learning_map.html
 
-## 2. Choosing the right estimator/algorithm for your problem
+```
+
+## Choosing the right estimator/algorithm for your problem
 ```xml
-2.1 Picking a machine learning model for a regression problem
+Refer to 03-Choosing-The-Model.ipynb
+
+You can look into all the sample datasets that sklearn provides 
+in the below link:
+https://scikit-learn.org/stable/api/sklearn.datasets.html
+
+1. Picking a machine learning model for a regression problem
+------------------------------------------------------------
 
 # Get California Housing dataset
 from sklearn.datasets import fetch_california_housing
@@ -444,23 +460,25 @@ housing
 housing_df = pd.DataFrame(housing["data"], columns=housing["feature_names"])
 housing_df
 
-# Adding the target variable into our dataset 
-housing_df["target"] = housing["target"]
+# Add a target variable to the dataframe from our dataset
+housing_df["MedHouseVal"] = housing["target"]
 housing_df.head()
-
-# Import algorithm/estimator
-from sklearn.linear_model import Ridge
 
 # Setup random seed
 np.random.seed(42)
 
 # Create the data
-X = housing_df.drop("target", axis=1)
-y = housing_df["target"] # median house price in $100,000s
+X = housing_df.drop("MedHouseVal", axis=1)
+y = housing_df["MedHouseVal"] # median house price in $100,000s
 
 # Split the data into training and test sets
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+1.1 Ridge 
+---------
+# Import algorithm/estimator
+from sklearn.linear_model import Ridge
 
 # Instantiate and fit the model (on the training set)
 model = Ridge()
@@ -470,26 +488,42 @@ model.fit(X_train, y_train)
 model.score(X_test, y_test)
 0.5758549611440126 <- result 
 
+
 What if Ridge didn't work or the score didn't fit our needs?
-
 Well, we could always try a different model...
-
-How about we try an ensemble model (an ensemble is combination of smaller models to try and make better predictions than just a single model)?
-
+How about we try an ensemble model 
+(an ensemble is combination of smaller models to try and make better predictions than just a single model)?
 Sklearn's ensemble models can be found here: https://scikit-learn.org/stable/modules/ensemble.html
 
+1.2 Lasso
+---------
+# Import algorithm/estimator
+from sklearn.linear_model import Lasso
+
+# Instantiate and fit the model (on the training set)
+model = Lasso()
+model.fit(X_train, y_train)
+
+# Check the score of the model (on the test set)
+model.score(X_test, y_test)
+
+
+What if both Ridge & Lasso didn't work or the score didn't fit our needs?
+Well, we could always try a different model...
+How about we try an ensemble model?
+An ensemble is combination of smaller models to try and make better predictions than just a single model
+Sklearn's ensemble models can be found here: https://scikit-learn.org/stable/modules/ensemble.html
+
+Sklearn's Random Forest Regressor can be found here:
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html
+
+Random Forest Algorithm in Machine Learning
+https://www.geeksforgeeks.org/machine-learning/random-forest-algorithm-in-machine-learning/
+
+1.3 Random Foreset Regressor 
+----------------------------
 # Import the RandomForestRegressor model class from the ensemble module
 from sklearn.ensemble import RandomForestRegressor
-
-# Setup random seed
-np.random.seed(42)
-
-# Create the data
-X = housing_df.drop("target", axis=1)
-y = housing_df["target"]
-
-# Split into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # Create random forest model
 model = RandomForestRegressor()
@@ -500,7 +534,8 @@ model.score(X_test, y_test)
 0.8066196804802649 <- result 
 
 
-2.2 Picking a machine learning model for a classification problem
+2. Picking a machine learning model for a classification problem
+----------------------------------------------------------------
 Let's go to the map... https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
 
 # Get the data (be sure to click "raw") - https://github.com/mrdbourke/zero-to-mastery-ml/blob/master/data/heart-disease.csv 
