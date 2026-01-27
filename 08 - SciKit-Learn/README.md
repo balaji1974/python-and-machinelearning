@@ -206,13 +206,13 @@ loaded_pickle_model.score(X_test, y_test)
 
 ```
 
-# scikit-learn Workflow - In Detail  
-
+# Scikit-learn Workflow In Detail  
 
 ## 1. Getting the data ready
 ```xml 
-Clean -> Transform -> Reduce 
+Refer to 02-Getting-The-Data-Ready.ipynb
 
+Clean -> Transform -> Reduce 
 1. Split the data into feature and labels (X and y)
 2. Converting non-numerical values into numeric values (also known as feature encoding)
 3. Filling (also known as imputing) or disregarding missing values 
@@ -250,28 +250,6 @@ X_train.shape, X_test.shape, y_train.shape, y_test.shape
 car_sales = pd.read_csv("./resources/car-sales-extended.csv")
 car_sales.head()
 
-# Explore the dataset  
-car_sales["Doors"].value_counts()
-len(car_sales)
-car_sales.dtypes
-
-# Split into X/y
-X = car_sales.drop("Price", axis=1)
-y = car_sales["Price"]
-
-# Split into training and test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Build machine learning model
-from sklearn.ensemble import RandomForestRegressor
-
-model = RandomForestRegressor()
-model.fit(X_train, y_train)
-model.score(X_test, y_test)
-
-# The above will throw ValueError: could not convert string to float: 'Toyota'
-# We need to convert all Strings into numbers 
-
 # Turn the categories into numbers
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -286,11 +264,6 @@ transformed_X
 
 pd.DataFrame(transformed_X)
 
-
-# Another way to do the same thing with pd.dummies...
-dummies = pd.get_dummies(car_sales[["Make", "Colour", "Doors"]],dtype=int)
-dummies
-
 # Let's refit the model
 np.random.seed(42)
 X_train, X_test, y_train, y_test = train_test_split(transformed_X, y, test_size=0.2)
@@ -300,8 +273,23 @@ model.fit(X_train, y_train);
 model.score(X_test, y_test)
 
 
+# Another way to do the same thing with pd.dummies...
+dummies = pd.get_dummies(car_sales[["Make", "Colour", "Doors"]],dtype=int)
+dummies
+
+np.random.seed(42)
+X_train, X_test, y_train, y_test = train_test_split(dummies,
+                                                    y, 
+                                                    test_size=0.2)
+model.fit(X_train, y_train)
+model.score(X_test, y_test)
+
+
 3. Disregarding missing values or Filling (also known as imputing) 
 ------------------------------------------------------------------
+Note: The current version of OneHotEncoder (0.23+ versions) can handle 
+missing values None & NaN. So can still use OneHotEncoder here as alternative.
+
 # Import car sales missing data
 car_sales_missing = pd.read_csv("./resources/car-sales-extended-missing-data.csv")
 car_sales_missing.head()
@@ -309,24 +297,6 @@ car_sales_missing.head()
 # Find the count of missing values in each column
 car_sales_missing.isna().sum()
 
-# Create X & y
-X = car_sales_missing.drop("Price", axis=1)
-y = car_sales_missing["Price"]
-
-# Let's try and convert our data to numbers
-# Turn the categories into numbers
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-
-categorical_features = ["Make", "Colour", "Doors"]
-one_hot = OneHotEncoder()
-transformer = ColumnTransformer([("one_hot", one_hot,
-                 categorical_features)],remainder="passthrough")
-
-transformed_X = transformer.fit_transform(X)
-transformed_X
-
-# The above will throw ValueError: Input contains NaN (but in newer versions of Scikit Learn this is ignored)
 
 3.1 Fill the missing values using Pandas
 ----------------------------------------
@@ -355,22 +325,6 @@ car_sales_missing.isna().sum()
 # To check how many missing values we have remaining after removing price = NA  
 len(car_sales_missing)
 
-# ReCreate X & y
-X = car_sales_missing.drop("Price", axis=1)
-y = car_sales_missing["Price"]
-
-# Let's try and convert our data to numbers
-# Turn the categories into numbers
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-
-categorical_features = ["Make", "Colour", "Doors"]
-one_hot = OneHotEncoder()
-transformer = ColumnTransformer([("one_hot",one_hot,
-                    categorical_features)],remainder="passthrough")
-
-transformed_X = transformer.fit_transform(car_sales_missing)
-transformed_X
 
 3.2 Fill missing values with scikit-learn
 -----------------------------------------
@@ -427,38 +381,9 @@ car_sales_filled_train.isna().sum()
 # Check to see the original... still missing values
 car_sales_missing.isna().sum()
 
-# Now let's one hot encode the features with the same code as before 
-categorical_features = ["Make", "Colour", "Doors"]
-one_hot = OneHotEncoder()
-transformer = ColumnTransformer([("one_hot", one_hot, 
-                        categorical_features)], remainder="passthrough")
-
-# Fill train and test values separately
-transformed_X_train = transformer.fit_transform(car_sales_filled_train)
-transformed_X_test = transformer.transform(car_sales_filled_test)
-
-# Check transformed and filled X_train
-transformed_X_train.toarray()
-
-# Now we've transformed X, let's see if we can fit a model
-np.random.seed(42)
-from sklearn.ensemble import RandomForestRegressor
-
-model = RandomForestRegressor()
-
-# Make sure to use transformed (filled and one-hot encoded X data)
-model.fit(transformed_X_train, y_train)
-model.score(transformed_X_test, y_test)
-
-# Check length of transformed data (filled and one-hot encoded)
-# vs. length of original data 
-# This model performs worst than the original model 
-# because of the size of the data which is smaller than the original data 
-len(transformed_X_train.toarray())+len(transformed_X_test.toarray()), len(car_sales)
-
 ```
 
-## Feature Scaling  
+## Feature Scaling 
 ```xml
 Feature Scaling
 Once your data is all in numerical format, there's one more transformation 
@@ -490,9 +415,7 @@ by the standard deviation). scikit-learn provides functionality for
 this in the StandardScalar class.
 
 A couple of things to note.
-
 Feature scaling usually isn't required for your target variable.
-
 Feature scaling is usually not required with tree-based models 
 (e.g. Random Forest) since they can handle varying features.
 
