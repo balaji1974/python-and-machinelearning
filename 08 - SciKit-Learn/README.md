@@ -606,14 +606,15 @@ Note:
 
 ```
 
-## 3. Fit the model/algorithm on our data and use it to make predictions
+## Fit the model to our data and use it to make predictions
 ```xml
-# 3.1 Fitting the model to the data
+Refer to 04-Fit-The-Model-To-The-Data.ipynb
 
+1. Fitting the model to the data
+--------------------------------
 Different names for:
 X = features, features variables, data 
 y = labels, targets, target variables
-
 
 # Import the RandomForestClassifier estimator class
 from sklearn.ensemble import RandomForestClassifier
@@ -642,11 +643,27 @@ clf.score(X_test, y_test)
 X.head()
 y.tail()
 
-# 3.2 Make predictions using a machine learning model
+
+Random Forest model deep dive
+-----------------------------
+These resources will help you understand what's happening inside 
+the Random Forest models we've been using.
+
+https://en.wikipedia.org/wiki/Random_forest
+https://simple.wikipedia.org/wiki/Random_forest
+https://www.kdnuggets.com/2016/12/random-forests-python.html
+https://willkoehrsen.github.io/machine%20learning/tutorial/an-implementation-and-explanation-of-the-random-forest-in-python
+
+
+2. Make predictions using a machine learning model
+--------------------------------------------------
 2 ways to make predictions:
 predict()
 predict_proba()
 
+
+2.1 Make predictions using predict function
+-------------------------------------------
 clf.predict(X_test)
 np.array(y_test)
 
@@ -664,8 +681,13 @@ from sklearn.metrics import accuracy_score
 accuracy_score(y_test, y_preds)
 => 0.8524590163934426
 
-# Make predictions with predict_proba() - use this if someone asks you 
-# "what's the probability your model is assigning to each prediction?"
+
+2.2 Make predictions using predict_proba function 
+-------------------------------------------------
+Make predictions with predict_proba(): 
+use this if someone asks you 
+"what's the probability your model is assigning to each prediction?"
+
 # predict_proba() returns probabilities of a classification label 
 clf.predict_proba(X_test[:5])
 => Result
