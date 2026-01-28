@@ -536,19 +536,16 @@ model.score(X_test, y_test)
 
 2. Picking a machine learning model for a classification problem
 ----------------------------------------------------------------
-Let's go to the map... https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
-
 # Get the data (be sure to click "raw") - https://github.com/mrdbourke/zero-to-mastery-ml/blob/master/data/heart-disease.csv 
 heart_disease = pd.read_csv("https://raw.githubusercontent.com/mrdbourke/zero-to-mastery-ml/master/data/heart-disease.csv")
 heart_disease.head()
 
 len(heart_disease)
 
+Let's go to the map... 
+https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
+
 # Consulting the map and it says to try LinearSVC.
-
-# Import the LinearSVC estimator class
-from sklearn.svm import LinearSVC
-
 # Setup random seed
 np.random.seed(42)
 
@@ -558,6 +555,12 @@ y = heart_disease["target"]
 
 # Split the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+
+2.1 LinearSVC 
+-------------
+# Import the LinearSVC estimator class
+from sklearn.svm import LinearSVC
 
 # Instantiate LinearSVC
 clf = LinearSVC(max_iter=10000)
@@ -570,6 +573,9 @@ clf.score(X_test, y_test)
 
 heart_disease["target"].value_counts()
 
+
+2.2 RandomForestClassifier 
+--------------------------
 # Import the RandomForestClassifier estimator class
 from sklearn.ensemble import RandomForestClassifier
 
@@ -593,12 +599,10 @@ clf.score(X_test, y_test)
 # Result -> 0.8524590163934426
 
 
-# Tidbit:
-# 1. If you have structured data, used ensemble methods
-# 2. If you have unstructured data, use deep learning or transfer learning
-
-heart_disease
-
+Note:
+-----
+1. If you have structured data, used ensemble methods
+2. If you have unstructured data, use deep learning or transfer learning
 
 ```
 
