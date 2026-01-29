@@ -610,12 +610,11 @@ Note:
 ```xml
 Refer to 04-Fit-The-Model-To-The-Data.ipynb
 
-1. Fitting the model to the data
---------------------------------
-Different names for:
-X = features, features variables, data 
-y = labels, targets, target variables
+1. Classification Problem
+-------------------------
 
+1.1 Fitting the model to the data
+---------------------------------
 # Import the RandomForestClassifier estimator class
 from sklearn.ensemble import RandomForestClassifier
 
@@ -643,27 +642,15 @@ clf.score(X_test, y_test)
 X.head()
 y.tail()
 
-
-Random Forest model deep dive
------------------------------
-These resources will help you understand what's happening inside 
-the Random Forest models we've been using.
-
-https://en.wikipedia.org/wiki/Random_forest
-https://simple.wikipedia.org/wiki/Random_forest
-https://www.kdnuggets.com/2016/12/random-forests-python.html
-https://willkoehrsen.github.io/machine%20learning/tutorial/an-implementation-and-explanation-of-the-random-forest-in-python
-
-
-2. Make predictions using a machine learning model
+1.2. Make predictions using a machine learning model
 --------------------------------------------------
 2 ways to make predictions:
 predict()
 predict_proba()
 
 
-2.1 Make predictions using predict function
--------------------------------------------
+1.2.1 Make predictions using predict function
+---------------------------------------------
 clf.predict(X_test)
 np.array(y_test)
 
@@ -682,8 +669,8 @@ accuracy_score(y_test, y_preds)
 => 0.8524590163934426
 
 
-2.2 Make predictions using predict_proba function 
--------------------------------------------------
+1.2.2 Make predictions using predict_proba function 
+----------------------------------------------------
 Make predictions with predict_proba(): 
 use this if someone asks you 
 "what's the probability your model is assigning to each prediction?"
@@ -705,6 +692,9 @@ array([[0.89, 0.11],
 clf.predict(X_test[:5])
 X_test[:5]
 
+
+2. Regression Problem
+---------------------
 # `predict()` can also be used for regression models.
 from sklearn.ensemble import RandomForestRegressor
 
@@ -732,10 +722,28 @@ np.array(y_test[:10])
 # Compare the predictions to the truth
 from sklearn.metrics import mean_absolute_error
 mean_absolute_error(y_test, y_preds)
-result => 0.3265721842781009 => This means our prediction is 
-0.3265... different from the target value 
+result => 0.3265721842781009 => 
+This means our prediction is 0.3265... different from the target value 
 
 housing_df["target"]
+
+
+Random Forest model deep dive
+-----------------------------
+These resources will help you understand what's happening inside 
+the Random Forest models we've been using.
+
+https://en.wikipedia.org/wiki/Random_forest
+https://simple.wikipedia.org/wiki/Random_forest
+https://www.kdnuggets.com/2016/12/random-forests-python.html
+https://willkoehrsen.github.io/machine%20learning/tutorial/an-implementation-and-explanation-of-the-random-forest-in-python
+
+
+Different names for:
+--------------------
+X = features, features variables, data 
+y = labels, targets, target variables
+
 ```
 
 
