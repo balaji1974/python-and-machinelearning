@@ -749,6 +749,8 @@ y = labels, targets, target variables
 
 ## Evaluating a machine learning model
 ```xml
+Refer to 05-Evaluating-The-Model.ipynb
+
 Three ways to evaluate scikit-learn models/estimators:
 
 1. Estimator's built-in score() method
@@ -757,7 +759,8 @@ Three ways to evaluate scikit-learn models/estimators:
 You can read more about these here: 
 https://scikit-learn.org/stable/modules/model_evaluation.html
 
-# 4.1 Evaluating a model with the score method
+# Evaluating a model with the score method
+------------------------------------------
 clf.score(X_test, y_test)
 result => 0.8688524590163934
 
@@ -765,7 +768,8 @@ result => 0.8688524590163934
 # Highest = 1.0, lowest = 0.0
 model.score(X_test, y_test)
 
-# 4.2 Evaluating a model using the scoring parameter
+# Evaluating a model using the scoring parameter
+------------------------------------------------
 The cross_val_score function in scikit-learn evaluates a model's performance 
 using cross-validation. It repeatedly splits the data into training and 
 testing sets, trains the model on the training data, and computes a score on 
@@ -782,9 +786,6 @@ to perform on unseen data compared to a single train-test split.
 cross_val_score(clf, X, y, cv=5) # five different scores
 cross_val_score(clf, X, y, cv=10) # ten different scores 
 
-
-np.random.seed(42)
-
 # Single training and test split score
 clf_single_score = clf.score(X_test, y_test)
 
@@ -798,32 +799,23 @@ clf_single_score, clf_cross_val_score
 cross_val_score(clf, X, y, cv=5, scoring=None)
 
 
-# 4.2.1 Classification model evaluation metrics
+# Classification model evaluation metrics:
+------------------------------------------
 Accuracy
 Area under ROC curve
 Confusion matrix
 Classification report
 
 # Accuracy
-heart_disease.head()
-
-from sklearn.model_selection import cross_val_score
-from sklearn.ensemble import RandomForestClassifier
-
-np.random.seed(42)
-
-X = heart_disease.drop("target", axis=1)
-y = heart_disease["target"]
-
-clf = RandomForestClassifier(n_estimators=100)
+----------
 cross_val_score = cross_val_score(clf, X, y, cv=5)
-
 np.mean(cross_val_score)
 print(f"Heart Disease Classifier Cross-Validated Accuracy: {np.mean(cross_val_score) *100:.2f}%")
 result => Heart Disease Classifier Cross-Validated Accuracy: 82.48%
 
 
 # Area under the receiver operating characteristic curve (AUC/ROC)
+------------------------------------------------------------------
 Area under curve (AUC)
 ROC curve
 
