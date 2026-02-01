@@ -765,8 +765,6 @@ result => 0.8688524590163934
 # Highest = 1.0, lowest = 0.0
 model.score(X_test, y_test)
 
-
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/cross-val-score.png?raw=true)
 # 4.2 Evaluating a model using the scoring parameter
 The cross_val_score function in scikit-learn evaluates a model's performance 
 using cross-validation. It repeatedly splits the data into training and 
@@ -774,8 +772,10 @@ testing sets, trains the model on the training data, and computes a score on
 the test data for each split (or "fold"). The function returns an array of 
 these scores, providing a more robust estimate of how the model is expected 
 to perform on unseen data compared to a single train-test split. 
+```
 
-
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/cross-val-score.png?raw=true)
+```xml
 # In cross validation score, the model is trained on different set 
 # of training data (based on cv value that is set) and evaluated on 
 # different set of test data (same number set by the cv value)
