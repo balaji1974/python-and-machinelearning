@@ -747,7 +747,7 @@ y = labels, targets, target variables
 ```
 
 
-## 4. Evaluating a machine learning model
+## Evaluating a machine learning model
 ```xml
 Three ways to evaluate scikit-learn models/estimators:
 
@@ -758,48 +758,8 @@ You can read more about these here:
 https://scikit-learn.org/stable/modules/model_evaluation.html
 
 # 4.1 Evaluating a model with the score method
-from sklearn.ensemble import RandomForestClassifier
-
-# Setup random seed
-np.random.seed(42)
-
-# Make the data
-X = heart_disease.drop("target", axis=1)
-y = heart_disease["target"]
-
-# Split the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Instantiate Random Forest Classifier
-clf = RandomForestClassifier(n_estimators=1000)
-
-# Fit the model to the data (training the machine learning model)
-clf.fit(X_train, y_train)
-
-# The highest value for the .score() method is 1.0, the lowest is 0.0
-clf.score(X_train, y_train)
-result=> 1.0
-
 clf.score(X_test, y_test)
 result => 0.8688524590163934
-
-Let's use the score() on our regression problem...
-from sklearn.ensemble import RandomForestRegressor
-
-np.random.seed(42)
-
-# Create the data
-X = housing_df.drop("target", axis=1)
-y = housing_df["target"]
-
-# Split into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Create model instance
-model = RandomForestRegressor(n_estimators=100)
-
-# Fit the model to the data
-model.fit(X_train, y_train)
 
 # The default score() evaluation metric is r_squared for regression algorithms
 # Highest = 1.0, lowest = 0.0
@@ -807,21 +767,14 @@ model.score(X_test, y_test)
 
 
 # 4.2 Evaluating a model using the scoring parameter
-from sklearn.model_selection import cross_val_score
-from sklearn.ensemble import RandomForestClassifier
+The cross_val_score function in scikit-learn evaluates a model's performance 
+using cross-validation. It repeatedly splits the data into training and 
+testing sets, trains the model on the training data, and computes a score on 
+the test data for each split (or "fold"). The function returns an array of 
+these scores, providing a more robust estimate of how the model is expected 
+to perform on unseen data compared to a single train-test split. 
 
-np.random.seed(42)
-
-X = heart_disease.drop("target", axis=1)
-y = heart_disease["target"]
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-clf = RandomForestClassifier(n_estimators=100)
-
-clf.fit(X_train, y_train);
-clf.score(X_test, y_test)
-
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20SciKit-Learn/images/cross-val-score.png?raw=true)
 
 # In cross validation score, the model is trained on different set 
 # of training data (based on cv value that is set) and evaluated on 
