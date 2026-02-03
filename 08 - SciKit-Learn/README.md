@@ -746,7 +746,6 @@ y = labels, targets, target variables
 
 ```
 
-
 ## Evaluating a machine learning model
 ```xml
 Refer to 05-Evaluating-The-Model.ipynb
@@ -893,8 +892,8 @@ roc_auc_score(y_test, y_test)
 # whether someone has heart disease or not). 
 # A perfect model will get an AUC score of 1.
 
-
-# Confusion matrix
+Confusion matrix
+----------------
 # The next way to evaluate a classification model is by using a confusion matrix.
 # A confusion matrix is a quick way to compare the labels a model predicts and 
 # the actual labels it was supposed to predict. 
