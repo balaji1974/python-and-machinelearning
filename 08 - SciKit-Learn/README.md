@@ -947,6 +947,28 @@ pd.DataFrame(classification_report(disease_true,
                                    output_dict=True,
                                    zero_division=0))
 
+Precision - Indicates the proportion of positive identifications (model predicted class 1) 
+which were actually correct. A model which produces no false positives has a precision of 1.0.
+
+Recall - Indicates the proportion of actual positives which were correctly classified. 
+A model which produces no false negatives has a recall of 1.0.
+
+F1 score - A combination of precision and recall. A perfect model achieves an F1 score of 1.0.
+
+Support - The number of samples each metric was calculated on.
+
+Accuracy - The accuracy of the model in decimal form. Perfect accuracy is equal to 1.0, 
+in other words, getting the prediction right 100% of the time.
+
+Macro avg - Short for macro average, the average precision, recall and F1 score between classes. 
+Macro avg doesn't take class imbalance into effect. So if you do have class imbalances 
+(more examples of one class than another), you should pay attention to this.
+
+Weighted avg - Short for weighted average, the weighted average precision, recall and 
+F1 score between classes. Weighted means each metric is calculated with respect to how many 
+samples there are in each class. This metric will favour the majority class 
+(e.g. it will give a high value when one class out performs another due to having more samples).
+
 
 To summarize classification metrics:
 ------------------------------------
