@@ -758,8 +758,8 @@ Three ways to evaluate scikit-learn models/estimators:
 You can read more about these here: 
 https://scikit-learn.org/stable/modules/model_evaluation.html
 
-# Evaluating a model with the score method
-------------------------------------------
+Evaluating a model with the score method
+----------------------------------------
 clf.score(X_test, y_test)
 result => 0.8688524590163934
 
@@ -767,8 +767,8 @@ result => 0.8688524590163934
 # Highest = 1.0, lowest = 0.0
 model.score(X_test, y_test)
 
-# Evaluating a model using the scoring parameter
-------------------------------------------------
+Evaluating a model using the scoring parameter
+----------------------------------------------
 The cross_val_score function in scikit-learn evaluates a model's performance 
 using cross-validation. It repeatedly splits the data into training and 
 testing sets, trains the model on the training data, and computes a score on 
@@ -798,23 +798,23 @@ clf_single_score, clf_cross_val_score
 cross_val_score(clf, X, y, cv=5, scoring=None)
 
 
-# Classification model evaluation metrics:
-------------------------------------------
+Classification model evaluation metrics:
+----------------------------------------
 Accuracy
 Area under ROC curve
 Confusion matrix
 Classification report
 
-# Accuracy
-----------
+Accuracy
+--------
 cross_val_score = cross_val_score(clf, X, y, cv=5)
 np.mean(cross_val_score)
 print(f"Heart Disease Classifier Cross-Validated Accuracy: {np.mean(cross_val_score) *100:.2f}%")
 result => Heart Disease Classifier Cross-Validated Accuracy: 82.48%
 
 
-# Area under the receiver operating characteristic curve (AUC/ROC)
-------------------------------------------------------------------
+Area under the receiver operating characteristic curve (AUC/ROC)
+----------------------------------------------------------------
 Area under curve (AUC)
 ROC curve
 
@@ -825,19 +825,11 @@ False positive = model predicts 1 when truth is 0
 True negative = model predicts 0 when truth is 0
 False negative = model predicts 0 when truth is 1
 
-# Create test,train split 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
 from sklearn.metrics import roc_curve
-
 # Fit the classifier
 clf.fit(X_train, y_train)
-
 # Make predictions with probabilities
 y_probs = clf.predict_proba(X_test)
-
-y_probs[:10], len(y_probs)
-
 y_probs_positive = y_probs[:, 1]
 y_probs_positive[:10]
 
@@ -879,30 +871,26 @@ plot_roc_curve(fpr, tpr)
 # Perfect AUC score
 roc_auc_score(y_test, y_test)
 
-# ROC curves and AUC metrics are evaluation metrics 
-# for binary classification models (a model which predicts 
-# one thing or another, such as heart disease or not).
+ROC curves and AUC metrics are evaluation metrics for binary 
+classification models (a model which predicts one thing or another, 
+such as heart disease or not).
 
-# The ROC curve compares the true positive rate (tpr) 
-# versus the false positive rate (fpr) at different 
-# classification thresholds.
+The ROC curve compares the true positive rate (tpr) versus the 
+false positive rate (fpr) at different classification thresholds.
 
-# The AUC metric tells you how well your model is at choosing 
-# between classes (for example, how well it is at deciding 
-# whether someone has heart disease or not). 
-# A perfect model will get an AUC score of 1.
+The AUC metric tells you how well your model is at choosing between classes 
+(for example, how well it is at deciding whether someone has heart disease or not). 
+A perfect model will get an AUC score of 1.
 
 Confusion matrix
 ----------------
-# The next way to evaluate a classification model is by using a confusion matrix.
-# A confusion matrix is a quick way to compare the labels a model predicts and 
-# the actual labels it was supposed to predict. 
-# In essence, giving you an idea of where the model is getting confused.
+The next way to evaluate a classification model is by using a confusion matrix.
+A confusion matrix is a quick way to compare the labels a model predicts and 
+the actual labels it was supposed to predict. 
+In essence, giving you an idea of where the model is getting confused.
 
 from sklearn.metrics import confusion_matrix
-
 preds = clf.predict(X_test)
-
 confusion_matrix(y_test, y_preds)
 
 # Again, this is probably easier visualized.
@@ -915,44 +903,37 @@ pd.crosstab(y_test,
 # For the below to work install seabourn module
 # Make our confusion matrix more visual with Seaborn's heatmap()
 import seaborn as sns
-
 # Set the font scale 
 sns.set(font_scale=1.5)
-
 # Create a confusion matrix
 conf_mat = confusion_matrix(y_test, y_preds)
-
 # Plot it using Seaborn
 sns.heatmap(conf_mat);
 
 # Creating a confusion matrix using scikit-learn
-# scikit-learn has multiple different implementations of plotting confusion matrices:
+scikit-learn has multiple different implementations of plotting confusion matrices:
 
-# 1. sklearn.metrics.ConfusionMatrixDisplay.from_estimator(estimator, X, y) - 
-# this takes a fitted estimator (like our clf model), features (X) and labels (y), 
-# it then uses the trained estimator to make predictions on X and 
-# compares the predictions to y by displaying a confusion matrix.
+1. sklearn.metrics.ConfusionMatrixDisplay.from_estimator(estimator, X, y) - 
+this takes a fitted estimator (like our clf model), features (X) and labels (y), 
+it then uses the trained estimator to make predictions on X and 
+compares the predictions to y by displaying a confusion matrix.
 
-# 2. sklearn.metrics.ConfusionMatrixDisplay.from_predictions(y_true, y_pred) - 
-# this takes truth labels and predicted labels and 
-# compares them by displaying a confusion matrix.
+2. sklearn.metrics.ConfusionMatrixDisplay.from_predictions(y_true, y_pred) - 
+this takes truth labels and predicted labels and compares them by displaying a confusion matrix.
 
-# Note: Both of these methods/classes require scikit-learn 1.0+. To check your version of scikit-learn run:
-
-import sklearn
-sklearn.__version__
-# If you don't have 1.0+, you can upgrade at: https://scikit-learn.org/stable/install.html
+Note: Both of these methods/classes require scikit-learn 1.0+.
 
 from sklearn.metrics import ConfusionMatrixDisplay
 ConfusionMatrixDisplay.from_estimator(estimator=clf, X=X, y=y);
 
 # Plot confusion matrix from predictions
 ConfusionMatrixDisplay.from_predictions(y_true=y_test, 
-                                        y_pred=y_preds);
+                                      y_pred=y_preds);
 
-# Classification Report
+
+Classification Report
+---------------------
 from sklearn.metrics import classification_report
-
 print(classification_report(y_test, y_preds))
 
 # Where precision and recall become valuable
@@ -966,18 +947,20 @@ pd.DataFrame(classification_report(disease_true,
                                    output_dict=True,
                                    zero_division=0))
 
-# To summarize classification metrics:
-# Accuracy is a good measure to start with if all classes are balanced 
-# (e.g. same amount of samples which are labelled with 0 or 1).
-# Precision and recall become more important when classes are imbalanced.
-# If false positive predictions are worse than false negatives, 
-# aim for higher precision.
-# If false negative predictions are worse than false positives, 
-# aim for higher recall.
-# F1-score is a combination of precision and recall.
+
+To summarize classification metrics:
+------------------------------------
+Accuracy is a good measure to start with if all classes are balanced 
+(e.g. same amount of samples which are labelled with 0 or 1).
+
+Precision and recall become more important when classes are imbalanced.
+If false positive predictions are worse than false negatives, aim for higher precision.
+If false negative predictions are worse than false positives, aim for higher recall.
+F1-score is a combination of precision and recall.
 
 
-# 4.2.2 Regression model evaluation metrics
+Regression model evaluation metrics
+-----------------------------------
 # Model evaluation metrics documentation - 
 # https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics
 
