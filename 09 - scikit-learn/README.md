@@ -983,80 +983,56 @@ F1-score is a combination of precision and recall.
 
 Regression model evaluation metrics
 -----------------------------------
-# Model evaluation metrics documentation - 
-# https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics
+Model evaluation metrics documentation - 
+https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics
 
-# The ones we're going to cover are:
+The ones we're going to cover are:
+1. R^2 (pronounced r-squared) or coefficient of determination
+2. Mean absolute error (MAE)
+3. Mean squared error (MSE)
 
-# 1. R^2 (pronounced r-squared) or coefficient of determination
-# 2. Mean absolute error (MAE)
-# 3. Mean squared error (MSE)
 
-
-# R^2
-# What R-squared does: Compares your models predictions to the mean of the targets. 
-# Values can range from negative infinity (a very poor model) to 1. 
-# For example, if all your model does is predict the mean of the targets, 
-# it's R^2 value would be 0. 
-# And if your model perfectly predicts a range of numbers it's R^2 value would be 1.
-
-from sklearn.ensemble import RandomForestRegressor
-
-np.random.seed(42)
-
-X = housing_df.drop("target", axis=1)
-y = housing_df["target"]
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-model = RandomForestRegressor(n_estimators=100)
-model.fit(X_train, y_train)
+R^2
+---
+What R-squared does: Compares your models predictions to the mean of the targets. 
+Values can range from negative infinity (a very poor model) to 1. 
+For example, if all your model does is predict the mean of the targets, 
+it's R^2 value would be 0. 
+And if your model perfectly predicts a range of numbers it's R^2 value would be 1.
 
 model.score(X_test, y_test)
-
-housing_df.head()
 y_test
 y_test.mean()
 
-
 from sklearn.metrics import r2_score
-
 # Fill an array with y_test mean
 y_test_mean = np.full(len(y_test), y_test.mean())
-
 y_test_mean[:10]
+r2_score(y_true=y_test, y_pred=y_test_mean) -> 0.0
 
-r2_score(y_true=y_test,
-         y_pred=y_test_mean)
--> 0.0
+r2_score(y_true=y_test, y_pred=y_test) -> 1.0
 
-r2_score(y_true=y_test,
-         y_pred=y_test)
--> 1.0
-
-# Mean absolute error (MAE)
-# MAE is the average of the absolute differences 
-# between predictions and actual values.
-# It gives you an idea of how wrong your models predictions are
+Mean absolute error (MAE)
+-------------------------
+MAE is the average of the absolute differences between predictions and 
+actual values. It gives you an idea of how wrong your models predictions are.
 
 # MAE
 from sklearn.metrics import mean_absolute_error
-
 y_preds = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_preds)
 mae
 
-df = pd.DataFrame(data={"actual values": y_test,
-                        "predicted values": y_preds})
+df = pd.DataFrame(data={"actual values": y_test, "predicted values": y_preds})
 df["differences"] = df["predicted values"] - df["actual values"]
 df.head(10)
 
-# Mean squared error (MSE)
-# MSE is the mean of the square of the errors between actual and predicted values.
+Mean squared error (MSE)
+------------------------
+MSE is the mean of the square of the errors between actual and predicted values.
 
 # Mean squared error
 from sklearn.metrics import mean_squared_error
-
 y_preds = model.predict(X_test)
 mse = mean_squared_error(y_test, y_preds)
 mse
@@ -1070,7 +1046,6 @@ squared.mean()
 
 df_large_error = df.copy()
 df_large_error.iloc[0]["squared_differences"] = 16 # increase "squared_differences" for 1 sample
-
 df_large_error.head()
 
 # Calculate MSE with large error
@@ -1082,6 +1057,8 @@ df_large_error
 
 # Calculate MSE with large error(s)
 df_large_error["squared_differences"].mean()
+
+
 
 
 # Finally using the scoring parameter

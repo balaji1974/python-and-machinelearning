@@ -11,6 +11,13 @@ To add later by following above link
 ```
 
 
+## LLM Architecture Patterns
+```xml 
+https://dzone.com/articles/llm-architecture-patterns-rag-to-agentic
+
+
+```
+
 
 ### Reference
 ```xml
