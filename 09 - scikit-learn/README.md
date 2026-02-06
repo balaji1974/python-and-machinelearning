@@ -427,7 +427,7 @@ https://rahul-saini.medium.com/feature-scaling-why-it-is-required-8a93df1af310
 
 
 # Choosing the righ estimator 
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/09%20-%20SciKit-Learn/images/choosing-the-right-estimator.png?raw=true)
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/09%20-%20scikit-learn/images/choosing-the-right-estimator.png?raw=true)
 
 ```xml
 Sklearn refers to machine learning models, algorithms as estimators.
