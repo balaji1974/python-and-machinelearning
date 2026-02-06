@@ -1051,16 +1051,6 @@ df_large_error.head()
 # Calculate MSE with large error
 df_large_error["squared_differences"].mean()
 
-# Artificially increase error in "squared_differences" column for ~100 samples
-df_large_error.iloc[1:100, 3] = 20
-df_large_error
-
-# Calculate MSE with large error(s)
-df_large_error["squared_differences"].mean()
-
-
-
-
 # Finally using the scoring parameter
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestClassifier
@@ -1195,10 +1185,8 @@ print(f"MAE: {mean_absolute_error(y_test, y_preds)}")
 print(f"MSE: {mean_squared_error(y_test, y_preds)}")
 
 
-```
-
-## Machine Learning Model Evaluation - Consolidated 
-```xml
+Machine Learning Model Evaluation - Consolidated 
+------------------------------------------------
 
 Evaluating the results of a machine learning model is as important as building one.
 
@@ -1305,8 +1293,10 @@ https://stackoverflow.com/questions/17197492/is-there-a-library-function-for-roo
 
 ```
 
-## 5. Improving a model
+5. Improving a model
+--------------------
 ```xml
+Refer to 06-Improving-The-Model.ipynb
 
 # First predictions = baseline predictions. First model = baseline model.
 
