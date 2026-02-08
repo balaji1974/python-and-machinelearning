@@ -1293,46 +1293,43 @@ https://stackoverflow.com/questions/17197492/is-there-a-library-function-for-roo
 
 ```
 
-5. Improving a model
---------------------
+
+## Improving a model
 ```xml
 Refer to 06-Improving-The-Model.ipynb
 
-# First predictions = baseline predictions. First model = baseline model.
+First predictions = baseline predictions. First model = baseline model.
 
-# From a data perspective:
-# 1. Could we collect more data? (generally, the more data, the better)
-# 2. Could we improve our data?
+From a data perspective:
+1. Could we collect more data? (generally, the more data, the better)
+2. Could we improve our data?
 
-# From a model perspective:
-# 1. Is there a better model we could use?
-# 2. Could we improve the current model?
+From a model perspective:
+1. Is there a better model we could use?
+2. Could we improve the current model?
 
-# Hyperparameters vs. Parameters
-# 1. Parameters = model find these patterns in data
-# 2. Hyperparameters = settings on a model you can adjust to (potentially) improve its ability to find patterns
+Hyperparameters vs. Parameters
+1. Parameters = model find these patterns in data
+2. Hyperparameters = settings on a model you can adjust to (potentially) improve its ability to find patterns
 
-# Three ways to adjust hyperparameters:
-# 1. By hand
-# 2. Randomly with RandomSearchCV
-# 3. Exhaustively with GridSearchCV
+Three ways to adjust hyperparameters:
+1. By hand
+2. Randomly with RandomSearchCV
+3. Exhaustively with GridSearchCV
 
-from sklearn.ensemble import RandomForestClassifier
 
-clf = RandomForestClassifier(n_estimators=100)
-clf.get_params()
-
-# 5.1 Tuning hyperparameters by hand
+1 Tuning hyperparameters by hand
+--------------------------------
 # Let's make 3 sets, training, validation and test.
 
 clf.get_params()
 
 # We're going to try and adjust:
-# max_depth
-# max_features
-# min_samples_leaf
-# min_samples_split
-# n_estimators
+max_depth
+max_features
+min_samples_leaf
+min_samples_split
+n_estimators
 
 def evaluate_preds(y_true, y_preds):
     """
@@ -1355,9 +1352,6 @@ def evaluate_preds(y_true, y_preds):
     return metric_dict
 
 
-from sklearn.ensemble import RandomForestClassifier
-
-np.random.seed(42)
 
 # Shuffle the data
 heart_disease_shuffled = heart_disease.sample(frac=1)
@@ -1409,7 +1403,8 @@ y_preds_3 = clf_3.predict(X_valid)
 clf_3_metrics = evaluate_preds(y_valid, y_preds_3)
 
 
-# 5.2 Hyperparameter tuning with RandomizedSearchCV
+2. Hyperparameter tuning with RandomizedSearchCV
+------------------------------------------------
 
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -1451,8 +1446,8 @@ rs_y_preds = rs_clf.predict(X_test)
 rs_metrics = evaluate_preds(y_test, rs_y_preds)
 
 
-# 5.3 Hyperparameter tuning with GridSearchCV
-
+3. Hyperparameter tuning with GridSearchCV
+------------------------------------------
 grid
 
 grid_2 = {'n_estimators': [100, 200, 500],
@@ -1501,23 +1496,24 @@ compare_metrics = pd.DataFrame({"baseline": baseline_metrics,
 compare_metrics.plot.bar(figsize=(10, 8));
 
 
-# When comparing models, you should be careful to make sure they're 
-# compared on the same splits of data.
-# For example, let's say you have model_1 and model_2 which each differ slightly.
-# If you want to compare and evaluate their results, model_1 and 
-# model_2 should both be trained on the same data (e.g. X_train and y_train) and 
-# their predictions should each be made on the same data, for example:
+Note:
+-----
+When comparing models, you should be careful to make sure they're 
+compared on the same splits of data.
+For example, let's say you have model_1 and model_2 which each differ slightly.
+If you want to compare and evaluate their results, model_1 and 
+model_2 should both be trained on the same data (e.g. X_train and y_train) and 
+their predictions should each be made on the same data, for example:
 model_1.fit(X_train, y_train) -> model_1.predict(X_test) -> model_1_preds
 model_2.fit(X_train, y_train) -> model_2.predict(X_test) -> model_2_preds
 
-# Example: 
+Example: 
 https://colab.research.google.com/drive/1ISey96a5Ag6z2CvVZKVqTKNWRwZbZl0m
-
 
 ```
 
 
-## 6. Saving and loading trained machine learning models
+## Saving and loading trained machine learning models
 ```xml
 # Two ways to save and load machine learning models:
     * With Python's pickle module
