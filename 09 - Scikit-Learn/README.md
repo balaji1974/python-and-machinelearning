@@ -1581,11 +1581,6 @@ data.dtypes
 
 data.isna().sum()
 
-# Steps we want to do (all in one cell):
-# Fill missing data
-# Convert data to numbers
-# Build a model on the data
-
 
 # Getting data ready
 import pandas as pd
