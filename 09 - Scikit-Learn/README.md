@@ -1549,6 +1549,29 @@ evaluate_preds(y_test, joblib_y_preds)
 
 ```
 
+### Correlation Anlaysis
+```xml
+Correlation analysis measures the strength and direction of the relationship between two variables.
+It answers:
+When one variable changes, how does the other tend to change?
+
+
+Forward Selection:
+How it works
+Start with no features
+Add the feature that improves model performance the most
+Repeat until performance stops improving
+
+Backward Elimination
+How it works
+Start with all features
+Remove the least significant feature
+Repeat until performance drops
+
+```
+
+
+
 ## Putting it all together!
 ```xml
 data = pd.read_csv("resources/car-sales-extended-missing-data.csv")
