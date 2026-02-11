@@ -1352,7 +1352,6 @@ def evaluate_preds(y_true, y_preds):
     return metric_dict
 
 
-
 # Shuffle the data
 heart_disease_shuffled = heart_disease.sample(frac=1)
 
@@ -1388,7 +1387,6 @@ y_preds_2 = clf_2.predict(X_valid)
 
 # Evalute the 2nd classsifier
 clf_2_metrics = evaluate_preds(y_valid, y_preds_2)
-
 
 np.random.seed(42)
 
@@ -1515,11 +1513,12 @@ https://colab.research.google.com/drive/1ISey96a5Ag6z2CvVZKVqTKNWRwZbZl0m
 
 ## Saving and loading trained machine learning models
 ```xml
-# Two ways to save and load machine learning models:
-    * With Python's pickle module
-    * With the joblib module
+Two ways to save and load machine learning models:
+    1. With Python's pickle module
+    2. With the joblib module
 
-# Pickle 
+1. Pickle
+---------
 import pickle
 
 # Save an extisting model to file
@@ -1533,7 +1532,8 @@ pickle_y_preds = loaded_pickle_model.predict(X_test)
 evaluate_preds(y_test, pickle_y_preds)
 
 
-# Joblib
+2. Joblib
+---------
 
 from joblib import dump, load
 
@@ -1547,9 +1547,9 @@ loaded_joblib_model = load(filename="gs_random_forest_model_1.joblib")
 joblib_y_preds = loaded_joblib_model.predict(X_test)
 evaluate_preds(y_test, joblib_y_preds)
 
-
 ```
-## 7. Putting it all together!
+
+## Putting it all together!
 ```xml
 data = pd.read_csv("resources/car-sales-extended-missing-data.csv")
 data
