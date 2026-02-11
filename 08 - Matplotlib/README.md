@@ -55,7 +55,7 @@ ax.plot(x, y);
 ```
 
 ## Anatomy of Plotting & Workflow
-![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/07%20-%20Matplotlib/images/matplotlib-anatomy-of-a-plot-with-code.png?raw=true)
+![alt text](https://github.com/balaji1974/python-and-machinelearning/blob/main/08%20-%20Matplotlib/images/matplotlib-anatomy-of-a-plot-with-code.png?raw=true)
 ```xml
 # This is where the object orientated name comes from 
 type(fig), type(ax)
