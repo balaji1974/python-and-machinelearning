@@ -70,6 +70,14 @@ Check all the details in the self explanatory notebook file:
 
 ```
 
+## XGBoost and CatBoost samples
+```xml 
+Check the sample in the following notebook file:
+03-XGBoost-And-CatBoost.ipynb
+
+```
+
+
 
 ### Reference
 ```xml
