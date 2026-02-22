@@ -2,65 +2,61 @@
 # Neural Networks
 
 ## Introduction
-```xml 
-What is TensorFlow: 
-------------------
+
+### Neural Network
+A neural network is a machine learning model inspired by the human brain, featuring 
+interconnected nodes (neurons) arranged in layers to process data and recognize complex 
+patterns. By adjusting weights between neurons during training, they map inputs to outputs 
+for tasks like image recognition, NLP, and predictive modeling.
+
+
+### What is TensorFlow
 TensorFlow is a software library for machine learning and artificial intelligence. 
 It can be used across a range of tasks, but is used mainly for training and 
 inference of neural networks. It is one of the most popular deep learning frameworks, 
-alongside others such as PyTorch and PaddlePaddle - Wikipedia 
+alongside others such as PyTorch and PaddlePaddle
 
-Why do we use TensorFlow:
-------------------------
+
+#### Why do we use TensorFlow
 We use TensorFlow primarily for building and deploying machine learning (ML) 
 and deep learning models. Here’s why it's widely used:
 
-1. Scalability & Performance: 
+** 1. Scalability & Performance **
 Efficient computation: Uses optimized operations with 
 support for GPUs, TPUs, and distributed computing.
 Scalable deployment: Works from mobile devices (TensorFlow Lite) 
 to large-scale distributed systems (TensorFlow Serving).
 
-2. Flexibility & Ease of Use: 
+** 2. Flexibility & Ease of Use **
 Multi-language support: Primarily Python, 
 but also supports C++, Java, and Go.
 Multiple APIs: High-level APIs like Keras for quick prototyping 
 and low-level APIs for custom model development.
 
-3. Strong Ecosystem & Tooling: 
+** 3. Strong Ecosystem & Tooling **
 TensorFlow Extended (TFX): A full ML pipeline framework for 
 production-ready applications.
 TensorBoard: Visualization tools for debugging and optimizing models.
 TF Lite & TF.js: Deploy models on mobile, edge devices, or in-browser.
 
-4. Industry Adoption & Community Support: 
+** 4. Industry Adoption & Community Support **
 Developed by Google and widely adopted across industries, 
 making it well-documented with strong community support.
 
-5. Support for Advanced ML & DL Features: 
+** 5. Support for Advanced ML & DL Features **
 Pre-trained models & transfer learning.
 Reinforcement learning, generative models, and graph-based computations.
 Auto-differentiation and gradient-based optimization.
 
-What is neural network:
-----------------------
-A neural network is a method in artificial intelligence (AI) that teaches 
-computers to process data in a way that is inspired by the human brain. 
-It is a type of machine learning (ML) process, called deep learning, 
-that uses interconnected nodes or neurons in a layered structure that 
-resembles the human brain. - Oxford Dictionary
 
-What is deep learning:
-----------------------
+### What is deep learning:
 Deep learning is a type of machine learning that uses artificial neural networks 
 to learn from data. Artificial neural networks are inspired by the human brain, 
 and they can be used to solve a wide variety of problems, 
 including image recognition, natural language processing, and speech recognition.
-- Oxford Dictionary
 
-What kind of object detection problems are there:
--------------------------------------------------
-1. Classification
+#### What kind of object detection problems are there:
+** 1. Classification **
 Predicting a category or class label from given input data.
 Example Use Cases:
 Image classification (e.g., detecting cats vs. dogs in images).
@@ -68,7 +64,7 @@ Spam detection (classifying emails as spam or not).
 Sentiment analysis (classifying text as positive, negative, or neutral).
 Common Models: CNNs for images, RNNs/Transformers for text, and MLPs for tabular data.
 
-2. Sequence-to-Sequence (Seq2Seq)
+** 2. Sequence-to-Sequence (Seq2Seq) ** 
 Mapping an input sequence to an output sequence of different or the same length.
 Example Use Cases:
 Machine translation (e.g., English to French translation).
@@ -76,7 +72,7 @@ Speech-to-text (converting audio into transcribed text).
 Chatbots and conversational AI (generating responses based on input text).
 Common Models: LSTMs, GRUs, Transformer-based models (like T5, GPT, BERT).
 
-3. Object Detection
+** 3. Object Detection ** 
 Identifying and localizing multiple objects within an image or video frame.
 Example Use Cases:
 Autonomous driving (detecting pedestrians, vehicles, and traffic signs).
@@ -84,31 +80,31 @@ Security surveillance (detecting suspicious activities or intruders).
 Medical imaging (detecting tumors in X-ray/MRI scans).
 Common Models: Faster R-CNN, YOLO, SSD, EfficientDet
 
-What is Transfer Learning
--------------------------
+
+### What is Transfer Learning
 Transfer learning is a deep learning technique where a pre-trained model 
 (trained on a large dataset) is fine-tuned or adapted for a different but 
 related task. Instead of training a model from scratch, 
 we reuse learned features from a previously trained network.
 
-Why Use Transfer Learning
--------------------------
-Faster Training – Pre-trained models already have learned general features, 
+#### Why Use Transfer Learning
+
+** Faster Training **  – Pre-trained models already have learned general features, 
 reducing the need for extensive training.
-Less Data Requirement – Since the model has prior knowledge, 
+** Less Data Requirement ** – Since the model has prior knowledge, 
 we can achieve good results even with a small dataset.
-Improved Performance – Leveraging knowledge from large datasets helps in 
+** Improved Performance ** – Leveraging knowledge from large datasets helps in 
 achieving better accuracy, especially in domains with limited data.
-Efficient Use of Resources – Saves computational power and time compared 
+** Efficient Use of Resources ** – Saves computational power and time compared 
 to training deep models from scratch.
 
-Example Use Cases
+** Example Use Cases **
 Image classification using pre-trained CNNs (e.g., ResNet, VGG, MobileNet).
 NLP tasks like sentiment analysis using transformer models (e.g., BERT, GPT).
-Medical imaging, where pre-trained models on general images are fine-tuned for specific diseases.
+Medical imaging, where pre-trained models on general images are fine-tuned for 
+specific diseases.
 
 
-```
 ## Data to work on and environment setup on Google Colab 
 ```xml 
 
@@ -590,6 +586,15 @@ model.summary()
 
 
 ```
+
+```xml 
+
+
+
+
+
+```
+
 
 ### Reference
 ```xml
