@@ -593,6 +593,80 @@ print(list(combined_zip))
 
 ```
 
+## List and Set Comprehension
+```
+List comprehension is a concise and efficient way in Python to create new lists based on existing iterables
+(like lists, tuples, or strings), often replacing traditional for loops and lambda functions combined with map() and filter().
+It follows a syntax inspired by mathematical set-builder notation. 
+
+Syntax
+The basic syntax for a list comprehension is:
+new_list = [expression for item in iterable if condition] 
+
+expression: The operation or value to apply to each item to produce elements of the new list.
+item: A variable representing the current element in the iterable.
+iterable: The source sequence or collection to loop over.
+if condition (optional): A filter to include only items that satisfy the condition. 
+
+Examples:
+Basic
+squares = [x**2 for x in range(10)]
+# Output: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+Filtering with condition
+numbers = [1, 2, 3, 4, 5, 6]
+even_numbers = [n for n in numbers if n % 2 == 0]
+# Output: [2, 4, 6]
+
+If Else Conditional Expression
+a = [1, 2, 3, 4, 5]
+result = ['Even' if n % 2 == 0 else 'Odd' for n in a]
+# Output: ['Odd', 'Even', 'Odd', 'Even', 'Odd']
+
+Nested list comprehension
+nested_list = [[1, 2], [3, 4], [5, 6]]
+flattened = [item for sublist in nested_list for item in sublist]
+# Output: [1, 2, 3, 4, 5, 6]
+
+```
+---
+```
+Set comprehension in Python is a concise and efficient way to create a new set from an existing iterable,
+automatically eliminating duplicate elements in the process. It is an elegant, single-line alternative
+to using a for loop with the set.add() method. 
+
+Syntax
+The basic syntax of a set comprehension is enclosed in curly braces {} and contains an expression, 
+a for loop, and an optional if condition for filtering: 
+{expression for item in iterable if condition}
+
+expression: The value to be added to the new set in each iteration, which can be a function call
+or any valid expression.
+item: A variable that represents the current element in the iterable.
+iterable: Any Python iterable object, such as a list, tuple, string, or range.
+if condition (optional): A filter that determines whether the item should be included in the resulting set. 
+
+Example:
+Creating a set from a list
+numbers = [1, 2, 2, 3, 4, 4, 5]
+unique_numbers = {n for n in numbers}
+print(unique_numbers)
+# Output: {1, 2, 3, 4, 5}
+
+Applying a transformation
+tools = ["Python", "Django", "Flask", "pandas", "NumPy"]
+lowercase_tools = {tool.lower() for tool in tools}
+print(lowercase_tools)
+# Output: {'django', 'numpy', 'flask', 'pandas', 'python'}
+
+Filtering a condition
+product_ids = [998, 1001, 1002, 999, 1500]
+valid_ids = {pid for pid in product_ids if pid >= 1000}
+print(valid_ids)
+# Output: {1001, 1002, 1500}
+
+```
+
 #### Reference
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
