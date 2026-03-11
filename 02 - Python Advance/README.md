@@ -534,7 +534,9 @@ squared_numbers_map = map(square, numbers)
 # Convert the map object to a list to see the results
 print(list(squared_numbers_map))
 # Output: [1, 4, 9, 16, 25]
-
+```
+---
+```
 filter()
 The filter() function tests each element in a sequence with a function that must return a
 boolean value (True or False). It then "filters" out elements for which the function returns False,
@@ -553,7 +555,9 @@ even_numbers_filter = filter(is_even, numbers)
 # Convert the filter object to a list to see the results
 print(list(even_numbers_filter))
 # Output: [2, 4]
-
+```
+---
+```
 reduce()
 The reduce() function applies a rolling computation to sequential pairs of values in an iterable,
 ultimately returning a single, accumulated result. It needs to be imported from the functools module. 
@@ -569,7 +573,9 @@ sum_result = reduce(custom_sum, my_numbers)
 
 print(sum_result)
 # Output: 10
-
+```
+---
+```
 zip()
 The zip() function combines elements of multiple iterables into a single iterator of tuples.
 Each tuple contains elements from the same index position in the original iterables.
@@ -584,7 +590,6 @@ combined_zip = zip(numbers_list, letters_list)
 # Convert the zip object to a list to see the results
 print(list(combined_zip))
 # Output: [(1, 'a'), (2, 'b'), (3, 'c')]
-
 
 ```
 
