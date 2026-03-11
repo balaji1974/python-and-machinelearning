@@ -449,6 +449,46 @@ def print_kwargs(**kwargs):
 print_kwargs(name="Alice", age=30, city="New York")
 ```
 
+## global vs nonlocal
+```
+The global and nonlocal keywords in Python are used to modify variables outside the current local scope,
+but they target different scopes in Python's LEGB (Local, Enclosing, Global, Built-in) scope model. 
+
+The global keyword is used to access and modify variables in the module-level (global) scope.
+Example: 
+x = 10 # Global variable
+
+def my_function():
+    global x
+    x = 20 # Modifies the global x
+    print("Inside function:", x)
+
+my_function()
+print("Outside function:", x)
+# Output:
+# Inside function: 20
+# Outside function: 20
+
+The nonlocal keyword is used within nested functions to access and modify variables in the nearest
+enclosing function scope, but not the global one.
+Example:
+def outer_function():
+    x = 10 # Enclosing scope variable
+
+    def inner_function():
+        nonlocal x
+        x = 20 # Modifies the 'x' in outer_function's scope
+        print("Inside inner function:", x)
+
+    inner_function()
+    print("Inside outer function:", x)
+
+outer_function()
+# Output:
+# Inside inner function: 20
+# Inside outer function: 20
+
+```
 
 
 #### Reference
