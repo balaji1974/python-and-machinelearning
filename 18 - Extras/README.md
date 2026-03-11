@@ -29,8 +29,16 @@ Claude Code Tips
 Create a good plan (prd.md)  
 Develop and add featues  
 * AskUserQuestionTool - Always use this to create a good plan  
+* Context is more import - if you see 50% of it start creating a new session 
 
 https://www.youtube.com/watch?v=zxMjOqM7DFs&t=87s
+
+Use for designing  
+https://excalidraw.com/
+
+
+Best way to write Claude.md
+https://www.sellingwithnas.com/how-to-write-a-claude_md-file
 
 
 
