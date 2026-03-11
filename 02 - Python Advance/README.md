@@ -422,6 +422,35 @@ def determine_magic_level(magic_number):
     return magic_number * 3
 ```
 
+## *args vs *kwargs
+```
+In Python, *args and **kwargs are used to allow a function to accept a variable number of arguments.
+The primary distinction is how they handle the arguments: *args is for positional arguments
+and **kwargs is for keyword arguments
+
+*args collects any number of extra positional arguments into a tuple, which can then be iterated over
+inside the function.
+
+Example:
+def print_args(arg1, *args):
+    print(f"First explicit argument: {arg1}")
+    for arg in args:
+        print(f"Another arg from *args: {arg}")
+
+print_args("hello", "world", "python", "is", "awesome")
+
+**kwargs collects any number of keyword arguments (passed as key=value) into a dictionary.
+
+Example:
+def print_kwargs(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_kwargs(name="Alice", age=30, city="New York")
+```
+
+
+
 #### Reference
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
