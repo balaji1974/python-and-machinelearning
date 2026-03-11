@@ -404,7 +404,7 @@ A docstring (documentation string) is a string literal that occurs as the first 
 Python module, function, class, or method definition. It serves as a built-in description of the object's 
 purpose and behavior, making code easier to understand, maintain, and automate documentation generation. 
 ```
-### Key Characteristics
+#### Key Characteristics
 ```
 Placement: Immediately after the definition line of a module, function, class, or method.
 Delimiters: Enclosed in triple double quotes """ (or triple single quotes ''', though double quotes are standard).
@@ -413,7 +413,7 @@ object's __doc__ attribute (e.g., function_name.__doc__) or the built-in help() 
 Purpose: To document the public API for users and tools, explaining what the code does, its inputs, and outputs, 
 rather than how it works internally (which is better suited for comments). 
 ```
-### Example
+#### Example
 ```
 def determine_magic_level(magic_number):
     """
@@ -422,7 +422,7 @@ def determine_magic_level(magic_number):
     return magic_number * 3
 ```
 
-### Reference
+#### Reference
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
 https://docs.python.org/3/reference/
