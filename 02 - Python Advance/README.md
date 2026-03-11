@@ -518,6 +518,76 @@ def pure_sort(original_list):
     return sorted(original_list)
 ```
 
+## Map, Filter, Reduce, Zip
+```
+map()
+The map() function applies a given function to each item in an iterable (like a list or tuple)
+and returns an iterator of the results. 
+Purpose: To transform every element in an iterable.
+Example: To square all numbers in a list.
+def square(number):
+    return number * number
+
+numbers = [1, 2, 3, 4, 5]
+squared_numbers_map = map(square, numbers)
+
+# Convert the map object to a list to see the results
+print(list(squared_numbers_map))
+# Output: [1, 4, 9, 16, 25]
+
+filter()
+The filter() function tests each element in a sequence with a function that must return a
+boolean value (True or False). It then "filters" out elements for which the function returns False,
+returning an iterator of the remaining elements. 
+Purpose: To select specific elements from an iterable based on a condition.
+Example: To get only the even numbers from a list.
+def is_even(number):
+    if (number % 2) == 0:
+        return True
+    else:
+        return False
+
+numbers = [1, 2, 3, 4, 5]
+even_numbers_filter = filter(is_even, numbers)
+
+# Convert the filter object to a list to see the results
+print(list(even_numbers_filter))
+# Output: [2, 4]
+
+reduce()
+The reduce() function applies a rolling computation to sequential pairs of values in an iterable,
+ultimately returning a single, accumulated result. It needs to be imported from the functools module. 
+Purpose: To accumulate a single value from an iterable (e.g., sum, product, max).
+Example: To calculate the sum of all elements in a list.
+from functools import reduce
+
+def custom_sum(first, second):
+    return first + second
+
+my_numbers = [1, 2, 3, 4]
+sum_result = reduce(custom_sum, my_numbers)
+
+print(sum_result)
+# Output: 10
+
+zip()
+The zip() function combines elements of multiple iterables into a single iterator of tuples.
+Each tuple contains elements from the same index position in the original iterables.
+The iteration stops when the shortest iterable is exhausted. 
+Purpose: To combine corresponding elements from two or more iterables.
+Example: To combine a list of numbers with a list of letters
+
+numbers_list = [1, 2, 3, 4]
+letters_list = ['a', 'b', 'c']
+combined_zip = zip(numbers_list, letters_list)
+
+# Convert the zip object to a list to see the results
+print(list(combined_zip))
+# Output: [(1, 'a'), (2, 'b'), (3, 'c')]
+
+
+```
+
 #### Reference
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
