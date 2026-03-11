@@ -490,6 +490,33 @@ outer_function()
 
 ```
 
+## Pure Function
+```
+A pure function in Python is a function that consistently produces the same output for the same input
+and has no side effects. It is a core concept in functional programming that leads to more predictable
+and testable code. 
+
+Key Characteristics: 
+Deterministic: The function always returns the same result when given the same arguments, regardless of
+when it is called or the program's overall state.
+No Side Effects: It does not modify any external state or have any interactions with the outside world
+beyond returning a value.
+This means it avoids:
+* Modifying global variables or variables in an outer scope.
+* Performing input/output (I/O) operations, such as printing to the console, reading files, or
+accessing databases or networks.
+* Depending on external factors like the current time or random number generators.
+* Mutating its input parameters (for mutable objects; instead, a new object should be returned with the changes).
+
+Example
+# A pure function for adding two numbers
+def add(a, b):
+    return a + b
+
+# A pure function that returns a new list without modifying the original
+def pure_sort(original_list):
+    return sorted(original_list)
+```
 
 #### Reference
 ```xml
