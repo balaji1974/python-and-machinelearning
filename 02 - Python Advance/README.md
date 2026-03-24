@@ -359,45 +359,6 @@ Check myserver.py
 
 ```
 
-
-
-
-## Miscellaneous 
-```xml
-
-# Python Keywords 
-help() -> This will open the help module
-# inside help if you type 'keywords' you will see the list of all the python keywords 
-# or 
-import keyword
-keyword.kwlist
-
-
-# Escape codes
-print ("c\\test\data.txt")
-# Other escape codes are as follows: 
-\<newline> - Backslash and newline ignored
-\\ - Backslash (\)
-\' - Single quote (')
-\" - Double quote (")
-\a - ASCII Bell (BEL)
-\b - ASCII Backspace (BS)
-\f - ASCII Formfeed (FF)
-\n - ASCII Linefeed (LF)
-\r - ASCII Carriage Return (CR)
-\t - ASCII Horizontal Tab (TAB)
-\v - ASCII Vertical Tab (VT) 
-https://docs.python.org/3/reference/lexical_analysis.html#grammar-token-python-grammar-stringescapeseq
-
-
-# Ignore all warning in python
-import warnings
-warnings.filterwarnings("ignore") # Not advisable 
-
-warnings.filterwarnings("default") # this will bring warnings back 
-
-```
-
 ## DocString
 ```
 A docstring (documentation string) is a string literal that occurs as the first statement in a 
@@ -667,7 +628,83 @@ print(valid_ids)
 
 ```
 
-#### Reference
+## Modules and Packages
+```
+Modules
+A module is the fundamental unit of code organization in Python. 
+Definition: A module is a Python file containing functions, classes, and variables 
+that can be used in other Python programs.
+Creation: You create a module simply by saving a Python file with a .py extension 
+(e.g., my_module.py).
+Usage: You can import a module using the import statement, after which you can access 
+its contents using dot notation (e.g., import my_module; my_module.greet("Alice")). 
+You can also import specific components (e.g., from my_module import greet) or 
+use aliases (e.g., import my_module as mm).
+Examples: Built-in modules include math, random, and os. 
+```
+---
+```
+Packages
+A package is a way to structure a larger application's module namespace using directories 
+and dot notation. 
+Definition: A package is a directory that contains multiple modules and, optionally, 
+other sub-packages.
+Creation: To create a package, you create a directory and add your module files inside it. 
+Historically, you needed an __init__.py file to signify the directory as a package, 
+but this is no longer required as of Python 3.3 for "namespace packages". 
+The __init__.py file can contain initialization code or define which items are exported when 
+using from package import *.
+Usage: Modules within a package are accessed using dotted module names 
+(e.g., import sound.effects.echo imports the echo module from the effects subpackage within 
+the sound package).
+Examples: Popular third-party packages (often referred to as libraries) include NumPy for 
+numerical computing, Pandas for data analysis, and Requests for web requests. 
+These are typically installed using the pip package manager from the Python Package Index (PyPI). 
+
+```
+
+## Miscellaneous 
+```xml
+
+# Python Keywords 
+help() -> This will open the help module
+# inside help if you type 'keywords' you will see the list of all the python keywords 
+# or 
+import keyword
+keyword.kwlist
+
+
+# Escape codes
+print ("c\\test\data.txt")
+# Other escape codes are as follows: 
+\<newline> - Backslash and newline ignored
+\\ - Backslash (\)
+\' - Single quote (')
+\" - Double quote (")
+\a - ASCII Bell (BEL)
+\b - ASCII Backspace (BS)
+\f - ASCII Formfeed (FF)
+\n - ASCII Linefeed (LF)
+\r - ASCII Carriage Return (CR)
+\t - ASCII Horizontal Tab (TAB)
+\v - ASCII Vertical Tab (VT) 
+https://docs.python.org/3/reference/lexical_analysis.html#grammar-token-python-grammar-stringescapeseq
+
+
+# Ignore all warning in python
+import warnings
+warnings.filterwarnings("ignore") # Not advisable 
+
+warnings.filterwarnings("default") # this will bring warnings back 
+
+```
+## Python Cheat Sheet
+https://zerotomastery.io/cheatsheets/python-cheat-sheet/
+
+## Statistics and Math Course with Python
+https://academy.zerotomastery.io/courses/learn-topic8/lectures/50109508
+
+### Reference
 ```xml
 https://www.udemy.com/course/pythoncourse/learn/lecture/4953418#overview
 https://docs.python.org/3/reference/
